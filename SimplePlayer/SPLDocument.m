@@ -8,6 +8,7 @@
 
 #import "SPLDocument.h"
 #import <AVFoundation/AVFoundation.h>
+#import <WebKit/WebKit.h>
 
 static void *AVSPPlayerItemStatusContext = &AVSPPlayerItemStatusContext;
 static void *AVSPPlayerRateContext = &AVSPPlayerRateContext;
@@ -18,6 +19,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 @property (nonatomic, strong) AVMutableComposition *composition;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
+@property (nonatomic, strong) CALayer *overlayLayer;
 @property (nonatomic, strong) id timeObserverToken;
 
 @end
@@ -108,11 +110,51 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		[newPlayerLayer setFrame:[[[self playerView] layer] bounds]];
 		[newPlayerLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
 		[newPlayerLayer setHidden:YES];
-		[[[self playerView] layer] addSublayer:newPlayerLayer];
         
-		[self setPlayerLayer:newPlayerLayer];
-		[self addObserver:self forKeyPath:@"playerLayer.readyForDisplay" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:AVSPPlayerLayerReadyForDisplay];
-	}
+        /*
+        [self.playerView setWantsLayer:YES];
+        NSView *videoView = [[NSView alloc] initWithFrame:self.playerView.frame];
+        [videoView setLayer:newPlayerLayer];
+        [videoView setWantsLayer:YES];
+        [self.playerView addSubview:videoView];
+        */
+        
+        [[[self playerView] layer] addSublayer:newPlayerLayer];
+        
+        self.PlayerLayer = newPlayerLayer;
+        [self addObserver:self forKeyPath:@"playerLayer.readyForDisplay" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:AVSPPlayerLayerReadyForDisplay];
+        
+        /*transorm layer
+        CATransform3D transform = CATransform3DIdentity;
+        transform.m34 = -1.0 / 500.0;
+        transform = CATransform3DRotate(transform, M_PI_4, 1, 1, 0);
+        newPlayerLayer.transform = transform;
+        */
+        
+        CATextLayer *subtitle1Text = [[CATextLayer alloc] init];
+        [subtitle1Text setFont:@"Helvetica-Bold"];
+        [subtitle1Text setFontSize:36];
+        [subtitle1Text setFrame:CGRectMake(0, 0, self.playerView.layer.bounds.size.width, 100)];
+        [subtitle1Text setString:@"Test Title"];
+        [subtitle1Text setAlignmentMode:kCAAlignmentCenter];
+        [subtitle1Text setForegroundColor:[[NSColor whiteColor] CGColor]];
+        
+        CALayer *overlayLayer = [CALayer layer];
+        [overlayLayer addSublayer:subtitle1Text];
+		[overlayLayer setFrame:[[[self playerView] layer] bounds]];
+		[overlayLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
+		[overlayLayer setHidden:NO];
+        
+        /*
+        NSView *overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
+        [overlayView setLayer:overlayLayer];
+        [self.playerView addSubview:overlayView positioned:NSWindowAbove relativeTo:videoView];
+        */
+
+		[[[self playerView] layer] addSublayer:overlayLayer];
+        
+        self.OverlayLayer = overlayLayer;
+    }
 	else
 	{
 		// This asset has no video tracks. Show the "No Video" label.
@@ -195,6 +237,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 			// The AVPlayerLayer is ready for display. Hide the loading spinner and show it.
 			[self stopLoadingAnimationAndHandleError:nil];
 			[[self playerLayer] setHidden:NO];
+            [[self overlayLayer] setHidden:NO];
 		}
 	}
 	else

@@ -136,8 +136,8 @@ IA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="bWw-2g-yX2"/>
                         <connections>
-                            <binding destination="-2" name="maxValue" keyPath="duration" id="THi-WT-nql"/>
                             <binding destination="-2" name="value" keyPath="currentTime" previousBinding="THi-WT-nql" id="jBl-q8-ZYo"/>
+                            <binding destination="-2" name="maxValue" keyPath="duration" id="THi-WT-nql"/>
                         </connections>
                     </slider>
                 </subviews>

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B7A312E18BFD1EA00EFAC10 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE3242518BE81950041BE17 /* CoreMedia.framework */; };
+		3B7A313018BFD27C00EFAC10 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */; };
+		3B7A313318BFEBA300EFAC10 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A313218BFEBA300EFAC10 /* WebKit.framework */; };
 		3BE323ED18BE7CD00041BE17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE323EC18BE7CD00041BE17 /* Cocoa.framework */; };
 		3BE323F718BE7CD00041BE17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BE323F518BE7CD00041BE17 /* InfoPlist.strings */; };
 		3BE323F918BE7CD00041BE17 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE323F818BE7CD00041BE17 /* main.m */; };
@@ -20,7 +23,6 @@
 		3BE3241818BE7CD00041BE17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BE3241618BE7CD00041BE17 /* InfoPlist.strings */; };
 		3BE3241A18BE7CD00041BE17 /* SimplePlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3241918BE7CD00041BE17 /* SimplePlayerTests.m */; };
 		3BE3242418BE7ED80041BE17 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE3242318BE7ED80041BE17 /* AVFoundation.framework */; };
-		3BE3242618BE81950041BE17 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE3242518BE81950041BE17 /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3B7A313218BFEBA300EFAC10 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		3BE323E918BE7CD00041BE17 /* SimplePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimplePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE323EC18BE7CD00041BE17 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3BE323EF18BE7CD00041BE17 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -56,7 +60,6 @@
 		3BE3241918BE7CD00041BE17 /* SimplePlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimplePlayerTests.m; sourceTree = "<group>"; };
 		3BE3242318BE7ED80041BE17 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3BE3242518BE81950041BE17 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		3BE3242718BF9BF20041BE17 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +67,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BE3242618BE81950041BE17 /* CoreMedia.framework in Frameworks */,
+				3B7A313318BFEBA300EFAC10 /* WebKit.framework in Frameworks */,
+				3B7A313018BFD27C00EFAC10 /* QuartzCore.framework in Frameworks */,
+				3B7A312E18BFD1EA00EFAC10 /* CoreMedia.framework in Frameworks */,
 				3BE3242418BE7ED80041BE17 /* AVFoundation.framework in Frameworks */,
 				3BE323ED18BE7CD00041BE17 /* Cocoa.framework in Frameworks */,
 			);
@@ -104,7 +109,8 @@
 		3BE323EB18BE7CD00041BE17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3BE3242718BF9BF20041BE17 /* MapKit.framework */,
+				3B7A313218BFEBA300EFAC10 /* WebKit.framework */,
+				3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */,
 				3BE3242518BE81950041BE17 /* CoreMedia.framework */,
 				3BE3242318BE7ED80041BE17 /* AVFoundation.framework */,
 				3BE323EC18BE7CD00041BE17 /* Cocoa.framework */,

@@ -20,6 +20,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
 @property (nonatomic, strong) CALayer *overlayLayer;
+@property (nonatomic, strong) WebView *mapView;
 @property (nonatomic, strong) id timeObserverToken;
 
 @end
@@ -134,8 +135,8 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
         CATextLayer *subtitle1Text = [[CATextLayer alloc] init];
         [subtitle1Text setFont:@"Helvetica-Bold"];
         [subtitle1Text setFontSize:36];
-        [subtitle1Text setFrame:CGRectMake(0, 0, self.playerView.layer.bounds.size.width, 100)];
-        [subtitle1Text setString:@"Test Title"];
+        [subtitle1Text setFrame:CGRectMake(0, 510, self.playerView.layer.bounds.size.width, 100)];
+        [subtitle1Text setString:@"Tennessee House District 5"];
         [subtitle1Text setAlignmentMode:kCAAlignmentCenter];
         [subtitle1Text setForegroundColor:[[NSColor whiteColor] CGColor]];
         
@@ -154,6 +155,23 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		[[[self playerView] layer] addSublayer:overlayLayer];
         
         self.OverlayLayer = overlayLayer;
+        
+        NSRect frame;
+        frame.origin.x = 206;
+        frame.origin.y = 45;
+        frame.size.width = 878;
+        frame.size.height = 500;
+        self.mapView = [[WebView alloc] initWithFrame:frame];
+        NSURL *webURL = [NSURL URLWithString:@"file:///Users/matthewdoig/Desktop/GoogleEarth.html#geplugin_browserok"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:webURL];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(mapViewFinishedLoading:)
+                                                     name:WebViewProgressFinishedNotification
+                                                   object:self.mapView];
+        
+        [[self.mapView mainFrame] loadRequest:request];
+        [self.playerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.playerView];
     }
 	else
 	{
@@ -180,6 +198,23 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     [self setTimeObserverToken:[[self player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 10) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             [[self timeSlider] setDoubleValue:CMTimeGetSeconds(time)];
 	}]];
+}
+
+- (void)mapViewFinishedLoading:(NSNotification *)notification {
+    // set window.external as soon as the web view is done loading
+    // the page
+    
+    // http://developer.apple.com/DOCUMENTATION/AppleApplications/Conceptual/SafariJSProgTopics/Tasks/ObjCFromJavaScript.html
+    [[self.mapView windowScriptObject] setValue:self forKey:@"external"];
+    [self createPlacemark];
+}
+
+- (void)createPlacemark {
+    // call a JS function, passing in the text field's value
+    
+    // http://developer.apple.com/DOCUMENTATION/Cocoa/Conceptual/DisplayWebContent/Tasks/JavaScriptFromObjC.html
+    [[self.mapView windowScriptObject] callWebScriptMethod:@"JSCreatePlacemarkAtCameraCenter"
+                                        withArguments:[NSArray arrayWithObjects:@"Nashville, TN", nil]];
 }
 
 - (void)stopLoadingAnimationAndHandleError:(NSError *)error
@@ -305,12 +340,16 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		if ([self currentTime] == [self duration])
 			[self setCurrentTime:0.f];
 		[[self player] play];
+        [[self.mapView windowScriptObject] callWebScriptMethod:@"JSCreatePlacemarkAtCameraCenter"
+                                            withArguments:@[]];
 	}
 	else
 	{
 		[[self player] pause];
 	}
 }
+
+
 
 - (IBAction)rewind:(id)sender
 {

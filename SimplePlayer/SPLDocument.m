@@ -132,30 +132,6 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
         newPlayerLayer.transform = transform;
         */
         
-        CATextLayer *subtitle1Text = [[CATextLayer alloc] init];
-        [subtitle1Text setFont:@"Helvetica-Bold"];
-        [subtitle1Text setFontSize:36];
-        [subtitle1Text setFrame:CGRectMake(0, 510, self.playerView.layer.bounds.size.width, 100)];
-        [subtitle1Text setString:@"Tennessee House District 5"];
-        [subtitle1Text setAlignmentMode:kCAAlignmentCenter];
-        [subtitle1Text setForegroundColor:[[NSColor whiteColor] CGColor]];
-        
-        CALayer *overlayLayer = [CALayer layer];
-        [overlayLayer addSublayer:subtitle1Text];
-		[overlayLayer setFrame:[[[self playerView] layer] bounds]];
-		[overlayLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
-		[overlayLayer setHidden:NO];
-        
-        /*
-        NSView *overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
-        [overlayView setLayer:overlayLayer];
-        [self.playerView addSubview:overlayView positioned:NSWindowAbove relativeTo:videoView];
-        */
-
-		[[[self playerView] layer] addSublayer:overlayLayer];
-        
-        self.OverlayLayer = overlayLayer;
-        
         NSRect frame;
         frame.origin.x = 206;
         frame.origin.y = 45;
@@ -172,6 +148,115 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
         
         [[self.mapView mainFrame] loadRequest:request];
         [self.playerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.playerView];
+
+        
+        CATextLayer *raceName = [[CATextLayer alloc] init];
+        [raceName setFont:@"Helvetica-Bold"];
+        [raceName setFontSize:36];
+        [raceName setFrame:CGRectMake(0, 480, self.playerView.layer.bounds.size.width, 100)];
+        [raceName setString:@"Tennessee House District 1"];
+        [raceName setAlignmentMode:kCAAlignmentCenter];
+        [raceName setForegroundColor:[[NSColor whiteColor] CGColor]];
+        
+        CALayer *percentage = [CALayer layer];
+        percentage.backgroundColor = [NSColor redColor].CGColor;
+        percentage.shadowOffset = CGSizeMake(0, 1);
+        percentage.shadowRadius = 2.0;
+        percentage.shadowColor = [NSColor whiteColor].CGColor;
+        percentage.shadowOpacity = 0.8;
+        percentage.frame = CGRectMake(320, 460, 650, 40);
+        
+        CALayer *percentage1 = [CALayer layer];
+        percentage1.backgroundColor = [NSColor blueColor].CGColor;
+        percentage1.frame = CGRectMake(0, 0, 130, 40);
+        
+        CATextLayer *percentageText = [[CATextLayer alloc] init];
+        [percentageText setFont:@"Helvetica-Bold"];
+        [percentageText setFontSize:27];
+        [percentageText setFrame:CGRectMake(514, -4, percentage1.bounds.size.width, 40)];
+        [percentageText setString:@"76.1%"];
+        [percentageText setAlignmentMode:kCAAlignmentRight];
+        [percentageText setForegroundColor:[[NSColor whiteColor] CGColor]];
+        
+        CATextLayer *percentage1Text = [[CATextLayer alloc] init];
+        [percentage1Text setFont:@"Helvetica-Bold"];
+        [percentage1Text setFontSize:27];
+        [percentage1Text setFrame:CGRectMake(6, -4, percentage1.bounds.size.width, 40)];
+        [percentage1Text setString:@"19.9%"];
+        [percentage1Text setAlignmentMode:kCAAlignmentLeft];
+        [percentage1Text setForegroundColor:[[NSColor whiteColor] CGColor]];
+        
+        [percentage addSublayer:percentageText];
+        [percentage1 addSublayer:percentage1Text];
+        [percentage addSublayer:percentage1];
+        
+        CATextLayer *candidate1 = [[CATextLayer alloc] init];
+        [candidate1 setFont:@"Helvetica-Bold"];
+        [candidate1 setFontSize:18];
+        [candidate1 setFrame:CGRectMake(-400, 304, self.playerView.layer.bounds.size.width, 100)];
+        [candidate1 setString:@"Alan WoodRuff (D)"];
+        [candidate1 setAlignmentMode:kCAAlignmentCenter];
+        [candidate1 setForegroundColor:[[NSColor whiteColor] CGColor]];
+        
+        CALayer *headshot1 = [CALayer layer];
+        NSImage *head1Image = [[NSImage alloc] initWithContentsOfFile:@"/Users/matthewdoig/Desktop/AndyHarris.png"];
+        CGImageSourceRef source;
+        source = CGImageSourceCreateWithData((__bridge CFDataRef)[head1Image TIFFRepresentation], NULL);
+        CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+        headshot1.contents = (__bridge id)(maskRef);
+        headshot1.frame = CGRectMake(146, 404, 187, 155);
+        
+        CATextLayer *votes1 = [[CATextLayer alloc] init];
+        [votes1 setFont:@"Helvetica-Bold"];
+        [votes1 setFontSize:36];
+        [votes1 setFrame:CGRectMake(-400, 284, self.playerView.layer.bounds.size.width, 100)];
+        [votes1 setString:@"47,597"];
+        [votes1 setAlignmentMode:kCAAlignmentCenter];
+        [votes1 setForegroundColor:[[NSColor whiteColor] CGColor]];
+        
+        CATextLayer *candidate2 = [[CATextLayer alloc] init];
+        [candidate2 setFont:@"Helvetica-Bold"];
+        [candidate2 setFontSize:18];
+        [candidate2 setFrame:CGRectMake(410, 304, self.playerView.layer.bounds.size.width, 100)];
+        [candidate2 setString:@"Phil Roe (R)"];
+        [candidate2 setAlignmentMode:kCAAlignmentCenter];
+        [candidate2 setForegroundColor:[[NSColor whiteColor] CGColor]];
+        
+        CALayer *headshot2 = [CALayer layer];
+        NSImage *head2Image = [[NSImage alloc] initWithContentsOfFile:@"/Users/matthewdoig/Desktop/PeterKing.png"];
+        CGImageSourceRef source2;
+        source2 = CGImageSourceCreateWithData((__bridge CFDataRef)[head2Image TIFFRepresentation], NULL);
+        CGImageRef maskRef2 = CGImageSourceCreateImageAtIndex(source2, 0, NULL);
+        headshot2.contents = (__bridge id)(maskRef2);
+        headshot2.frame = CGRectMake(946, 404, 187, 155);
+        
+        CATextLayer *votes2 = [[CATextLayer alloc] init];
+        [votes2 setFont:@"Helvetica-Bold"];
+        [votes2 setFontSize:36];
+        [votes2 setFrame:CGRectMake(410, 284, self.playerView.layer.bounds.size.width, 100)];
+        [votes2 setString:@"182,186"];
+        [votes2 setAlignmentMode:kCAAlignmentCenter];
+        [votes2 setForegroundColor:[[NSColor whiteColor] CGColor]];
+        
+        CALayer *overlayLayer = [CALayer layer];
+        [overlayLayer addSublayer:raceName];
+        [overlayLayer addSublayer:percentage];
+        [overlayLayer addSublayer:candidate1];
+        [overlayLayer addSublayer:headshot1];
+        [overlayLayer addSublayer:votes1];
+        [overlayLayer addSublayer:candidate2];
+        [overlayLayer addSublayer:headshot2];
+        [overlayLayer addSublayer:votes2];
+		[overlayLayer setFrame:[[[self playerView] layer] bounds]];
+		[overlayLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
+		[overlayLayer setHidden:NO];
+        
+        NSView *overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
+        [overlayView setLayer:overlayLayer];
+        [self.playerView addSubview:overlayView positioned:NSWindowAbove relativeTo:self.mapView];
+
+        self.OverlayLayer = overlayLayer;
+        
     }
 	else
 	{

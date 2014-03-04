@@ -20,6 +20,9 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
 @property (nonatomic, strong) CALayer *overlayLayer;
+@property (nonatomic, strong) CALayer *percent1;
+@property (nonatomic, strong) CALayer *percent1Text;
+@property (nonatomic, strong) CALayer *percent2;
 @property (nonatomic, strong) WebView *mapView;
 @property (nonatomic, strong) id timeObserverToken;
 
@@ -125,13 +128,6 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
         self.PlayerLayer = newPlayerLayer;
         [self addObserver:self forKeyPath:@"playerLayer.readyForDisplay" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:AVSPPlayerLayerReadyForDisplay];
         
-        /*transorm layer
-        CATransform3D transform = CATransform3DIdentity;
-        transform.m34 = -1.0 / 500.0;
-        transform = CATransform3DRotate(transform, M_PI_4, 1, 1, 0);
-        newPlayerLayer.transform = transform;
-        */
-        
         NSRect frame;
         frame.origin.x = 206;
         frame.origin.y = 45;
@@ -159,24 +155,17 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
         [raceName setForegroundColor:[[NSColor whiteColor] CGColor]];
         
         CALayer *percentage = [CALayer layer];
-        percentage.backgroundColor = [NSColor redColor].CGColor;
-        percentage.shadowOffset = CGSizeMake(0, 1);
-        percentage.shadowRadius = 2.0;
-        percentage.shadowColor = [NSColor whiteColor].CGColor;
+        percentage.backgroundColor = [NSColor clearColor].CGColor;
+        percentage.shadowOffset = CGSizeMake(0, 3);
+        percentage.shadowRadius = 5.0;
+        percentage.shadowColor = [NSColor blackColor].CGColor;
         percentage.shadowOpacity = 0.8;
-        percentage.frame = CGRectMake(320, 460, 650, 40);
+        percentage.frame = CGRectMake(320, 440, 650, 40);
         
         CALayer *percentage1 = [CALayer layer];
         percentage1.backgroundColor = [NSColor blueColor].CGColor;
         percentage1.frame = CGRectMake(0, 0, 130, 40);
-        
-        CATextLayer *percentageText = [[CATextLayer alloc] init];
-        [percentageText setFont:@"Helvetica-Bold"];
-        [percentageText setFontSize:27];
-        [percentageText setFrame:CGRectMake(514, -4, percentage1.bounds.size.width, 40)];
-        [percentageText setString:@"76.1%"];
-        [percentageText setAlignmentMode:kCAAlignmentRight];
-        [percentageText setForegroundColor:[[NSColor whiteColor] CGColor]];
+        self.percent1 = percentage1;
         
         CATextLayer *percentage1Text = [[CATextLayer alloc] init];
         [percentage1Text setFont:@"Helvetica-Bold"];
@@ -185,11 +174,27 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
         [percentage1Text setString:@"19.9%"];
         [percentage1Text setAlignmentMode:kCAAlignmentLeft];
         [percentage1Text setForegroundColor:[[NSColor whiteColor] CGColor]];
+        self.percent1Text = percentage1Text;
         
-        [percentage addSublayer:percentageText];
         [percentage1 addSublayer:percentage1Text];
         [percentage addSublayer:percentage1];
         
+        CALayer *percentage2 = [CALayer layer];
+        percentage2.backgroundColor = [NSColor redColor].CGColor;
+        percentage2.frame = CGRectMake(130, 0, 520, 40);
+        self.percent2 = percentage2;
+        
+        CATextLayer *percentage2Text = [[CATextLayer alloc] init];
+        [percentage2Text setFont:@"Helvetica-Bold"];
+        [percentage2Text setFontSize:27];
+        [percentage2Text setFrame:CGRectMake(384, -4, percentage1.bounds.size.width, 40)];
+        [percentage2Text setString:@"76.1%"];
+        [percentage2Text setAlignmentMode:kCAAlignmentRight];
+        [percentage2Text setForegroundColor:[[NSColor whiteColor] CGColor]];
+         
+        [percentage2 addSublayer:percentage2Text];
+        [percentage addSublayer:percentage2];
+         
         CATextLayer *candidate1 = [[CATextLayer alloc] init];
         [candidate1 setFont:@"Helvetica-Bold"];
         [candidate1 setFontSize:18];
@@ -250,6 +255,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		[overlayLayer setFrame:[[[self playerView] layer] bounds]];
 		[overlayLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
 		[overlayLayer setHidden:NO];
+        overlayLayer.opacity = 0.0;
         
         NSView *overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
         [overlayView setLayer:overlayLayer];
@@ -425,8 +431,39 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		if ([self currentTime] == [self duration])
 			[self setCurrentTime:0.f];
 		[[self player] play];
+        
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:^{
+            /*
+            CABasicAnimation *percentOn1 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
+            percentOn1.duration = 2.0;
+            CGRect oldBounds1 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
+            CGRect newBounds1 = CGRectMake(0, 0, 130, self.percent1.bounds.size.height);
+            percentOn1.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds1)];
+            self.percent1.anchorPoint = CGPointMake(0, 0);
+            self.percent1.bounds = newBounds1;
+            [self.percent1 addAnimation:percentOn1 forKey:@"bounds"];
+            
+            CABasicAnimation *percentOn2 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
+            percentOn2.duration = 2.0;
+            CGRect oldBounds2 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
+            CGRect newBounds2 = CGRectMake(420, 0, 520, self.percent1.bounds.size.height);
+            percentOn2.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds2)];
+            self.percent2.anchorPoint = CGPointMake(0, 0);
+            self.percent2.bounds = newBounds2;
+            [self.percent2 addAnimation:percentOn1 forKey:@"bounds"];
+             */
+            
+        }];
+        CABasicAnimation *fadeOn = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        fadeOn.duration = 1.5;
+        fadeOn.fromValue = [NSNumber numberWithFloat:0.0];
+        self.overlayLayer.opacity = 1.0;
+        [self.overlayLayer addAnimation:fadeOn forKey:@"fade"];
+        [CATransaction commit];
+        
         [[self.mapView windowScriptObject] callWebScriptMethod:@"JSCreatePlacemarkAtCameraCenter"
-                                            withArguments:@[]];
+                                                 withArguments:@[]];
 	}
 	else
 	{

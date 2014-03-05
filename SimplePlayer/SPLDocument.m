@@ -23,6 +23,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 @property (nonatomic, strong) CALayer *percent1;
 @property (nonatomic, strong) CALayer *percent1Text;
 @property (nonatomic, strong) CALayer *percent2;
+@property (nonatomic, strong) CALayer *percent2Text;
 @property (nonatomic, strong) WebView *mapView;
 @property (nonatomic, strong) id timeObserverToken;
 
@@ -164,35 +165,34 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
         
         CALayer *percentage1 = [CALayer layer];
         percentage1.backgroundColor = [NSColor blueColor].CGColor;
-        percentage1.frame = CGRectMake(0, 0, 130, 40);
+        percentage1.frame = CGRectMake(0, 0, 0, 40);
         self.percent1 = percentage1;
         
         CATextLayer *percentage1Text = [[CATextLayer alloc] init];
         [percentage1Text setFont:@"Helvetica-Bold"];
         [percentage1Text setFontSize:27];
-        [percentage1Text setFrame:CGRectMake(6, -4, percentage1.bounds.size.width, 40)];
+        [percentage1Text setFrame:CGRectMake(6, -4, 130, 40)];
         [percentage1Text setString:@"19.9%"];
         [percentage1Text setAlignmentMode:kCAAlignmentLeft];
         [percentage1Text setForegroundColor:[[NSColor whiteColor] CGColor]];
         self.percent1Text = percentage1Text;
         
-        [percentage1 addSublayer:percentage1Text];
         [percentage addSublayer:percentage1];
         
         CALayer *percentage2 = [CALayer layer];
         percentage2.backgroundColor = [NSColor redColor].CGColor;
-        percentage2.frame = CGRectMake(130, 0, 520, 40);
+        percentage2.frame = CGRectMake(650, 0, 0, 40);
         self.percent2 = percentage2;
         
         CATextLayer *percentage2Text = [[CATextLayer alloc] init];
         [percentage2Text setFont:@"Helvetica-Bold"];
         [percentage2Text setFontSize:27];
-        [percentage2Text setFrame:CGRectMake(384, -4, percentage1.bounds.size.width, 40)];
+        [percentage2Text setFrame:CGRectMake(-6, -4, 520, 40)];
         [percentage2Text setString:@"76.1%"];
         [percentage2Text setAlignmentMode:kCAAlignmentRight];
         [percentage2Text setForegroundColor:[[NSColor whiteColor] CGColor]];
+        self.percent2Text = percentage2Text;
          
-        [percentage2 addSublayer:percentage2Text];
         [percentage addSublayer:percentage2];
          
         CATextLayer *candidate1 = [[CATextLayer alloc] init];
@@ -431,39 +431,6 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		if ([self currentTime] == [self duration])
 			[self setCurrentTime:0.f];
 		[[self player] play];
-        
-        [CATransaction begin];
-        [CATransaction setCompletionBlock:^{
-            /*
-            CABasicAnimation *percentOn1 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
-            percentOn1.duration = 2.0;
-            CGRect oldBounds1 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
-            CGRect newBounds1 = CGRectMake(0, 0, 130, self.percent1.bounds.size.height);
-            percentOn1.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds1)];
-            self.percent1.anchorPoint = CGPointMake(0, 0);
-            self.percent1.bounds = newBounds1;
-            [self.percent1 addAnimation:percentOn1 forKey:@"bounds"];
-            
-            CABasicAnimation *percentOn2 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
-            percentOn2.duration = 2.0;
-            CGRect oldBounds2 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
-            CGRect newBounds2 = CGRectMake(420, 0, 520, self.percent1.bounds.size.height);
-            percentOn2.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds2)];
-            self.percent2.anchorPoint = CGPointMake(0, 0);
-            self.percent2.bounds = newBounds2;
-            [self.percent2 addAnimation:percentOn1 forKey:@"bounds"];
-             */
-            
-        }];
-        CABasicAnimation *fadeOn = [CABasicAnimation animationWithKeyPath:@"opacity"];
-        fadeOn.duration = 1.5;
-        fadeOn.fromValue = [NSNumber numberWithFloat:0.0];
-        self.overlayLayer.opacity = 1.0;
-        [self.overlayLayer addAnimation:fadeOn forKey:@"fade"];
-        [CATransaction commit];
-        
-        [[self.mapView windowScriptObject] callWebScriptMethod:@"JSCreatePlacemarkAtCameraCenter"
-                                                 withArguments:@[]];
 	}
 	else
 	{
@@ -472,6 +439,48 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 }
 
 
+- (IBAction)showDistrict1:(id)sender
+{
+    
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [[self.mapView windowScriptObject] callWebScriptMethod:@"JSCreatePlacemarkAtCameraCenter"
+                                                 withArguments:@[]];
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:^{
+            [self.percent1 addSublayer:self.percent1Text];
+        }];
+         CABasicAnimation *percentOn1 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
+         percentOn1.duration = 1.0;
+         CGRect oldBounds1 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
+         CGRect newBounds1 = CGRectMake(0, 0, 130, self.percent1.bounds.size.height);
+         percentOn1.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds1)];
+         self.percent1.anchorPoint = CGPointMake(0, .5);
+         self.percent1.bounds = newBounds1;
+         [self.percent1 addAnimation:percentOn1 forKey:@"bounds"];
+        [CATransaction commit];
+        
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:^{
+            [self.percent2 addSublayer:self.percent2Text];
+        }];
+         CABasicAnimation *percentOn2 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
+         percentOn2.duration = 1.0;
+         CGRect oldBounds2 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
+         CGRect newBounds2 = CGRectMake(0, 0, 520, self.percent1.bounds.size.height);
+         percentOn2.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds2)];
+         self.percent2.anchorPoint = CGPointMake(1, .5);
+         self.percent2.bounds = newBounds2;
+         [self.percent2 addAnimation:percentOn1 forKey:@"bounds"];
+        [CATransaction commit];
+    }];
+    CABasicAnimation *fadeOn = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fadeOn.duration = 1.0;
+    fadeOn.fromValue = [NSNumber numberWithFloat:0.0];
+    self.overlayLayer.opacity = 1.0;
+    [self.overlayLayer addAnimation:fadeOn forKey:@"fade"];
+    [CATransaction commit];
+}
 
 - (IBAction)rewind:(id)sender
 {

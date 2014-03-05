@@ -7,6 +7,7 @@
 //
 
 #import "SPLDocument.h"
+#import "SPLOverlayLayer.h"
 #import <AVFoundation/AVFoundation.h>
 #import <WebKit/WebKit.h>
 
@@ -19,12 +20,12 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 @property (nonatomic, strong) AVMutableComposition *composition;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
-@property (nonatomic, strong) CALayer *overlayLayer;
-@property (nonatomic, strong) CALayer *percent1;
-@property (nonatomic, strong) CALayer *percent1Text;
-@property (nonatomic, strong) CALayer *percent2;
-@property (nonatomic, strong) CALayer *percent2Text;
 @property (nonatomic, strong) WebView *mapView;
+@property (nonatomic, strong) SPLOverlayLayer *district1Layer;
+@property (nonatomic, strong) NSView *district1View;
+@property (nonatomic, strong) SPLOverlayLayer *district2Layer;
+@property (nonatomic, strong) NSView *district2View;
+@property (nonatomic, strong) NSView *overlayView;
 @property (nonatomic, strong) id timeObserverToken;
 
 @end
@@ -145,124 +146,33 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
         
         [[self.mapView mainFrame] loadRequest:request];
         [self.playerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.playerView];
-
         
-        CATextLayer *raceName = [[CATextLayer alloc] init];
-        [raceName setFont:@"Helvetica-Bold"];
-        [raceName setFontSize:36];
-        [raceName setFrame:CGRectMake(0, 480, self.playerView.layer.bounds.size.width, 100)];
-        [raceName setString:@"Tennessee House District 1"];
-        [raceName setAlignmentMode:kCAAlignmentCenter];
-        [raceName setForegroundColor:[[NSColor whiteColor] CGColor]];
+        self.district1Layer = [[SPLOverlayLayer alloc] init];
+        self.district1Layer.raceName = @"Tennessee House District 1";
+        self.district1Layer.candidateName1 = @"Alan WoodRuff (D)";
+        self.district1Layer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/AndyHarris.png";
+        self.district1Layer.candidateVotes1 =@"47,597";
+        self.district1Layer.candidatePercent1 = @"19.9%";
+        self.district1Layer.candidateName2 = @"Phil Roe (R)";
+        self.district1Layer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/PeterKing.png";
+        self.district1Layer.candidateVotes2 =@"182,186";
+        self.district1Layer.candidatePercent2 = @"76.1%";
+        [self.district1Layer setupWithBounds:self.playerView.layer.bounds];
         
-        CALayer *percentage = [CALayer layer];
-        percentage.backgroundColor = [NSColor clearColor].CGColor;
-        percentage.shadowOffset = CGSizeMake(0, 3);
-        percentage.shadowRadius = 5.0;
-        percentage.shadowColor = [NSColor blackColor].CGColor;
-        percentage.shadowOpacity = 0.8;
-        percentage.frame = CGRectMake(320, 440, 650, 40);
+        self.district2Layer = [[SPLOverlayLayer alloc] init];
+        self.district2Layer.raceName = @"Tennessee House District 5";
+        self.district2Layer.candidateName1 = @"Jim Cooper (D)";
+        self.district2Layer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/JimDeMint.png";
+        self.district2Layer.candidateVotes1 =@"166,999";
+        self.district2Layer.candidatePercent1 = @"65.2%";
+        self.district2Layer.candidateName2 = @"Brad Staats (R)";
+        self.district2Layer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/BradEllsworth.png";
+        self.district2Layer.candidateVotes2 =@"83,982";
+        self.district2Layer.candidatePercent2 = @"32.8%";
+        [self.district2Layer setupWithBounds:self.playerView.layer.bounds];
         
-        CALayer *percentage1 = [CALayer layer];
-        percentage1.backgroundColor = [NSColor blueColor].CGColor;
-        percentage1.frame = CGRectMake(0, 0, 0, 40);
-        self.percent1 = percentage1;
-        
-        CATextLayer *percentage1Text = [[CATextLayer alloc] init];
-        [percentage1Text setFont:@"Helvetica-Bold"];
-        [percentage1Text setFontSize:27];
-        [percentage1Text setFrame:CGRectMake(6, -4, 130, 40)];
-        [percentage1Text setString:@"19.9%"];
-        [percentage1Text setAlignmentMode:kCAAlignmentLeft];
-        [percentage1Text setForegroundColor:[[NSColor whiteColor] CGColor]];
-        self.percent1Text = percentage1Text;
-        
-        [percentage addSublayer:percentage1];
-        
-        CALayer *percentage2 = [CALayer layer];
-        percentage2.backgroundColor = [NSColor redColor].CGColor;
-        percentage2.frame = CGRectMake(650, 0, 0, 40);
-        self.percent2 = percentage2;
-        
-        CATextLayer *percentage2Text = [[CATextLayer alloc] init];
-        [percentage2Text setFont:@"Helvetica-Bold"];
-        [percentage2Text setFontSize:27];
-        [percentage2Text setFrame:CGRectMake(-6, -4, 520, 40)];
-        [percentage2Text setString:@"76.1%"];
-        [percentage2Text setAlignmentMode:kCAAlignmentRight];
-        [percentage2Text setForegroundColor:[[NSColor whiteColor] CGColor]];
-        self.percent2Text = percentage2Text;
-         
-        [percentage addSublayer:percentage2];
-         
-        CATextLayer *candidate1 = [[CATextLayer alloc] init];
-        [candidate1 setFont:@"Helvetica-Bold"];
-        [candidate1 setFontSize:18];
-        [candidate1 setFrame:CGRectMake(-400, 304, self.playerView.layer.bounds.size.width, 100)];
-        [candidate1 setString:@"Alan WoodRuff (D)"];
-        [candidate1 setAlignmentMode:kCAAlignmentCenter];
-        [candidate1 setForegroundColor:[[NSColor whiteColor] CGColor]];
-        
-        CALayer *headshot1 = [CALayer layer];
-        NSImage *head1Image = [[NSImage alloc] initWithContentsOfFile:@"/Users/matthewdoig/Desktop/AndyHarris.png"];
-        CGImageSourceRef source;
-        source = CGImageSourceCreateWithData((__bridge CFDataRef)[head1Image TIFFRepresentation], NULL);
-        CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
-        headshot1.contents = (__bridge id)(maskRef);
-        headshot1.frame = CGRectMake(146, 404, 187, 155);
-        
-        CATextLayer *votes1 = [[CATextLayer alloc] init];
-        [votes1 setFont:@"Helvetica-Bold"];
-        [votes1 setFontSize:36];
-        [votes1 setFrame:CGRectMake(-400, 284, self.playerView.layer.bounds.size.width, 100)];
-        [votes1 setString:@"47,597"];
-        [votes1 setAlignmentMode:kCAAlignmentCenter];
-        [votes1 setForegroundColor:[[NSColor whiteColor] CGColor]];
-        
-        CATextLayer *candidate2 = [[CATextLayer alloc] init];
-        [candidate2 setFont:@"Helvetica-Bold"];
-        [candidate2 setFontSize:18];
-        [candidate2 setFrame:CGRectMake(410, 304, self.playerView.layer.bounds.size.width, 100)];
-        [candidate2 setString:@"Phil Roe (R)"];
-        [candidate2 setAlignmentMode:kCAAlignmentCenter];
-        [candidate2 setForegroundColor:[[NSColor whiteColor] CGColor]];
-        
-        CALayer *headshot2 = [CALayer layer];
-        NSImage *head2Image = [[NSImage alloc] initWithContentsOfFile:@"/Users/matthewdoig/Desktop/PeterKing.png"];
-        CGImageSourceRef source2;
-        source2 = CGImageSourceCreateWithData((__bridge CFDataRef)[head2Image TIFFRepresentation], NULL);
-        CGImageRef maskRef2 = CGImageSourceCreateImageAtIndex(source2, 0, NULL);
-        headshot2.contents = (__bridge id)(maskRef2);
-        headshot2.frame = CGRectMake(946, 404, 187, 155);
-        
-        CATextLayer *votes2 = [[CATextLayer alloc] init];
-        [votes2 setFont:@"Helvetica-Bold"];
-        [votes2 setFontSize:36];
-        [votes2 setFrame:CGRectMake(410, 284, self.playerView.layer.bounds.size.width, 100)];
-        [votes2 setString:@"182,186"];
-        [votes2 setAlignmentMode:kCAAlignmentCenter];
-        [votes2 setForegroundColor:[[NSColor whiteColor] CGColor]];
-        
-        CALayer *overlayLayer = [CALayer layer];
-        [overlayLayer addSublayer:raceName];
-        [overlayLayer addSublayer:percentage];
-        [overlayLayer addSublayer:candidate1];
-        [overlayLayer addSublayer:headshot1];
-        [overlayLayer addSublayer:votes1];
-        [overlayLayer addSublayer:candidate2];
-        [overlayLayer addSublayer:headshot2];
-        [overlayLayer addSublayer:votes2];
-		[overlayLayer setFrame:[[[self playerView] layer] bounds]];
-		[overlayLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
-		[overlayLayer setHidden:NO];
-        overlayLayer.opacity = 0.0;
-        
-        NSView *overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
-        [overlayView setLayer:overlayLayer];
-        [self.playerView addSubview:overlayView positioned:NSWindowAbove relativeTo:self.mapView];
-
-        self.OverlayLayer = overlayLayer;
-        
+        self.overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
+        [self.playerView addSubview:self.overlayView positioned:NSWindowAbove relativeTo:self.mapView];
     }
 	else
 	{
@@ -363,8 +273,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 			// The AVPlayerLayer is ready for display. Hide the loading spinner and show it.
 			[self stopLoadingAnimationAndHandleError:nil];
 			[[self playerLayer] setHidden:NO];
-            [[self overlayLayer] setHidden:NO];
-		}
+        }
 	}
 	else
 	{
@@ -438,48 +347,15 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 	}
 }
 
-
 - (IBAction)showDistrict1:(id)sender
 {
+    [[self.mapView windowScriptObject] callWebScriptMethod:@"JSDistrict1"
+                                             withArguments:@[]];
     
-    [CATransaction begin];
-    [CATransaction setCompletionBlock:^{
-        [[self.mapView windowScriptObject] callWebScriptMethod:@"JSCreatePlacemarkAtCameraCenter"
-                                                 withArguments:@[]];
-        [CATransaction begin];
-        [CATransaction setCompletionBlock:^{
-            [self.percent1 addSublayer:self.percent1Text];
-        }];
-         CABasicAnimation *percentOn1 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
-         percentOn1.duration = 1.0;
-         CGRect oldBounds1 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
-         CGRect newBounds1 = CGRectMake(0, 0, 130, self.percent1.bounds.size.height);
-         percentOn1.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds1)];
-         self.percent1.anchorPoint = CGPointMake(0, .5);
-         self.percent1.bounds = newBounds1;
-         [self.percent1 addAnimation:percentOn1 forKey:@"bounds"];
-        [CATransaction commit];
-        
-        [CATransaction begin];
-        [CATransaction setCompletionBlock:^{
-            [self.percent2 addSublayer:self.percent2Text];
-        }];
-         CABasicAnimation *percentOn2 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
-         percentOn2.duration = 1.0;
-         CGRect oldBounds2 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
-         CGRect newBounds2 = CGRectMake(0, 0, 520, self.percent1.bounds.size.height);
-         percentOn2.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds2)];
-         self.percent2.anchorPoint = CGPointMake(1, .5);
-         self.percent2.bounds = newBounds2;
-         [self.percent2 addAnimation:percentOn1 forKey:@"bounds"];
-        [CATransaction commit];
-    }];
-    CABasicAnimation *fadeOn = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOn.duration = 1.0;
-    fadeOn.fromValue = [NSNumber numberWithFloat:0.0];
-    self.overlayLayer.opacity = 1.0;
-    [self.overlayLayer addAnimation:fadeOn forKey:@"fade"];
-    [CATransaction commit];
+    [self.district2Layer hide];
+    [self.overlayView setLayer:self.district1Layer];
+    [self.district1Layer show];
+    
 }
 
 - (IBAction)rewind:(id)sender
@@ -492,6 +368,15 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 	{
 		[[self player] setRate:[[self player] rate] - 2.f];
 	}
+}
+- (IBAction)showDistrict2:(id)sender
+{
+    [[self.mapView windowScriptObject] callWebScriptMethod:@"JSDistrict5"
+                                             withArguments:@[]];
+    
+    [self.district1Layer hide];
+    [self.overlayView setLayer:self.district2Layer];
+    [self.district2Layer show];    
 }
 
 - (IBAction)fastForward:(id)sender

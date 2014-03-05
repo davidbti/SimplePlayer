@@ -47,14 +47,14 @@ IA
                     <button verticalHuggingPriority="750" id="kx3-iI-1Eg">
                         <rect key="frame" x="253" y="3" width="50" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="FF" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B49-eG-MY1">
+                        <buttonCell key="cell" type="roundTextured" title="2" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B49-eG-MY1">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent"></string>
                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                         </buttonCell>
                         <connections>
-                            <action selector="fastForward:" target="-2" id="mwT-8X-oXi"/>
+                            <action selector="showDistrict2:" target="-2" id="Fu5-Dg-Ypk"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="sPi-tf-wlh">

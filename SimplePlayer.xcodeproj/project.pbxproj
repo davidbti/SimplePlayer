@@ -10,6 +10,8 @@
 		3B7A312E18BFD1EA00EFAC10 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE3242518BE81950041BE17 /* CoreMedia.framework */; };
 		3B7A313018BFD27C00EFAC10 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */; };
 		3B7A313318BFEBA300EFAC10 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A313218BFEBA300EFAC10 /* WebKit.framework */; };
+		3BC3823518C784B500E457B5 /* SPLOverlayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC3823418C784B500E457B5 /* SPLOverlayLayer.m */; };
+		3BC3823B18C7E7A700E457B5 /* SpeedyCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC3823A18C7E7A700E457B5 /* SpeedyCategories.m */; };
 		3BE323ED18BE7CD00041BE17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE323EC18BE7CD00041BE17 /* Cocoa.framework */; };
 		3BE323F718BE7CD00041BE17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BE323F518BE7CD00041BE17 /* InfoPlist.strings */; };
 		3BE323F918BE7CD00041BE17 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE323F818BE7CD00041BE17 /* main.m */; };
@@ -38,6 +40,10 @@
 /* Begin PBXFileReference section */
 		3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3B7A313218BFEBA300EFAC10 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		3BC3823318C784B500E457B5 /* SPLOverlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLOverlayLayer.h; sourceTree = "<group>"; };
+		3BC3823418C784B500E457B5 /* SPLOverlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLOverlayLayer.m; sourceTree = "<group>"; };
+		3BC3823918C7E7A700E457B5 /* SpeedyCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedyCategories.h; sourceTree = "<group>"; };
+		3BC3823A18C7E7A700E457B5 /* SpeedyCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedyCategories.m; sourceTree = "<group>"; };
 		3BE323E918BE7CD00041BE17 /* SimplePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimplePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE323EC18BE7CD00041BE17 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3BE323EF18BE7CD00041BE17 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -133,8 +139,12 @@
 		3BE323F218BE7CD00041BE17 /* SimplePlayer */ = {
 			isa = PBXGroup;
 			children = (
+				3BC3823918C7E7A700E457B5 /* SpeedyCategories.h */,
+				3BC3823A18C7E7A700E457B5 /* SpeedyCategories.m */,
 				3BE323FE18BE7CD00041BE17 /* SPLDocument.h */,
 				3BE323FF18BE7CD00041BE17 /* SPLDocument.m */,
+				3BC3823318C784B500E457B5 /* SPLOverlayLayer.h */,
+				3BC3823418C784B500E457B5 /* SPLOverlayLayer.m */,
 				3BE3240118BE7CD00041BE17 /* SPLDocument.xib */,
 				3BE3240418BE7CD00041BE17 /* MainMenu.xib */,
 				3BE3240718BE7CD00041BE17 /* Images.xcassets */,
@@ -273,6 +283,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC3823518C784B500E457B5 /* SPLOverlayLayer.m in Sources */,
+				3BC3823B18C7E7A700E457B5 /* SpeedyCategories.m in Sources */,
 				3BE3240018BE7CD00041BE17 /* SPLDocument.m in Sources */,
 				3BE323F918BE7CD00041BE17 /* main.m in Sources */,
 			);

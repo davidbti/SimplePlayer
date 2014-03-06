@@ -20,8 +20,8 @@
 @property (nonatomic, strong) NSString *candidatePercent2;
 @property (nonatomic, strong) NSString *candidateHeadshot2;
 
--(void)setupWithBounds:(CGRect)bounds;
--(void)hide;
--(void)show;
+-(id)initWithBounds:(CGRect)bounds;
+-(void)update;
+-(void)updateComplete;
 
 @end

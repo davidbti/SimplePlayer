@@ -21,10 +21,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
 @property (nonatomic, strong) WebView *mapView;
-@property (nonatomic, strong) SPLOverlayLayer *district1Layer;
-@property (nonatomic, strong) NSView *district1View;
-@property (nonatomic, strong) SPLOverlayLayer *district2Layer;
-@property (nonatomic, strong) NSView *district2View;
+@property (nonatomic, strong) SPLOverlayLayer *overlayLayer;
 @property (nonatomic, strong) NSView *overlayView;
 @property (nonatomic, strong) id timeObserverToken;
 
@@ -107,26 +104,13 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		return;
 	}
 	
-	// We can play this asset.
-	// Set up an AVPlayerLayer according to whether the asset contains video.
 	if ([[asset tracksWithMediaType:AVMediaTypeVideo] count] != 0)
 	{
-		// Create an AVPlayerLayer and add it to the player view if there is video, but hide it until it's ready for display
 		AVPlayerLayer *newPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:[self player]];
-		[newPlayerLayer setFrame:[[[self playerView] layer] bounds]];
-		[newPlayerLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
-		[newPlayerLayer setHidden:YES];
-        
-        /*
-        [self.playerView setWantsLayer:YES];
-        NSView *videoView = [[NSView alloc] initWithFrame:self.playerView.frame];
-        [videoView setLayer:newPlayerLayer];
-        [videoView setWantsLayer:YES];
-        [self.playerView addSubview:videoView];
-        */
-        
-        [[[self playerView] layer] addSublayer:newPlayerLayer];
-        
+        newPlayerLayer.frame = self.playerView.layer.bounds;
+        newPlayerLayer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+        newPlayerLayer.hidden = YES;
+        [self.playerView.layer addSublayer:newPlayerLayer];
         self.PlayerLayer = newPlayerLayer;
         [self addObserver:self forKeyPath:@"playerLayer.readyForDisplay" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:AVSPPlayerLayerReadyForDisplay];
         
@@ -138,40 +122,16 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
         self.mapView = [[WebView alloc] initWithFrame:frame];
         NSURL *webURL = [NSURL URLWithString:@"file:///Users/matthewdoig/Desktop/GoogleEarth.html#geplugin_browserok"];
         NSURLRequest *request = [NSURLRequest requestWithURL:webURL];
-        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(mapViewFinishedLoading:)
                                                      name:WebViewProgressFinishedNotification
                                                    object:self.mapView];
-        
         [[self.mapView mainFrame] loadRequest:request];
         [self.playerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.playerView];
         
-        self.district1Layer = [[SPLOverlayLayer alloc] init];
-        self.district1Layer.raceName = @"Tennessee House District 1";
-        self.district1Layer.candidateName1 = @"Alan WoodRuff (D)";
-        self.district1Layer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/AndyHarris.png";
-        self.district1Layer.candidateVotes1 =@"47,597";
-        self.district1Layer.candidatePercent1 = @"19.9%";
-        self.district1Layer.candidateName2 = @"Phil Roe (R)";
-        self.district1Layer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/PeterKing.png";
-        self.district1Layer.candidateVotes2 =@"182,186";
-        self.district1Layer.candidatePercent2 = @"76.1%";
-        [self.district1Layer setupWithBounds:self.playerView.layer.bounds];
-        
-        self.district2Layer = [[SPLOverlayLayer alloc] init];
-        self.district2Layer.raceName = @"Tennessee House District 5";
-        self.district2Layer.candidateName1 = @"Jim Cooper (D)";
-        self.district2Layer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/JimDeMint.png";
-        self.district2Layer.candidateVotes1 =@"166,999";
-        self.district2Layer.candidatePercent1 = @"65.2%";
-        self.district2Layer.candidateName2 = @"Brad Staats (R)";
-        self.district2Layer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/BradEllsworth.png";
-        self.district2Layer.candidateVotes2 =@"83,982";
-        self.district2Layer.candidatePercent2 = @"32.8%";
-        [self.district2Layer setupWithBounds:self.playerView.layer.bounds];
-        
         self.overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
+        self.overlayLayer = [[SPLOverlayLayer alloc] initWithBounds:self.playerView.layer.bounds];
+        self.overlayView.layer = self.overlayLayer;
         [self.playerView addSubview:self.overlayView positioned:NSWindowAbove relativeTo:self.mapView];
     }
 	else
@@ -352,10 +312,26 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     [[self.mapView windowScriptObject] callWebScriptMethod:@"JSDistrict1"
                                              withArguments:@[]];
     
-    [self.district2Layer hide];
-    [self.overlayView setLayer:self.district1Layer];
-    [self.district1Layer show];
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.overlayLayer updateComplete];
+    }];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.5;
+    transition.type = kCATransitionFade;
+    [self.overlayView.layer addAnimation:transition forKey:nil];
     
+    self.overlayLayer.raceName = @"Tennessee House District 1";
+    self.overlayLayer.candidateName1 = @"Alan WoodRuff (D)";
+    self.overlayLayer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/AndyHarris.png";
+    self.overlayLayer.candidateVotes1 =@"47,597";
+    self.overlayLayer.candidatePercent1 = @"19.9%";
+    self.overlayLayer.candidateName2 = @"Phil Roe (R)";
+    self.overlayLayer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/PeterKing.png";
+    self.overlayLayer.candidateVotes2 =@"182,186";
+    self.overlayLayer.candidatePercent2 = @"76.1%";
+    [self.overlayLayer update];
+    [CATransaction commit];
 }
 
 - (IBAction)rewind:(id)sender
@@ -374,9 +350,26 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     [[self.mapView windowScriptObject] callWebScriptMethod:@"JSDistrict5"
                                              withArguments:@[]];
     
-    [self.district1Layer hide];
-    [self.overlayView setLayer:self.district2Layer];
-    [self.district2Layer show];    
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.overlayLayer updateComplete];
+    }];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.5;
+    transition.type = kCATransitionFade;
+    [self.overlayView.layer addAnimation:transition forKey:nil];
+    
+    self.overlayLayer.raceName = @"Tennessee House District 5";
+    self.overlayLayer.candidateName1 = @"Jim Cooper (D)";
+    self.overlayLayer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/JimDeMint.png";
+    self.overlayLayer.candidateVotes1 =@"166,999";
+    self.overlayLayer.candidatePercent1 = @"65.2%";
+    self.overlayLayer.candidateName2 = @"Brad Staats (R)";
+    self.overlayLayer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/BradEllsworth.png";
+    self.overlayLayer.candidateVotes2 =@"83,982";
+    self.overlayLayer.candidatePercent2 = @"32.8%";
+    [self.overlayLayer update];
+    [CATransaction commit];
 }
 
 - (IBAction)fastForward:(id)sender

@@ -10,148 +10,132 @@
 
 @interface SPLOverlayLayer ()
 
-@property (nonatomic, strong) CALayer *percent1;
-@property (nonatomic, strong) CALayer *percent1Text;
-@property (nonatomic, strong) CALayer *percent2;
-@property (nonatomic, strong) CALayer *percent2Text;
-@property (nonatomic, assign) int width1;
-@property (nonatomic, assign) int width2;
+@property (nonatomic, strong) CATextLayer *candidate1Layer;
+@property (nonatomic, strong) CATextLayer *candidate2Layer;
+@property (nonatomic, strong) CATextLayer *headshot1Layer;
+@property (nonatomic, strong) CATextLayer *headshot2Layer;
+@property (nonatomic, strong) CALayer *percentLayer;
+@property (nonatomic, strong) CALayer *percent1Layer;
+@property (nonatomic, strong) CATextLayer *percent1TextLayer;
+@property (nonatomic, strong) CALayer *percent2Layer;
+@property (nonatomic, strong) CATextLayer *percent2TextLayer;
+@property (nonatomic, strong) CATextLayer *raceNameLayer;
+@property (nonatomic, strong) CATextLayer *votes1Layer;
+@property (nonatomic, strong) CATextLayer *votes2Layer;
 
 @end
 
 @implementation SPLOverlayLayer
 
-- (void)setupWithBounds:(CGRect)bounds
+-(id)initWithBounds:(CGRect)bounds
 {
-    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-    [f setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber *vote1 = [f numberFromString:self.candidateVotes1];
-    NSNumber *vote2 = [f numberFromString:self.candidateVotes2];
-    float total = [vote1 floatValue] + [vote2 floatValue];
-    float pct1 = [vote1 floatValue] / total;
-    self.width1 = 650 * pct1;
-    self.width2 = 650 - self.width1;
+    self = [super init];
+    if (self) {
+        [self setupWithBounds:bounds];
+    }
+    return self;
+}
 
-    CATextLayer *raceNameLayer = [[CATextLayer alloc] init];
-    [raceNameLayer setFrame:CGRectMake(0, 480, bounds.size.width, 100)];
-    NSAttributedString *raceNameAtt = [[NSAttributedString alloc]
-            initWithString:self.raceName
-            attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
-                         NSStrokeColorAttributeName:[NSColor blackColor],
-                         NSForegroundColorAttributeName: [NSColor whiteColor],
-                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:45.0]}];
-    [raceNameLayer setString:raceNameAtt];
-    [raceNameLayer setAlignmentMode:kCAAlignmentCenter];
+-(void)setupWithBounds:(CGRect)bounds
+{
+    self.raceNameLayer = [[CATextLayer alloc] init];
+    self.raceNameLayer.frame = CGRectMake(0, 480, bounds.size.width, 100);
+    self.raceNameLayer.alignmentMode = kCAAlignmentCenter;
+    [self setRaceNameLayerString:@""];
     
-    CALayer *percentage = [CALayer layer];
-    percentage.backgroundColor = [NSColor clearColor].CGColor;
-    percentage.shadowOffset = CGSizeMake(0, 3);
-    percentage.shadowRadius = 5.0;
-    percentage.shadowColor = [NSColor blackColor].CGColor;
-    percentage.shadowOpacity = 0.8;
-    percentage.frame = CGRectMake(320, 440, 650, 40);
+    self.percentLayer = [CALayer layer];
+    self.percentLayer.backgroundColor = [NSColor clearColor].CGColor;
+    self.percentLayer.shadowOffset = CGSizeMake(0, -5);
+    self.percentLayer.shadowRadius = 10.0;
+    self.percentLayer.shadowColor = [NSColor blackColor].CGColor;
+    self.percentLayer.shadowOpacity = 0.8;
+    self.percentLayer.frame = CGRectMake(320, 440, 630, 40);
     
-    CALayer *percentage1 = [CALayer layer];
-    percentage1.backgroundColor = [NSColor blueColor].CGColor;
-    percentage1.frame = CGRectMake(0, 0, 0, 40);
-    self.percent1 = percentage1;
+    self.percent1Layer = [CALayer layer];
+    self.percent1Layer.backgroundColor = [NSColor blueColor].CGColor;
+    self.percent1Layer.frame = CGRectMake(0, 0, 0, 40);
+    self.percent1TextLayer = [[CATextLayer alloc] init];
+    self.percent1TextLayer.frame = CGRectMake(6, -4, 100, 40);
+    self.percent1TextLayer.alignmentMode = kCAAlignmentLeft;
+    [self setPercent1LayerString:@""];
     
-    CATextLayer *percentage1Text = [[CATextLayer alloc] init];
-    [percentage1Text setFont:@"Helvetica-Bold"];
-    [percentage1Text setFontSize:27];
-    [percentage1Text setFrame:CGRectMake(6, -4, self.width1, 40)];
-    [percentage1Text setString:self.candidatePercent1];
-    [percentage1Text setAlignmentMode:kCAAlignmentLeft];
-    [percentage1Text setForegroundColor:[[NSColor whiteColor] CGColor]];
-    percentage1Text.opacity = 0.0;
-    self.percent1Text = percentage1Text;
+    [self.percentLayer addSublayer:self.percent1Layer];
+    [self.percentLayer addSublayer:self.percent1TextLayer];
     
-    [self.percent1 addSublayer:self.percent1Text];
-    [percentage addSublayer:self.percent1];
+    self.percent2Layer = [CALayer layer];
+    self.percent2Layer.backgroundColor = [NSColor redColor].CGColor;
+    self.percent2Layer.frame = CGRectMake(self.percentLayer.bounds.size.width, 0, 0, 40);
+    self.percent2TextLayer = [[CATextLayer alloc] init];
+    self.percent2TextLayer.frame = CGRectMake(self.percentLayer.bounds.size.width - 106, -4, 100, 40);
+    self.percent2TextLayer.alignmentMode = kCAAlignmentRight;
+    [self setPercent2LayerString:@""];
+
+    [self.percentLayer addSublayer:self.percent2Layer];
+    [self.percentLayer addSublayer:self.percent2TextLayer];
     
-    CALayer *percentage2 = [CALayer layer];
-    percentage2.backgroundColor = [NSColor redColor].CGColor;
-    percentage2.frame = CGRectMake(650, 0, 0, 40);
-    self.percent2 = percentage2;
+    CALayer *candidate1Bg = [[CALayer alloc] init];
+    [candidate1Bg setFrame:CGRectMake(126, 334, 187, 225)];
+    [candidate1Bg setBackgroundColor:[[NSColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:0.6] CGColor]];
+    candidate1Bg.cornerRadius = 10.0;
+    CATransform3D cand1BgTx = CATransform3DIdentity;
+    cand1BgTx.m34 = -1.0 / 500.0;
+    cand1BgTx = CATransform3DRotate(cand1BgTx, M_PI_4 / 8, 0, 1, 0);
+    candidate1Bg.transform = cand1BgTx;
     
-    CATextLayer *percentage2Text = [[CATextLayer alloc] init];
-    [percentage2Text setFont:@"Helvetica-Bold"];
-    [percentage2Text setFontSize:27];
-    [percentage2Text setFrame:CGRectMake(-6, -4, self.width2, 40)];
-    [percentage2Text setString:self.candidatePercent2];
-    [percentage2Text setAlignmentMode:kCAAlignmentRight];
-    [percentage2Text setForegroundColor:[[NSColor whiteColor] CGColor]];
-    percentage2Text.opacity = 0.0;
-    self.percent2Text = percentage2Text;
+    self.candidate1Layer = [[CATextLayer alloc] init];
+    self.candidate1Layer.frame = CGRectMake(0, -30, candidate1Bg.bounds.size.width, 100);
+    self.candidate1Layer.alignmentMode = kCAAlignmentCenter;
+    [self setCandidate1LayerString:@""];
+    [candidate1Bg addSublayer:self.candidate1Layer];
     
-    [self.percent2 addSublayer:self.percent2Text];
-    [percentage addSublayer:self.percent2];
+    self.headshot1Layer = [CALayer layer];
+    self.headshot1Layer.frame = CGRectMake(0, 70, candidate1Bg.bounds.size.width, 155);
+    [self setHeadshot1LayerImage:@""];
+    [candidate1Bg addSublayer:self.headshot1Layer];
     
-    CATextLayer *candidate1 = [[CATextLayer alloc] init];
-    [candidate1 setFont:@"Helvetica-Bold"];
-    [candidate1 setFontSize:18];
-    [candidate1 setFrame:CGRectMake(146, 304, 187, 100)];
-    [candidate1 setString:self.candidateName1];
-    [candidate1 setAlignmentMode:kCAAlignmentCenter];
-    [candidate1 setForegroundColor:[[NSColor whiteColor] CGColor]];
+    self.votes1Layer = [[CATextLayer alloc] init];
+    self.votes1Layer.frame = CGRectMake(0, -50, candidate1Bg.bounds.size.width, 100);
+    self.votes1Layer.alignmentMode = kCAAlignmentCenter;
+    [self setVotes1LayerString:@""];
+    [candidate1Bg addSublayer:self.votes1Layer];
     
-    CALayer *headshot1 = [CALayer layer];
-    NSImage *head1Image = [[NSImage alloc] initWithContentsOfFile:self.candidateHeadshot1];
-    CGImageSourceRef source;
-    source = CGImageSourceCreateWithData((__bridge CFDataRef)[head1Image TIFFRepresentation], NULL);
-    CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
-    headshot1.contents = (__bridge id)(maskRef);
-    headshot1.frame = CGRectMake(146, 404, 187, 155);
+    CALayer *candidate2Bg = [[CALayer alloc] init];
+    [candidate2Bg setFrame:CGRectMake(956, 334, 187, 225)];
+    [candidate2Bg setBackgroundColor:[[NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.6] CGColor]];
+    candidate2Bg.cornerRadius = 10.0;
+    CATransform3D cand2BgTx = CATransform3DIdentity;
+    cand2BgTx.m34 = -1.0 / 500.0;
+    cand2BgTx = CATransform3DRotate(cand2BgTx, -M_PI_4 / 8, 0, 1, 0);
+    candidate2Bg.transform = cand2BgTx;
     
-    CATextLayer *votes1 = [[CATextLayer alloc] init];
-    [votes1 setFont:@"Helvetica-Bold"];
-    [votes1 setFontSize:36];
-    [votes1 setFrame:CGRectMake(-400, 284, bounds.size.width, 100)];
-    [votes1 setString:self.candidateVotes2];
-    [votes1 setAlignmentMode:kCAAlignmentCenter];
-    [votes1 setForegroundColor:[[NSColor whiteColor] CGColor]];
-    [votes1 setString:self.candidateVotes1];
-    [votes1 setAlignmentMode:kCAAlignmentCenter];
-    [votes1 setForegroundColor:[[NSColor whiteColor] CGColor]];
+    self.candidate2Layer = [[CATextLayer alloc] init];
+    self.candidate2Layer.frame = CGRectMake(0, -30, candidate1Bg.bounds.size.width, 100);
+    self.candidate2Layer.alignmentMode = kCAAlignmentCenter;
+    [self setCandidate2LayerString:@""];
+    [candidate2Bg addSublayer:self.candidate2Layer];
     
-    CATextLayer *candidate2 = [[CATextLayer alloc] init];
-    [candidate2 setFont:@"Helvetica-Bold"];
-    [candidate2 setFontSize:18];
-    [candidate2 setFrame:CGRectMake(410, 304, bounds.size.width, 100)];
-    [candidate2 setString:self.candidateName2];
-    [candidate2 setAlignmentMode:kCAAlignmentCenter];
-    [candidate2 setForegroundColor:[[NSColor whiteColor] CGColor]];
+    self.headshot2Layer = [CALayer layer];
+    self.headshot2Layer.frame = CGRectMake(0, 70, candidate2Bg.bounds.size.width, 155);
+    [self setHeadshot2LayerImage:@""];
+    [candidate2Bg addSublayer:self.headshot2Layer];
     
-    CALayer *headshot2 = [CALayer layer];
-    NSImage *head2Image = [[NSImage alloc] initWithContentsOfFile:self.candidateHeadshot2];
-    CGImageSourceRef source2;
-    source2 = CGImageSourceCreateWithData((__bridge CFDataRef)[head2Image TIFFRepresentation], NULL);
-    CGImageRef maskRef2 = CGImageSourceCreateImageAtIndex(source2, 0, NULL);
-    headshot2.contents = (__bridge id)(maskRef2);
-    headshot2.frame = CGRectMake(946, 404, 187, 155);
-    
-    CATextLayer *votes2 = [[CATextLayer alloc] init];
-    [votes2 setFont:@"Helvetica-Bold"];
-    [votes2 setFontSize:36];
-    [votes2 setFrame:CGRectMake(410, 284, bounds.size.width, 100)];
-    [votes2 setString:self.candidateVotes2];
-    [votes2 setAlignmentMode:kCAAlignmentCenter];
-    [votes2 setForegroundColor:[[NSColor whiteColor] CGColor]];
-    
-    [self addSublayer:raceNameLayer];
-    [self addSublayer:percentage];
-    [self addSublayer:candidate1];
-    [self addSublayer:headshot1];
-    [self addSublayer:votes1];
-    [self addSublayer:candidate2];
-    [self addSublayer:headshot2];
-    [self addSublayer:votes2];
+    self.votes2Layer = [[CATextLayer alloc] init];
+    self.votes2Layer.frame = CGRectMake(0, -50, candidate2Bg.bounds.size.width, 100);
+    self.votes2Layer.alignmentMode = kCAAlignmentCenter;
+    [self setVotes2LayerString:@""];
+    [candidate2Bg addSublayer:self.votes2Layer];
+
+    [self addSublayer:self.raceNameLayer];
+    [self addSublayer:self.percentLayer];
+    [self addSublayer:candidate1Bg];
+    [self addSublayer:candidate2Bg];
     [self setFrame:bounds];
     [self setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
     [self setHidden:NO];
-    self.opacity = 0.0;
+    self.opacity = 1.0;
 }
 
+/*
 -(void)hide
 {
     [CATransaction begin];
@@ -210,6 +194,166 @@
     self.opacity = 1.0;
     [self addAnimation:fadeOn forKey:@"fade"];
     [CATransaction commit];
+}
+*/
+
+-(void)update
+{
+    [self setRaceNameLayerString:self.raceName];
+    [self setPercent1LayerString:@""];
+    self.percent1Layer.opacity = 0.0;
+    [self setPercent2LayerString:@""];
+    self.percent2Layer.opacity = 0.0;
+    [self setHeadshot1LayerImage:self.candidateHeadshot1];
+    [self setHeadshot2LayerImage:self.candidateHeadshot2];
+    [self setCandidate1LayerString:self.candidateName1];
+    [self setCandidate2LayerString:self.candidateName2];
+    [self setVotes1LayerString:self.candidateVotes1];
+    [self setVotes2LayerString:self.candidateVotes2];
+}
+
+-(void)updateComplete
+{
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    [f setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber *vote1 = [f numberFromString:self.candidateVotes1];
+    NSNumber *vote2 = [f numberFromString:self.candidateVotes2];
+    float total = [vote1 floatValue] + [vote2 floatValue];
+    float pct1 = [vote1 floatValue] / total;
+    int width1 = self.percentLayer.bounds.size.width * pct1;
+    int width2 = self.percentLayer.bounds.size.width - width1;
+    
+    self.percent1Layer.opacity = 1.0;
+    CABasicAnimation *percentOn1 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
+    percentOn1.duration = 1.0;
+    CGRect oldBounds1 = CGRectMake(0, 0, 0, self.percent1Layer.bounds.size.height);
+    
+    CGRect newBounds1 = CGRectMake(0, 0, width1, self.percent1Layer.bounds.size.height);
+    percentOn1.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds1)];
+    self.percent1Layer.anchorPoint = CGPointMake(0, .5);
+    self.percent1Layer.bounds = newBounds1;
+    [self.percent1Layer addAnimation:percentOn1 forKey:@"bounds"];
+    
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self updatePercent];
+    }];
+    self.percent2Layer.opacity = 1.0;
+    CABasicAnimation *percentOn2 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
+    percentOn2.duration = 1.0;
+    CGRect oldBounds2 = CGRectMake(0, 0, 0, self.percent1Layer.bounds.size.height);
+    CGRect newBounds2 = CGRectMake(0, 0, width2, self.percent1Layer.bounds.size.height);
+    percentOn2.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds2)];
+    self.percent2Layer.anchorPoint = CGPointMake(1, .5);
+    self.percent2Layer.bounds = newBounds2;
+    [self.percent2Layer addAnimation:percentOn1 forKey:@"bounds"];
+    [CATransaction commit];
+}
+
+-(void)updatePercent
+{
+    CATransition *transition = [CATransition animation];
+    transition.duration = .5;
+    transition.type = kCATransitionFade;
+    [self addAnimation:transition forKey:nil];
+
+    [self setPercent1LayerString:self.candidatePercent1];
+    [self setPercent2LayerString:self.candidatePercent2];
+}
+
+-(void)setCandidate1LayerString:(NSString *)string
+{
+    NSAttributedString *att = [[NSAttributedString alloc]
+            initWithString:string
+            attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
+                         NSStrokeColorAttributeName:[NSColor blackColor],
+                         NSForegroundColorAttributeName: [NSColor whiteColor],
+                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:18.0]}];
+    [self.candidate1Layer setString:att];
+}
+
+-(void)setCandidate2LayerString:(NSString *)string
+{
+    NSAttributedString *att = [[NSAttributedString alloc]
+            initWithString:string
+            attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
+                         NSStrokeColorAttributeName:[NSColor blackColor],
+                         NSForegroundColorAttributeName: [NSColor whiteColor],
+                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:18.0]}];
+    [self.candidate2Layer setString:att];
+}
+
+-(void)setHeadshot1LayerImage:(NSString *)file
+{
+    NSImage *head1Image = [[NSImage alloc] initWithContentsOfFile:file];
+    CGImageSourceRef source;
+    source = CGImageSourceCreateWithData((__bridge CFDataRef)[head1Image TIFFRepresentation], NULL);
+    CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+    self.headshot1Layer.contents = (__bridge id)(maskRef);
+}
+
+-(void)setHeadshot2LayerImage:(NSString *)file
+{
+    NSImage *head1Image = [[NSImage alloc] initWithContentsOfFile:file];
+    CGImageSourceRef source;
+    source = CGImageSourceCreateWithData((__bridge CFDataRef)[head1Image TIFFRepresentation], NULL);
+    CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+    self.headshot2Layer.contents = (__bridge id)(maskRef);
+}
+
+-(void)setPercent1LayerString:(NSString *)string
+{
+    NSAttributedString *att = [[NSAttributedString alloc]
+            initWithString:string
+            attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
+                         NSStrokeColorAttributeName:[NSColor blackColor],
+                         NSForegroundColorAttributeName: [NSColor whiteColor],
+                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:27.0]}];
+    [self.percent1TextLayer setString:att];
+}
+
+-(void)setPercent2LayerString:(NSString *)string
+{
+    NSAttributedString *att = [[NSAttributedString alloc]
+            initWithString:string
+            attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
+                         NSStrokeColorAttributeName:[NSColor blackColor],
+                         NSForegroundColorAttributeName: [NSColor whiteColor],
+                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:27.0]}];
+    [self.percent2TextLayer setString:att];
+}
+
+-(void)setRaceNameLayerString:(NSString *)string
+{
+    NSAttributedString *att = [[NSAttributedString alloc]
+            initWithString:string
+            attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
+                         NSStrokeColorAttributeName:[NSColor blackColor],
+                         NSForegroundColorAttributeName: [NSColor whiteColor],
+                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:45.0]}];
+    [self.raceNameLayer setString:att];
+}
+
+-(void)setVotes1LayerString:(NSString *)string
+{
+    NSAttributedString *att = [[NSAttributedString alloc]
+            initWithString:string
+            attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
+                         NSStrokeColorAttributeName:[NSColor blackColor],
+                         NSForegroundColorAttributeName: [NSColor whiteColor],
+                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:36.0]}];
+    [self.votes1Layer setString:att];
+}
+
+-(void)setVotes2LayerString:(NSString *)string
+{
+    NSAttributedString *att = [[NSAttributedString alloc]
+            initWithString:string
+            attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
+                         NSStrokeColorAttributeName:[NSColor blackColor],
+                         NSForegroundColorAttributeName: [NSColor whiteColor],
+                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:36.0]}];
+    [self.votes2Layer setString:att];
 }
 
 @end

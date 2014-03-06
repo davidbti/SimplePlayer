@@ -75,8 +75,10 @@
     
     CALayer *candidate1Bg = [[CALayer alloc] init];
     [candidate1Bg setFrame:CGRectMake(126, 334, 187, 225)];
-    [candidate1Bg setBackgroundColor:[[NSColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:0.6] CGColor]];
-    candidate1Bg.cornerRadius = 10.0;
+    [candidate1Bg setBackgroundColor:[[NSColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:0.7] CGColor]];
+    candidate1Bg.cornerRadius = 20.0;
+    candidate1Bg.borderWidth = 2.0;
+    candidate1Bg.borderColor = [[NSColor whiteColor] CGColor];
     CATransform3D cand1BgTx = CATransform3DIdentity;
     cand1BgTx.m34 = -1.0 / 500.0;
     cand1BgTx = CATransform3DRotate(cand1BgTx, M_PI_4 / 8, 0, 1, 0);
@@ -101,8 +103,11 @@
     
     CALayer *candidate2Bg = [[CALayer alloc] init];
     [candidate2Bg setFrame:CGRectMake(956, 334, 187, 225)];
-    [candidate2Bg setBackgroundColor:[[NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.6] CGColor]];
-    candidate2Bg.cornerRadius = 10.0;
+    [candidate2Bg setBackgroundColor:[[NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.7] CGColor]];
+    candidate2Bg.cornerRadius = 20.0;
+    candidate2Bg.borderWidth = 2.0;
+    candidate2Bg.borderColor = [[NSColor whiteColor] CGColor];
+
     CATransform3D cand2BgTx = CATransform3DIdentity;
     cand2BgTx.m34 = -1.0 / 500.0;
     cand2BgTx = CATransform3DRotate(cand2BgTx, -M_PI_4 / 8, 0, 1, 0);
@@ -134,68 +139,6 @@
     [self setHidden:NO];
     self.opacity = 1.0;
 }
-
-/*
--(void)hide
-{
-    [CATransaction begin];
-    [CATransaction setCompletionBlock:^{
-        self.percent1Text.opacity = 0.0;
-        self.percent2Text.opacity = 0.0;
-        CGRect oldBounds1 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
-        self.percent1.bounds = oldBounds1;
-        CGRect oldBounds2 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
-        self.percent2.bounds = oldBounds2;
-    }];
-    CABasicAnimation *fadeOn = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOn.duration = 1.0;
-    fadeOn.fromValue = [NSNumber numberWithFloat:1.0];
-    self.opacity = 0.0;
-    [self addAnimation:fadeOn forKey:@"fade"];
-    [CATransaction commit];
-}
-
--(void)show
-{
-    [CATransaction begin];
-    [CATransaction setCompletionBlock:^{
-        [CATransaction begin];
-        [CATransaction setCompletionBlock:^{
-            self.percent1Text.opacity = 1.0;
-        }];
-        CABasicAnimation *percentOn1 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
-        percentOn1.duration = 1.0;
-        CGRect oldBounds1 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
-        
-        CGRect newBounds1 = CGRectMake(0, 0, self.width1, self.percent1.bounds.size.height);
-        percentOn1.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds1)];
-        self.percent1.anchorPoint = CGPointMake(0, .5);
-        self.percent1.bounds = newBounds1;
-        [self.percent1 addAnimation:percentOn1 forKey:@"bounds"];
-        [CATransaction commit];
-        
-        [CATransaction begin];
-        [CATransaction setCompletionBlock:^{
-            self.percent2Text.opacity = 1.0;
-        }];
-        CABasicAnimation *percentOn2 = [CABasicAnimation animationWithKeyPath:@"bounds.size.width"];
-        percentOn2.duration = 1.0;
-        CGRect oldBounds2 = CGRectMake(0, 0, 0, self.percent1.bounds.size.height);
-        CGRect newBounds2 = CGRectMake(0, 0, self.width2, self.percent1.bounds.size.height);
-        percentOn2.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds2)];
-        self.percent2.anchorPoint = CGPointMake(1, .5);
-        self.percent2.bounds = newBounds2;
-        [self.percent2 addAnimation:percentOn1 forKey:@"bounds"];
-        [CATransaction commit];
-    }];
-    CABasicAnimation *fadeOn = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOn.duration = 1.0;
-    fadeOn.fromValue = [NSNumber numberWithFloat:0.0];
-    self.opacity = 1.0;
-    [self addAnimation:fadeOn forKey:@"fade"];
-    [CATransaction commit];
-}
-*/
 
 -(void)update
 {

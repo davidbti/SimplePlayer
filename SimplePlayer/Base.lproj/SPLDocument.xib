@@ -11,6 +11,7 @@
                 <outlet property="noVideoLabel" destination="Y8y-G1-rcx" id="fCe-jL-LLl"/>
                 <outlet property="playPauseButton" destination="5TY-qd-6k5" id="DCN-5U-cu5"/>
                 <outlet property="playerView" destination="igw-UY-jpl" id="ylJ-37-WF0"/>
+                <outlet property="presidentButton" destination="39P-Y1-Cfd" id="4p7-Sr-xKL"/>
                 <outlet property="rewindButton" destination="sPi-tf-wlh" id="Qct-rO-niB"/>
                 <outlet property="timeSlider" destination="hqg-PD-Mzt" id="OQK-02-n4J"/>
                 <outlet property="unplayableLabel" destination="R3s-Lp-d7z" id="SCh-sP-FfF"/>
@@ -36,9 +37,6 @@
                         <buttonCell key="cell" type="roundTextured" title="Play" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="20N-Ey-7Hg">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-IA
-</string>
                         </buttonCell>
                         <connections>
                             <action selector="playPauseToggle:" target="-2" id="5ay-iY-bP4"/>
@@ -47,27 +45,34 @@ IA
                     <button verticalHuggingPriority="750" id="kx3-iI-1Eg">
                         <rect key="frame" x="253" y="3" width="50" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="2" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B49-eG-MY1">
+                        <buttonCell key="cell" type="roundTextured" title="5" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B49-eG-MY1">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent"></string>
-                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                         </buttonCell>
                         <connections>
-                            <action selector="showDistrict2:" target="-2" id="Fu5-Dg-Ypk"/>
+                            <action selector="showDistrict5:" target="-2" id="6WS-DQ-3eS"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="sPi-tf-wlh">
-                        <rect key="frame" x="195" y="2" width="50" height="25"/>
+                        <rect key="frame" x="195" y="3" width="50" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="roundTextured" title="1" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9PJ-5r-ACz">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent"></string>
-                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                         </buttonCell>
                         <connections>
                             <action selector="showDistrict1:" target="-2" id="44e-04-6zb"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="39P-Y1-Cfd">
+                        <rect key="frame" x="311" y="3" width="50" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="PRES" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wY9-e4-16X">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showPresident:" target="-2" id="aSh-1I-TUE"/>
                         </connections>
                     </button>
                     <customView wantsLayer="YES" id="igw-UY-jpl" userLabel="Custom View">
@@ -114,7 +119,7 @@ IA
                         </connections>
                     </slider>
                     <textField verticalHuggingPriority="750" id="ozF-PI-oB6">
-                        <rect key="frame" x="308" y="9" width="31" height="14"/>
+                        <rect key="frame" x="366" y="9" width="31" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Time" id="dSs-J4-2NP">
                             <font key="font" metaFont="smallSystem"/>
@@ -132,7 +137,7 @@ IA
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" id="hqg-PD-Mzt">
-                        <rect key="frame" x="344" y="8" width="143" height="17"/>
+                        <rect key="frame" x="402" y="8" width="85" height="17"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="bWw-2g-yX2"/>
                         <connections>

@@ -307,6 +307,18 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 	}
 }
 
+- (IBAction)rewind:(id)sender
+{
+    if ([[self player] rate] > -2.f)
+	{
+		[[self player] setRate:-2.f];
+	}
+	else
+	{
+		[[self player] setRate:[[self player] rate] - 2.f];
+	}
+}
+
 - (IBAction)showDistrict1:(id)sender
 {
     [[self.mapView windowScriptObject] callWebScriptMethod:@"JSDistrict1"
@@ -334,18 +346,34 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     [CATransaction commit];
 }
 
-- (IBAction)rewind:(id)sender
+- (IBAction)showPresident:(id)sender
 {
-    if ([[self player] rate] > -2.f)
-	{
-		[[self player] setRate:-2.f];
-	}
-	else
-	{
-		[[self player] setRate:[[self player] rate] - 2.f];
-	}
+    [[self.mapView windowScriptObject] callWebScriptMethod:@"JSPresident"
+                                             withArguments:@[]];
+    
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.overlayLayer updateComplete];
+    }];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.5;
+    transition.type = kCATransitionFade;
+    [self.overlayView.layer addAnimation:transition forKey:nil];
+    
+    self.overlayLayer.raceName = @"Tennessee President";
+    self.overlayLayer.candidateName1 = @"Barack Obama (D)";
+    self.overlayLayer.candidateHeadshot1 = @"";
+    self.overlayLayer.candidateVotes1 =@"679,340";
+    self.overlayLayer.candidatePercent1 = @"37.8%";
+    self.overlayLayer.candidateName2 = @"Mitt Romney (R)";
+    self.overlayLayer.candidateHeadshot2 = @"";
+    self.overlayLayer.candidateVotes2 =@"1,087,127";
+    self.overlayLayer.candidatePercent2 = @"60.5%";
+    [self.overlayLayer update];
+    [CATransaction commit];
 }
-- (IBAction)showDistrict2:(id)sender
+
+- (IBAction)showDistrict5:(id)sender
 {
     [[self.mapView windowScriptObject] callWebScriptMethod:@"JSDistrict5"
                                              withArguments:@[]];

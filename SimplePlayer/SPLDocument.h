@@ -18,5 +18,5 @@
 @property (weak) IBOutlet NSButton *playPauseButton;
 @property (weak) IBOutlet NSButton *fastForwardButton;
 @property (weak) IBOutlet NSButton *rewindButton;
-
+@property (weak) IBOutlet NSButton *presidentButton;
 @end

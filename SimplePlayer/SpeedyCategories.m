@@ -100,8 +100,6 @@
 
 @end
 
-
-
 @implementation NSBezierPath (ShadowDrawing)
 
 /* fill a bezier path, but draw a shadow under it offset by the

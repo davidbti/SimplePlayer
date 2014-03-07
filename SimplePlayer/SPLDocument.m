@@ -338,10 +338,12 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     self.overlayLayer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/AndyHarris.png";
     self.overlayLayer.candidateVotes1 =@"47,597";
     self.overlayLayer.candidatePercent1 = @"19.9%";
+    self.overlayLayer.candidateWin1 = NO;
     self.overlayLayer.candidateName2 = @"Phil Roe (R)";
     self.overlayLayer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/PeterKing.png";
     self.overlayLayer.candidateVotes2 =@"182,186";
     self.overlayLayer.candidatePercent2 = @"76.1%";
+    self.overlayLayer.candidateWin2 = YES;
     [self.overlayLayer update];
     [CATransaction commit];
 }
@@ -365,10 +367,12 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     self.overlayLayer.candidateHeadshot1 = @"";
     self.overlayLayer.candidateVotes1 =@"679,340";
     self.overlayLayer.candidatePercent1 = @"37.8%";
+    self.overlayLayer.candidateWin1 = NO;
     self.overlayLayer.candidateName2 = @"Mitt Romney (R)";
     self.overlayLayer.candidateHeadshot2 = @"";
     self.overlayLayer.candidateVotes2 =@"1,087,127";
     self.overlayLayer.candidatePercent2 = @"60.5%";
+    self.overlayLayer.candidateWin2 = NO;
     [self.overlayLayer update];
     [CATransaction commit];
 }
@@ -392,10 +396,12 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     self.overlayLayer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/JimDeMint.png";
     self.overlayLayer.candidateVotes1 =@"166,999";
     self.overlayLayer.candidatePercent1 = @"65.2%";
+    self.overlayLayer.candidateWin1 = YES;
     self.overlayLayer.candidateName2 = @"Brad Staats (R)";
     self.overlayLayer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/BradEllsworth.png";
     self.overlayLayer.candidateVotes2 =@"83,982";
     self.overlayLayer.candidatePercent2 = @"32.8%";
+    self.overlayLayer.candidateWin2 = NO;
     [self.overlayLayer update];
     [CATransaction commit];
 }

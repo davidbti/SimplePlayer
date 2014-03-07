@@ -7,6 +7,7 @@
 //
 
 #import "SPLOverlayLayer.h"
+#import "SPLBezierLayer.h"
 
 @interface SPLOverlayLayer ()
 
@@ -19,9 +20,12 @@
 @property (nonatomic, strong) CATextLayer *percent1TextLayer;
 @property (nonatomic, strong) CALayer *percent2Layer;
 @property (nonatomic, strong) CATextLayer *percent2TextLayer;
-@property (nonatomic, strong) CATextLayer *raceNameLayer;
+@property (nonatomic, strong) CALayer *raceNameLayer;
+@property (nonatomic, strong) SPLBezierLayer *raceNameLayerDelegate;
 @property (nonatomic, strong) CATextLayer *votes1Layer;
 @property (nonatomic, strong) CATextLayer *votes2Layer;
+@property (nonatomic, strong) CALayer *win1Layer;
+@property (nonatomic, strong) CALayer *win2Layer;
 
 @end
 
@@ -38,10 +42,13 @@
 
 -(void)setupWithBounds:(CGRect)bounds
 {
-    self.raceNameLayer = [[CATextLayer alloc] init];
-    self.raceNameLayer.frame = CGRectMake(0, 480, bounds.size.width, 100);
-    self.raceNameLayer.alignmentMode = kCAAlignmentCenter;
-    [self setRaceNameLayerString:@""];
+    self.raceNameLayer = [[CALayer alloc] init];
+    self.raceNameLayer.frame = CGRectMake(0, 520, bounds.size.width, 60);
+    
+    NSFont *font = [NSFont fontWithName:@"Helvetica-Bold" size:45.0];
+    self.raceNameLayerDelegate = [[SPLBezierLayer alloc] initWithFont:font];
+    self.raceNameLayerDelegate.string = @"Test Race Name";
+    self.raceNameLayer.delegate = self.raceNameLayerDelegate;
     
     self.percentLayer = [CALayer layer];
     self.percentLayer.backgroundColor = [NSColor clearColor].CGColor;
@@ -101,6 +108,11 @@
     [self setVotes1LayerString:@""];
     [candidate1Bg addSublayer:self.votes1Layer];
     
+    self.win1Layer = [CALayer layer];
+    self.win1Layer.frame = CGRectMake(5, 173, 48, 48);
+    [self setWin1LayerImage:@""];
+    [candidate1Bg addSublayer:self.win1Layer];
+    
     CALayer *candidate2Bg = [[CALayer alloc] init];
     [candidate2Bg setFrame:CGRectMake(956, 334, 187, 225)];
     [candidate2Bg setBackgroundColor:[[NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.7] CGColor]];
@@ -129,6 +141,11 @@
     self.votes2Layer.alignmentMode = kCAAlignmentCenter;
     [self setVotes2LayerString:@""];
     [candidate2Bg addSublayer:self.votes2Layer];
+    
+    self.win2Layer = [CALayer layer];
+    self.win2Layer.frame = CGRectMake(134, 173, 48, 48);
+    [self setWin2LayerImage:@""];
+    [candidate2Bg addSublayer:self.win2Layer];
 
     [self addSublayer:self.raceNameLayer];
     [self addSublayer:self.percentLayer];
@@ -151,8 +168,10 @@
     [self setHeadshot2LayerImage:self.candidateHeadshot2];
     [self setCandidate1LayerString:self.candidateName1];
     [self setCandidate2LayerString:self.candidateName2];
-    [self setVotes1LayerString:self.candidateVotes1];
-    [self setVotes2LayerString:self.candidateVotes2];
+    [self setWin1LayerImage:@""];
+    [self setWin2LayerImage:@""];
+    [self setVotes1LayerString:@""];
+    [self setVotes2LayerString:@""];
 }
 
 -(void)updateComplete
@@ -202,6 +221,15 @@
 
     [self setPercent1LayerString:self.candidatePercent1];
     [self setPercent2LayerString:self.candidatePercent2];
+    
+    if (self.candidateWin1) {
+        [self setWin1LayerImage:@"/Users/matthewdoig/Desktop/check2.png"];
+    }
+    if (self.candidateWin2) {
+        [self setWin2LayerImage:@"/Users/matthewdoig/Desktop/check2.png"];
+    }
+    [self setVotes1LayerString:self.candidateVotes1];
+    [self setVotes2LayerString:self.candidateVotes2];
 }
 
 -(void)setCandidate1LayerString:(NSString *)string
@@ -224,6 +252,24 @@
                          NSForegroundColorAttributeName: [NSColor whiteColor],
                          NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:18.0]}];
     [self.candidate2Layer setString:att];
+}
+
+-(void)setWin1LayerImage:(NSString *)file
+{
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:file];
+    CGImageSourceRef source;
+    source = CGImageSourceCreateWithData((__bridge CFDataRef)[image TIFFRepresentation], NULL);
+    CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+    self.win1Layer.contents = (__bridge id)(maskRef);
+}
+
+-(void)setWin2LayerImage:(NSString *)file
+{
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:file];
+    CGImageSourceRef source;
+    source = CGImageSourceCreateWithData((__bridge CFDataRef)[image TIFFRepresentation], NULL);
+    CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+    self.win2Layer.contents = (__bridge id)(maskRef);
 }
 
 -(void)setHeadshot1LayerImage:(NSString *)file
@@ -268,6 +314,7 @@
 
 -(void)setRaceNameLayerString:(NSString *)string
 {
+    /*
     NSAttributedString *att = [[NSAttributedString alloc]
             initWithString:string
             attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
@@ -275,7 +322,11 @@
                          NSForegroundColorAttributeName: [NSColor whiteColor],
                          NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:45.0]}];
     [self.raceNameLayer setString:att];
+     */
+    self.raceNameLayerDelegate.string = self.raceName;
+    [self.raceNameLayer setNeedsDisplay];
 }
+
 
 -(void)setVotes1LayerString:(NSString *)string
 {

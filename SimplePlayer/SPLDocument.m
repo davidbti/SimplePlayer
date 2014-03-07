@@ -364,12 +364,12 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     
     self.overlayLayer.raceName = @"Tennessee President";
     self.overlayLayer.candidateName1 = @"Barack Obama (D)";
-    self.overlayLayer.candidateHeadshot1 = @"";
+    self.overlayLayer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/Obama.png";
     self.overlayLayer.candidateVotes1 =@"679,340";
     self.overlayLayer.candidatePercent1 = @"37.8%";
     self.overlayLayer.candidateWin1 = NO;
     self.overlayLayer.candidateName2 = @"Mitt Romney (R)";
-    self.overlayLayer.candidateHeadshot2 = @"";
+    self.overlayLayer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/Romney.png";
     self.overlayLayer.candidateVotes2 =@"1,087,127";
     self.overlayLayer.candidatePercent2 = @"60.5%";
     self.overlayLayer.candidateWin2 = NO;

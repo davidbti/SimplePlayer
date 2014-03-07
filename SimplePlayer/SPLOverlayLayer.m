@@ -27,6 +27,8 @@
 @property (nonatomic, strong) CALayer *win1Layer;
 @property (nonatomic, strong) CALayer *win2Layer;
 
+@property (nonatomic, strong) CALayer *tickerLayer;
+
 @end
 
 @implementation SPLOverlayLayer
@@ -146,11 +148,16 @@
     self.win2Layer.frame = CGRectMake(134, 173, 48, 48);
     [self setWin2LayerImage:@""];
     [candidate2Bg addSublayer:self.win2Layer];
-
+    
+    self.tickerLayer = [CALayer layer];
+    self.tickerLayer.frame = CGRectMake(-10, 60, bounds.size.width, 0);
+    [self setTickerLayerImage:@"/Users/matthewdoig/Desktop/ticker_blue_bar_darker_60.png"];
+    
     [self addSublayer:self.raceNameLayer];
     [self addSublayer:self.percentLayer];
     [self addSublayer:candidate1Bg];
     [self addSublayer:candidate2Bg];
+    [self addSublayer:self.tickerLayer];
     [self setFrame:bounds];
     [self setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
     [self setHidden:NO];
@@ -214,6 +221,10 @@
 
 -(void)updatePercent
 {
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self updateCounties];
+    }];
     CATransition *transition = [CATransition animation];
     transition.duration = .5;
     transition.type = kCATransitionFade;
@@ -230,6 +241,20 @@
     }
     [self setVotes1LayerString:self.candidateVotes1];
     [self setVotes2LayerString:self.candidateVotes2];
+    [CATransaction commit];
+}
+
+-(void)updateCounties
+{
+    if (![self.raceName isEqualToString:@"Tennessee President"]) return;
+    CABasicAnimation *on = [CABasicAnimation animationWithKeyPath:@"bounds.size.height"];
+    on.duration = 1.0;
+    CGRect oldBounds = self.tickerLayer.bounds;
+    CGRect newBounds = CGRectMake(self.tickerLayer.bounds.origin.x, self.tickerLayer.bounds.origin.y, self.tickerLayer.bounds.size.width, 60);
+    on.fromValue = [NSValue valueWithRect:NSRectFromCGRect(oldBounds)];
+    //self.tickerLayer.anchorPoint = CGPointMake(self.tickerLayer.anchorPoint.x, 0);
+    self.tickerLayer.bounds = newBounds;
+    [self.tickerLayer addAnimation:on forKey:@"bounds"];
 }
 
 -(void)setCandidate1LayerString:(NSString *)string
@@ -290,6 +315,15 @@
     self.headshot2Layer.contents = (__bridge id)(maskRef);
 }
 
+-(void)setTickerLayerImage:(NSString *)file
+{
+    NSImage *head1Image = [[NSImage alloc] initWithContentsOfFile:file];
+    CGImageSourceRef source;
+    source = CGImageSourceCreateWithData((__bridge CFDataRef)[head1Image TIFFRepresentation], NULL);
+    CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+    self.tickerLayer.contents = (__bridge id)(maskRef);
+}
+
 -(void)setPercent1LayerString:(NSString *)string
 {
     NSAttributedString *att = [[NSAttributedString alloc]
@@ -314,15 +348,6 @@
 
 -(void)setRaceNameLayerString:(NSString *)string
 {
-    /*
-    NSAttributedString *att = [[NSAttributedString alloc]
-            initWithString:string
-            attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
-                         NSStrokeColorAttributeName:[NSColor blackColor],
-                         NSForegroundColorAttributeName: [NSColor whiteColor],
-                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:45.0]}];
-    [self.raceNameLayer setString:att];
-     */
     self.raceNameLayerDelegate.string = self.raceName;
     [self.raceNameLayer setNeedsDisplay];
 }

@@ -7,7 +7,7 @@
 //
 
 #import "SPLBezierLayer.h"
-#import "SpeedyCategories.h"
+#import "NSString+SPLBezierPathAdditons.h"
 
 @interface SPLBezierLayer ()
 
@@ -21,7 +21,7 @@
 -(void)setString:(NSString *)string
 {
     _string = string;
-    _stringPath = [_string bezierWithFont:_font];
+    _stringPath = [_string spl_bezierWithFont:_font];
 }
 
 -(id)initWithFont:(NSFont *)font

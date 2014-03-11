@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 BTI. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
-
 @interface SPLOverlayLayer : CALayer
 
 @property (nonatomic, strong) NSString *raceName;

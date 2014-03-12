@@ -17,7 +17,12 @@
 
 @property (nonatomic, strong) CATextLayer *candidate1Layer;
 @property (nonatomic, strong) CALayer *candidate1Bg;
+@property (nonatomic, strong) CALayer *candidate1BgText;
 @property (nonatomic, strong) CATextLayer *candidate2Layer;
+@property (nonatomic, strong) CALayer *candidate2Bg;
+@property (nonatomic, strong) CALayer *candidate2BgText;
+@property (nonatomic, strong) CAEmitterLayer *emitter1Layer;
+@property (nonatomic, strong) CAEmitterLayer *emitter2Layer;
 @property (nonatomic, strong) CATextLayer *headshot1Layer;
 @property (nonatomic, strong) CATextLayer *headshot2Layer;
 @property (nonatomic, strong) CALayer *percentLayer;
@@ -34,6 +39,7 @@
 
 @property (nonatomic, strong) CALayer *tickerLayer;
 @property (nonatomic, strong) CATextLayer *crawlLayer;
+
 
 @end
 
@@ -96,66 +102,83 @@
     self.candidate1Bg.cornerRadius = 20.0;
     self.candidate1Bg.borderWidth = 2.0;
     self.candidate1Bg.borderColor = [[NSColor whiteColor] CGColor];
+    
     CATransform3D cand1BgTx = CATransform3DIdentity;
     cand1BgTx.m34 = -1.0 / 500.0;
     cand1BgTx = CATransform3DRotate(cand1BgTx, M_PI_4 / 8, 0, 1, 0);
     self.candidate1Bg.transform = cand1BgTx;
     
+    [self setupEmitter1];
+    [self.candidate1Bg addSublayer:self.emitter1Layer];
+    
+    self.candidate1BgText = [[CALayer alloc] init];
+    [self.candidate1BgText setFrame:CGRectMake(0, 0, 187, 225)];
+    self.candidate1BgText.cornerRadius = 20.0;
+    [self.candidate1Bg addSublayer:self.candidate1BgText];
+    
     self.candidate1Layer = [[CATextLayer alloc] init];
     self.candidate1Layer.frame = CGRectMake(0, -30, self.candidate1Bg.bounds.size.width, 100);
     self.candidate1Layer.alignmentMode = kCAAlignmentCenter;
     [self setCandidate1LayerString:@""];
-    [self.candidate1Bg addSublayer:self.candidate1Layer];
+    [self.candidate1BgText addSublayer:self.candidate1Layer];
     
     self.headshot1Layer = [CALayer layer];
     self.headshot1Layer.frame = CGRectMake(0, 70, self.candidate1Bg.bounds.size.width, 155);
     [self setHeadshot1LayerImage:@""];
-    [self.candidate1Bg addSublayer:self.headshot1Layer];
+    [self.candidate1BgText addSublayer:self.headshot1Layer];
     
     self.votes1Layer = [[CATextLayer alloc] init];
     self.votes1Layer.frame = CGRectMake(0, -50, self.candidate1Bg.bounds.size.width, 100);
     self.votes1Layer.alignmentMode = kCAAlignmentCenter;
     [self setVotes1LayerString:@""];
-    [self.candidate1Bg addSublayer:self.votes1Layer];
+    [self.candidate1BgText addSublayer:self.votes1Layer];
     
     self.win1Layer = [CALayer layer];
     self.win1Layer.frame = CGRectMake(5, 173, 48, 48);
     [self setWin1LayerImage:@""];
-    [self.candidate1Bg addSublayer:self.win1Layer];
+    [self.candidate1BgText addSublayer:self.win1Layer];
     
-    CALayer *candidate2Bg = [[CALayer alloc] init];
-    [candidate2Bg setFrame:CGRectMake(956, 334, 187, 225)];
-    [candidate2Bg setBackgroundColor:[[NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.7] CGColor]];
-    candidate2Bg.cornerRadius = 20.0;
-    candidate2Bg.borderWidth = 2.0;
-    candidate2Bg.borderColor = [[NSColor whiteColor] CGColor];
+    self.candidate2Bg = [[CALayer alloc] init];
+    [self.candidate2Bg setFrame:CGRectMake(956, 334, 187, 225)];
+    [self.candidate2Bg setBackgroundColor:[[NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.7] CGColor]];
+    self.candidate2Bg.cornerRadius = 20.0;
+    self.candidate2Bg.borderWidth = 2.0;
+    self.candidate2Bg.borderColor = [[NSColor whiteColor] CGColor];
 
     CATransform3D cand2BgTx = CATransform3DIdentity;
     cand2BgTx.m34 = -1.0 / 500.0;
     cand2BgTx = CATransform3DRotate(cand2BgTx, -M_PI_4 / 8, 0, 1, 0);
-    candidate2Bg.transform = cand2BgTx;
+    self.candidate2Bg.transform = cand2BgTx;
+    
+    [self setupEmitter2];
+    [self.candidate2Bg addSublayer:self.emitter2Layer];
+    
+    self.candidate2BgText = [[CALayer alloc] init];
+    [self.candidate2BgText setFrame:CGRectMake(0, 0, 187, 225)];
+    self.candidate2BgText.cornerRadius = 20.0;
+    [self.candidate2Bg addSublayer:self.candidate2BgText];
     
     self.candidate2Layer = [[CATextLayer alloc] init];
-    self.candidate2Layer.frame = CGRectMake(0, -30, candidate2Bg.bounds.size.width, 100);
+    self.candidate2Layer.frame = CGRectMake(0, -30, self.candidate2Bg.bounds.size.width, 100);
     self.candidate2Layer.alignmentMode = kCAAlignmentCenter;
     [self setCandidate2LayerString:@""];
-    [candidate2Bg addSublayer:self.candidate2Layer];
+    [self.candidate2BgText addSublayer:self.candidate2Layer];
     
     self.headshot2Layer = [CALayer layer];
-    self.headshot2Layer.frame = CGRectMake(0, 70, candidate2Bg.bounds.size.width, 155);
+    self.headshot2Layer.frame = CGRectMake(0, 70, self.candidate2Bg.bounds.size.width, 155);
     [self setHeadshot2LayerImage:@""];
-    [candidate2Bg addSublayer:self.headshot2Layer];
+    [self.candidate2BgText addSublayer:self.headshot2Layer];
     
     self.votes2Layer = [[CATextLayer alloc] init];
-    self.votes2Layer.frame = CGRectMake(0, -50, candidate2Bg.bounds.size.width, 100);
+    self.votes2Layer.frame = CGRectMake(0, -50, self.candidate2Bg.bounds.size.width, 100);
     self.votes2Layer.alignmentMode = kCAAlignmentCenter;
     [self setVotes2LayerString:@""];
-    [candidate2Bg addSublayer:self.votes2Layer];
+    [self.candidate2BgText addSublayer:self.votes2Layer];
     
     self.win2Layer = [CALayer layer];
     self.win2Layer.frame = CGRectMake(134, 173, 48, 48);
     [self setWin2LayerImage:@""];
-    [candidate2Bg addSublayer:self.win2Layer];
+    [self.candidate2BgText addSublayer:self.win2Layer];
     
     self.tickerLayer = [CALayer layer];
     self.tickerLayer.frame = CGRectMake(-10, 60, bounds.size.width, 0);
@@ -164,12 +187,105 @@
     [self addSublayer:self.raceNameLayer];
     [self addSublayer:self.percentLayer];
     [self addSublayer:self.candidate1Bg];
-    [self addSublayer:candidate2Bg];
+    [self addSublayer:self.candidate2Bg];
     [self addSublayer:self.tickerLayer];
     [self setFrame:bounds];
     [self setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
     [self setHidden:NO];
     self.opacity = 1.0;
+}
+
+- (void)addAnimation:(CAAnimation *)anim forKey:(NSString *)key
+{
+    [self.raceNameLayer addAnimation:anim forKey:key];
+    [self.candidate1BgText addAnimation:anim forKey:key];
+    [self.candidate2BgText addAnimation:anim forKey:key];
+}
+
+-(void) setupEmitter1
+{
+    self.emitter1Layer = [CAEmitterLayer layer];
+    self.emitter1Layer.frame = CGRectMake(0, 0, 187, 225);
+    self.emitter1Layer.masksToBounds = YES;
+    self.emitter1Layer.opacity = 0.3f;
+    self.emitter1Layer.cornerRadius = 20.0;
+    
+    self.emitter1Layer.renderMode = kCAEmitterLayerAdditive;
+    self.emitter1Layer.emitterPosition = CGPointMake(self.emitter1Layer.frame.size.width / 2.0, self.emitter1Layer.frame.size.height / 2.0);
+    
+    CAEmitterCell * cell = [[CAEmitterCell alloc] init];
+    
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:@"/Users/matthewdoig/Desktop/star_blue_20_20.png"];
+    CGImageSourceRef source;
+    source = CGImageSourceCreateWithData((__bridge CFDataRef)[image TIFFRepresentation], NULL);
+    CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+    cell.contents = (__bridge id)(maskRef);
+    
+    //Number of particles per second
+    cell.birthRate = 5;
+    
+    //Life in seconds
+    cell.lifetime = 7.0;
+    cell.lifetimeRange = 8.0;
+    
+    //Magnitude of initial veleocity with which particles travel
+    cell.velocity = 20;
+    
+    //Radial direction of emission of the particles
+    cell.emissionRange = 2 * M_PI;
+    
+    //Spin (angular velocity) of the particles in radians per sec
+    cell.spin = 0.0;
+    cell.spinRange = 4 * M_PI;
+    
+    //Scaling of the particles
+    cell.scale = 1.0;
+    cell.scaleRange = 1.0;
+    
+    self.emitter1Layer.emitterCells = @[cell];
+}
+
+-(void) setupEmitter2
+{
+    self.emitter2Layer = [CAEmitterLayer layer];
+    self.emitter2Layer.frame = CGRectMake(0, 0, 187, 225);
+    self.emitter2Layer.masksToBounds = YES;
+    self.emitter2Layer.opacity = 0.3f;
+    self.emitter2Layer.cornerRadius = 20.0;
+    
+    self.emitter2Layer.renderMode = kCAEmitterLayerAdditive;
+    self.emitter2Layer.emitterPosition = CGPointMake(self.emitter2Layer.frame.size.width / 2.0, self.emitter2Layer.frame.size.height / 2.0);
+    
+    CAEmitterCell * cell = [[CAEmitterCell alloc] init];
+    
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:@"/Users/matthewdoig/Desktop/star_red_20_20.png"];
+    CGImageSourceRef source;
+    source = CGImageSourceCreateWithData((__bridge CFDataRef)[image TIFFRepresentation], NULL);
+    CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+    cell.contents = (__bridge id)(maskRef);
+    
+    //Number of particles per second
+    cell.birthRate = 5;
+    
+    //Life in seconds
+    cell.lifetime = 7.0;
+    cell.lifetimeRange = 8.0;
+    
+    //Magnitude of initial veleocity with which particles travel
+    cell.velocity = 20;
+    
+    //Radial direction of emission of the particles
+    cell.emissionRange = 2 * M_PI;
+    
+    //Spin (angular velocity) of the particles in radians per sec
+    cell.spin = 0.0;
+    cell.spinRange = 4 * M_PI;
+    
+    //Scaling of the particles
+    cell.scale = 1.0;
+    cell.scaleRange = 1.0;
+    
+    self.emitter2Layer.emitterCells = @[cell];
 }
 
 -(void)update

@@ -323,7 +323,6 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 {
     [[self.mapView windowScriptObject] callWebScriptMethod:@"JSDistrict1"
                                              withArguments:@[]];
-    
     [CATransaction begin];
     [CATransaction setCompletionBlock:^{
         [self.overlayLayer updateComplete];

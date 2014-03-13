@@ -332,13 +332,15 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     transition.type = kCATransitionFade;
     [self.overlayView.layer addAnimation:transition forKey:nil];
     
-    self.overlayLayer.raceName = @"Tennessee House District 1";
-    self.overlayLayer.candidateName1 = @"Alan WoodRuff (D)";
+    self.overlayLayer.raceName = @"TN HOUSE DISTRICT 1";
+    self.overlayLayer.candidateName1 = @"WOODRUFF";
+    //self.overlayLayer.candidateName1 = @"Alan WoodRuff (D)";
     self.overlayLayer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/AndyHarris.png";
     self.overlayLayer.candidateVotes1 =@"47,597";
     self.overlayLayer.candidatePercent1 = @"19.9%";
     self.overlayLayer.candidateWin1 = NO;
-    self.overlayLayer.candidateName2 = @"Phil Roe (R)";
+    self.overlayLayer.candidateName2 = @"ROE";
+    //self.overlayLayer.candidateName2 = @"Phil Roe (R)";
     self.overlayLayer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/PeterKing.png";
     self.overlayLayer.candidateVotes2 =@"182,186";
     self.overlayLayer.candidatePercent2 = @"76.1%";

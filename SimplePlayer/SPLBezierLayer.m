@@ -7,7 +7,7 @@
 //
 
 #import "SPLBezierLayer.h"
-#import "NSString+SPLBezierPathAdditons.h"
+#import "NSBezierPath+SPLQuartzAdditions.h"
 
 @interface SPLBezierLayer ()
 
@@ -21,7 +21,8 @@
 -(void)setString:(NSString *)string
 {
     _string = string;
-    _stringPath = [_string spl_bezierWithFont:_font];
+    _stringPath = [NSBezierPath spl_bezierPathWithString:_string inFont:_font];
+    //[_string spl_bezierWithFont:_font];
 }
 
 -(id)initWithFont:(NSFont *)font
@@ -36,19 +37,29 @@
 -(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
 {
     NSGraphicsContext *ntx;
-    ntx = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];
+    ntx = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:YES];
     [NSGraphicsContext saveGraphicsState];
     [NSGraphicsContext setCurrentContext:ntx];
     
     NSAffineTransform *transform = [NSAffineTransform transform];
     float x = (layer.bounds.size.width - self.stringPath.bounds.size.width) / 2;
-    float y = self.stringPath.bounds.size.height / 2;
-    y = y + ((layer.bounds.size.height - self.stringPath.bounds.size.height) / 2);
+    float y = 0.0;
     [transform translateXBy:x yBy:y];
     [self.stringPath transformUsingAffineTransform:transform];
     
-    NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:[NSColor orangeColor] endingColor:[NSColor yellowColor]];
-    [gradient drawInBezierPath:self.stringPath angle:90.0];
+    if (self.gradient) {
+        [self.gradient drawInBezierPath:self.stringPath angle:90.0];
+    }
+    
+    if (self.shadow) {
+        [self.shadow set];
+    }
+    
+    if (self.strokeColor) {
+        [self.stringPath setLineWidth:self.strokeWidth];
+        [self.strokeColor set];
+        [self.stringPath stroke];
+    }
     
     [NSGraphicsContext restoreGraphicsState];
 }

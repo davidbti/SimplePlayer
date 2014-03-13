@@ -11,6 +11,10 @@
 @interface SPLBezierLayer : NSObject
 
 @property (nonatomic, copy) NSString *string;
+@property (nonatomic, copy) NSGradient *gradient;
+@property (nonatomic, copy) NSShadow *shadow;
+@property (nonatomic, assign) float strokeWidth;
+@property (nonatomic, copy) NSColor *strokeColor;
 
 -(id)initWithFont:(NSFont *)font;
 

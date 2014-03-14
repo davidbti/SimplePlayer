@@ -39,8 +39,7 @@
 @property (nonatomic, strong) SPLBezierLayer *votes1LayerDelegate;
 
 @property (nonatomic, strong) CALayer *tickerLayer;
-@property (nonatomic, strong) CATextLayer *crawlLayer;
-
+@property (nonatomic, strong) SPLBezierLayer *crawlLayerDelegate;
 
 @end
 
@@ -115,6 +114,8 @@
     [self.candidate1Bg addSublayer:self.emitter1Layer];
     
     self.candidate1BgText = [[CALayer alloc] init];
+    self.candidate1BgText.backgroundColor = [NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.5f].CGColor;
+    
     [self.candidate1BgText setFrame:CGRectMake(0, 0, self.candidate1Bg.bounds.size.width, self.candidate1Bg.bounds.size.height)];
     self.candidate1BgText.cornerRadius = 20.0;
     [self.candidate1Bg addSublayer:self.candidate1BgText];
@@ -167,6 +168,7 @@
     
     self.candidate2BgText = [[CALayer alloc] init];
     [self.candidate2BgText setFrame:CGRectMake(0, 0, self.candidate2Bg.bounds.size.width, self.candidate2Bg.bounds.size.height)];
+    self.candidate2BgText.backgroundColor = [NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.5f].CGColor;
     self.candidate2BgText.cornerRadius = 20.0;
     [self.candidate2Bg addSublayer:self.candidate2BgText];
     
@@ -201,15 +203,27 @@
     self.votes2Layer.delegate = self.votes2LayerDelegate;
     [self.candidate2BgText addSublayer:self.votes2Layer];
     
+    /*
     self.tickerLayer = [CALayer layer];
-    self.tickerLayer.frame = CGRectMake(-10, 60, bounds.size.width, 0);
+    self.tickerLayer.frame = CGRectMake(-10, 60, bounds.size.width, 60);
     [self setTickerLayerImage:@"/Users/matthewdoig/Desktop/ticker_blue_bar_darker_60.png"];
+    self.crawlLayer = [[CALayer alloc] init];
+    self.crawlLayer.frame = CGRectMake(self.tickerLayer.bounds.size.width, 0, self.tickerLayer.bounds.size.width, 60);
+    NSFont *crawlLayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:36.0];
+    self.crawlLayerDelegate = [[SPLBezierLayer alloc] initWithFont:crawlLayerFont];
+    self.crawlLayerDelegate.gradient = [[NSGradient alloc] initWithStartingColor:[NSColor orangeColor] endingColor:[NSColor yellowColor]];
+    self.crawlLayerDelegate.strokeWidth = 1.0;
+    self.crawlLayerDelegate.strokeColor = [NSColor blackColor];
+    self.crawlLayer.delegate = self.crawlLayerDelegate;
+    [self.tickerLayer addSublayer:self.crawlLayer];
+    self.crawlLayerDelegate.string = @"Twitter test crawl for campaign manager that is really really long tweet and still long";
+    [self.crawlLayer setNeedsDisplay];
+    */
     
     [self addSublayer:self.raceNameLayer];
     [self addSublayer:self.percentLayer];
     [self addSublayer:self.candidate1Bg];
     [self addSublayer:self.candidate2Bg];
-    [self addSublayer:self.tickerLayer];
     [self setFrame:bounds];
     [self setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
     [self setHidden:NO];
@@ -312,7 +326,7 @@
 -(void)update
 {
     self.percentLayer.opacity = 0.0;
-    self.tickerLayer.opacity = 0.0;
+    //self.tickerLayer.opacity = 0.0;
     [self setRaceNameLayerString:self.raceName];
     [self setPercent1LayerString:@""];
     [self setPercent2LayerString:@""];
@@ -323,7 +337,7 @@
     [self setWin1Layer:NO];
     [self setWin2Layer:NO];
     [self setVotes1LayerString:nil];
-    [self setVotes2LayerString:@""];
+    [self setVotes2LayerString:nil];
 }
 
 -(void)updateComplete
@@ -359,7 +373,7 @@
 {
     [CATransaction begin];
     [CATransaction setCompletionBlock:^{
-        [self updateCounties];
+        //TODO Social Media
     }];
     CATransition *transition = [CATransition animation];
     transition.duration = .5;
@@ -378,22 +392,6 @@
     [self setVotes1LayerString:self.candidateVotes1];
     [self setVotes2LayerString:self.candidateVotes2];
     [CATransaction commit];
-}
-
--(void)updateCounties
-{
-    if (![self.raceName isEqualToString:@"Tennessee House District 5"]) return;
-    
-    self.tickerLayer.opacity = 1.0;
-
-    CABasicAnimation *on = [CABasicAnimation animationWithKeyPath:@"bounds"];
-    on.duration = 1.0;
-    on.fromValue = [NSValue valueWithRect:NSRectFromCGRect(CGRectMake(self.tickerLayer.bounds.origin.x, self.tickerLayer.bounds.origin.y, self.tickerLayer.bounds.size.width, 0))];
-    on.toValue = [NSValue valueWithRect:NSRectFromCGRect(CGRectMake(self.tickerLayer.bounds.origin.x, self.tickerLayer.bounds.origin.y, self.tickerLayer.bounds.size.width, 60))];
-    [on setCompletion:^(BOOL finished) {
-        
-    }];
-    [self.tickerLayer spl_applyBasicAnimation:on];
 }
 
 -(void)setName1LayerString:(NSString *)string

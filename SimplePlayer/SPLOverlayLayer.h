@@ -20,6 +20,8 @@
 @property (nonatomic, strong) NSString *candidateHeadshot2;
 @property (nonatomic, assign) BOOL candidateWin2;
 
+@property (nonatomic, strong) CALayer *crawlLayer;
+
 -(void)addAnimation:(CAAnimation *)anim forKey:(NSString *)key;
 -(id)initWithBounds:(CGRect)bounds;
 -(void)update;

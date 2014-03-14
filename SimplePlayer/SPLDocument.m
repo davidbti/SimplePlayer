@@ -370,12 +370,12 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     self.overlayLayer.candidateVotes1 =@"679,340";
     self.overlayLayer.candidatePercent1 = @"37.8%";
     self.overlayLayer.candidateWin1 = NO;
-    self.overlayLayer.candidateName1 = @"ROMNEY";
+    self.overlayLayer.candidateName2 = @"ROMNEY";
     //self.overlayLayer.candidateName2 = @"Mitt Romney (R)";
     self.overlayLayer.candidateHeadshot2 = @"/Users/matthewdoig/Desktop/Romney.png";
     self.overlayLayer.candidateVotes2 =@"1,087,127";
     self.overlayLayer.candidatePercent2 = @"60.5%";
-    self.overlayLayer.candidateWin2 = NO;
+    self.overlayLayer.candidateWin2 = YES;
     [self.overlayLayer update];
     [CATransaction commit];
 }
@@ -395,7 +395,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     [self.overlayView.layer addAnimation:transition forKey:nil];
     
     self.overlayLayer.raceName = @"Tennessee House District 5";
-    self.overlayLayer.candidateName1 = @"COOPER)";
+    self.overlayLayer.candidateName1 = @"COOPER";
     //self.overlayLayer.candidateName1 = @"Jim Cooper (D)";
     self.overlayLayer.candidateHeadshot1 = @"/Users/matthewdoig/Desktop/JimDeMint.png";
     self.overlayLayer.candidateVotes1 =@"166,999";

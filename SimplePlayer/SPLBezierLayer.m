@@ -21,8 +21,9 @@
 -(void)setString:(NSString *)string
 {
     _string = string;
-    _stringPath = [NSBezierPath spl_bezierPathWithString:_string inFont:_font];
-    //[_string spl_bezierWithFont:_font];
+    if (string) {
+        _stringPath = [NSBezierPath spl_bezierPathWithString:_string inFont:_font];
+    }
 }
 
 -(id)initWithFont:(NSFont *)font
@@ -37,9 +38,13 @@
 -(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
 {
     NSGraphicsContext *ntx;
-    ntx = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:YES];
+    ntx = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx flipped:NO];
     [NSGraphicsContext saveGraphicsState];
     [NSGraphicsContext setCurrentContext:ntx];
+    
+    if (!self.string) {
+        return;
+    }
     
     NSAffineTransform *transform = [NSAffineTransform transform];
     float x = (layer.bounds.size.width - self.stringPath.bounds.size.width) / 2;

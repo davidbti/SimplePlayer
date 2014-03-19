@@ -54,23 +54,26 @@ limitations under the License.
     
     function JSDistrict1() {
         removeAllFeatures();
+        removeAllFeatures();
         addKmlFromUrl('http://googleearthhost.azurewebsites.net/CongressionalPlan2012District1.kml')
     }
     
     function JSDistrict5() {
+        removeAllFeatures();
         removeAllFeatures();
         addKmlFromUrl('http://googleearthhost.azurewebsites.net/CongressionalPlan2012District5.kml')
     }
     
     function JSPresident() {
         removeAllFeatures();
-        addKmlFromUrl('http://googleearthhost.azurewebsites.net/TN_President.kml')
+        removeAllFeatures();
+        addKmlFromUrl('http://googleearthhost.azurewebsites.net/TN_President_1.kml')
     }
     
     function removeAllFeatures() {
         var features = ge.getFeatures();
-        while (features.getLastChild() != null) {
-            features.removeChild(features.getLastChild());
+        while (features.getFirstChild() != null) {
+            features.removeChild(features.getFirstChild());
         }
     }
     

@@ -250,7 +250,7 @@
     
     CAEmitterCell * cell = [[CAEmitterCell alloc] init];
     
-    NSImage *image = [[NSImage alloc] initWithContentsOfFile:@"/Users/matthewdoig/Desktop/star_blue_20_20.png"];
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"star_blue_20_20" ofType:@"png"]];
     CGImageSourceRef source;
     source = CGImageSourceCreateWithData((__bridge CFDataRef)[image TIFFRepresentation], NULL);
     CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
@@ -293,7 +293,7 @@
     
     CAEmitterCell * cell = [[CAEmitterCell alloc] init];
     
-    NSImage *image = [[NSImage alloc] initWithContentsOfFile:@"/Users/matthewdoig/Desktop/star_red_20_20.png"];
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"star_red_20_20" ofType:@"png"]];
     CGImageSourceRef source;
     source = CGImageSourceCreateWithData((__bridge CFDataRef)[image TIFFRepresentation], NULL);
     CGImageRef maskRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);

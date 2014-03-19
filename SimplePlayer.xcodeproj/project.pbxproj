@@ -14,6 +14,15 @@
 		3B7A312E18BFD1EA00EFAC10 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE3242518BE81950041BE17 /* CoreMedia.framework */; };
 		3B7A313018BFD27C00EFAC10 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */; };
 		3B7A313318BFEBA300EFAC10 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A313218BFEBA300EFAC10 /* WebKit.framework */; };
+		3B92A18218D9DFBE00D3F368 /* AndyHarris.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A18118D9DFBE00D3F368 /* AndyHarris.png */; };
+		3B92A18818D9E00E00D3F368 /* BradEllsworth.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A18318D9E00E00D3F368 /* BradEllsworth.png */; };
+		3B92A18918D9E00E00D3F368 /* JimDeMint.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A18418D9E00E00D3F368 /* JimDeMint.png */; };
+		3B92A18A18D9E00E00D3F368 /* Obama.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A18518D9E00E00D3F368 /* Obama.png */; };
+		3B92A18B18D9E00E00D3F368 /* PeterKing.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A18618D9E00E00D3F368 /* PeterKing.png */; };
+		3B92A18C18D9E00E00D3F368 /* Romney.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A18718D9E00E00D3F368 /* Romney.png */; };
+		3B92A18E18D9E0A400D3F368 /* GoogleEarth.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A18D18D9E0A400D3F368 /* GoogleEarth.html */; };
+		3B92A19118D9E10D00D3F368 /* star_blue_20_20.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A18F18D9E10D00D3F368 /* star_blue_20_20.png */; };
+		3B92A19218D9E10D00D3F368 /* star_red_20_20.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A19018D9E10D00D3F368 /* star_red_20_20.png */; };
 		3BC3823518C784B500E457B5 /* SPLOverlayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC3823418C784B500E457B5 /* SPLOverlayLayer.m */; };
 		3BE323ED18BE7CD00041BE17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE323EC18BE7CD00041BE17 /* Cocoa.framework */; };
 		3BE323F718BE7CD00041BE17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BE323F518BE7CD00041BE17 /* InfoPlist.strings */; };
@@ -51,6 +60,15 @@
 		3B2F3A8B18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+SPLQuartzAdditions.m"; sourceTree = "<group>"; };
 		3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3B7A313218BFEBA300EFAC10 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		3B92A18118D9DFBE00D3F368 /* AndyHarris.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AndyHarris.png; sourceTree = "<group>"; };
+		3B92A18318D9E00E00D3F368 /* BradEllsworth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BradEllsworth.png; sourceTree = "<group>"; };
+		3B92A18418D9E00E00D3F368 /* JimDeMint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = JimDeMint.png; sourceTree = "<group>"; };
+		3B92A18518D9E00E00D3F368 /* Obama.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Obama.png; sourceTree = "<group>"; };
+		3B92A18618D9E00E00D3F368 /* PeterKing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PeterKing.png; sourceTree = "<group>"; };
+		3B92A18718D9E00E00D3F368 /* Romney.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Romney.png; sourceTree = "<group>"; };
+		3B92A18D18D9E0A400D3F368 /* GoogleEarth.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = GoogleEarth.html; sourceTree = "<group>"; };
+		3B92A18F18D9E10D00D3F368 /* star_blue_20_20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_blue_20_20.png; sourceTree = "<group>"; };
+		3B92A19018D9E10D00D3F368 /* star_red_20_20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_red_20_20.png; sourceTree = "<group>"; };
 		3BC3823318C784B500E457B5 /* SPLOverlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLOverlayLayer.h; sourceTree = "<group>"; };
 		3BC3823418C784B500E457B5 /* SPLOverlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLOverlayLayer.m; sourceTree = "<group>"; };
 		3BE323E918BE7CD00041BE17 /* SimplePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimplePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +133,22 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		3B92A18018D9DF3800D3F368 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3B92A18F18D9E10D00D3F368 /* star_blue_20_20.png */,
+				3B92A19018D9E10D00D3F368 /* star_red_20_20.png */,
+				3B92A18D18D9E0A400D3F368 /* GoogleEarth.html */,
+				3B92A18318D9E00E00D3F368 /* BradEllsworth.png */,
+				3B92A18418D9E00E00D3F368 /* JimDeMint.png */,
+				3B92A18518D9E00E00D3F368 /* Obama.png */,
+				3B92A18618D9E00E00D3F368 /* PeterKing.png */,
+				3B92A18718D9E00E00D3F368 /* Romney.png */,
+				3B92A18118D9DFBE00D3F368 /* AndyHarris.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		3BE323E018BE7CD00041BE17 = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +205,7 @@
 				3BE3240418BE7CD00041BE17 /* MainMenu.xib */,
 				3BE3240718BE7CD00041BE17 /* Images.xcassets */,
 				3B1B285A18CF49E7000E1ACF /* Extensions */,
+				3B92A18018D9DF3800D3F368 /* Resources */,
 				3BE323F318BE7CD00041BE17 /* Supporting Files */,
 			);
 			path = SimplePlayer;
@@ -283,11 +318,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B92A18818D9E00E00D3F368 /* BradEllsworth.png in Resources */,
+				3B92A18918D9E00E00D3F368 /* JimDeMint.png in Resources */,
 				3BE323F718BE7CD00041BE17 /* InfoPlist.strings in Resources */,
+				3B92A18B18D9E00E00D3F368 /* PeterKing.png in Resources */,
+				3B92A18E18D9E0A400D3F368 /* GoogleEarth.html in Resources */,
+				3B92A19218D9E10D00D3F368 /* star_red_20_20.png in Resources */,
 				3BE3240818BE7CD00041BE17 /* Images.xcassets in Resources */,
+				3B92A18218D9DFBE00D3F368 /* AndyHarris.png in Resources */,
+				3B92A18A18D9E00E00D3F368 /* Obama.png in Resources */,
 				3BE323FD18BE7CD00041BE17 /* Credits.rtf in Resources */,
+				3B92A19118D9E10D00D3F368 /* star_blue_20_20.png in Resources */,
 				3BE3240318BE7CD00041BE17 /* SPLDocument.xib in Resources */,
 				3BE3240618BE7CD00041BE17 /* MainMenu.xib in Resources */,
+				3B92A18C18D9E00E00D3F368 /* Romney.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

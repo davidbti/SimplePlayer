@@ -8,6 +8,7 @@
 
 #import "SPLDocument.h"
 #import "SPLOverlayLayer.h"
+#import "GLEssentialsGLView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <WebKit/WebKit.h>
 
@@ -20,6 +21,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 @property (nonatomic, strong) AVMutableComposition *composition;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
+@property (nonatomic, strong) GLEssentialsGLView *glView;
 @property (nonatomic, strong) WebView *mapView;
 @property (nonatomic, strong) SPLOverlayLayer *overlayLayer;
 @property (nonatomic, strong) NSView *overlayView;
@@ -129,7 +131,10 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
                                                      name:WebViewProgressFinishedNotification
                                                    object:self.mapView];
         [[self.mapView mainFrame] loadRequest:request];
-        [self.playerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.playerView];
+        //[self.playerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.playerView];
+        
+        self.glView = [[GLEssentialsGLView alloc] initWithFrame:frame];
+        [self.playerView addSubview:self.glView positioned:NSWindowAbove relativeTo:self.playerView];
         
         self.overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
         self.overlayLayer = [[SPLOverlayLayer alloc] initWithBounds:self.playerView.layer.bounds];
@@ -353,6 +358,36 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 
 - (IBAction)showPresident:(id)sender
 {
+    [[self.mapView windowScriptObject] callWebScriptMethod:@"JSPresident"
+                                             withArguments:@[]];
+    
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.overlayLayer updateComplete];
+    }];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.5;
+    transition.type = kCATransitionFade;
+    [self.overlayView.layer addAnimation:transition forKey:nil];
+    
+    self.overlayLayer.raceName = @"Tennessee President";
+    self.overlayLayer.candidateName1 = @"OBAMA";
+    //self.overlayLayer.candidateName1 = @"Barack Obama (D)";
+    self.overlayLayer.candidateHeadshot1 = [[NSBundle mainBundle] pathForResource:@"Obama" ofType:@"png"];
+    self.overlayLayer.candidateVotes1 =@"679,340";
+    self.overlayLayer.candidatePercent1 = @"37.8%";
+    self.overlayLayer.candidateWin1 = NO;
+    self.overlayLayer.candidateName2 = @"ROMNEY";
+    //self.overlayLayer.candidateName2 = @"Mitt Romney (R)";
+    self.overlayLayer.candidateHeadshot2 = [[NSBundle mainBundle] pathForResource:@"Romney" ofType:@"png"];
+    self.overlayLayer.candidateVotes2 =@"1,087,127";
+    self.overlayLayer.candidatePercent2 = @"60.5%";
+    self.overlayLayer.candidateWin2 = YES;
+    [self.overlayLayer update];
+    [CATransaction commit];
+}
+
+- (IBAction)showPres3D:(id)sender {
     [[self.mapView windowScriptObject] callWebScriptMethod:@"JSPresident"
                                              withArguments:@[]];
     

@@ -19,4 +19,5 @@
 @property (weak) IBOutlet NSButton *fastForwardButton;
 @property (weak) IBOutlet NSButton *rewindButton;
 @property (weak) IBOutlet NSButton *presidentButton;
+@property (weak) IBOutlet NSButton *pres3dButton;
 @end

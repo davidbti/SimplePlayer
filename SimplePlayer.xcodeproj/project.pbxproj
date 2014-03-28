@@ -10,6 +10,19 @@
 		3B1B285D18CF4A40000E1ACF /* CALayer+SPLAnimationAdditons.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1B285C18CF4A40000E1ACF /* CALayer+SPLAnimationAdditons.m */; };
 		3B1B286318CF58BA000E1ACF /* CAAnimation+SPLBlockAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1B286218CF58BA000E1ACF /* CAAnimation+SPLBlockAdditions.m */; };
 		3B24526C18CA155D00FE9566 /* SPLBezierLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B24526B18CA155D00FE9566 /* SPLBezierLayer.m */; };
+		3B2E27BC18E5BDA800F593AC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2E27BB18E5BDA800F593AC /* OpenGL.framework */; };
+		3B2E27BE18E5BE5D00F593AC /* libassimp.3.0.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2E27BD18E5BE5D00F593AC /* libassimp.3.0.1.dylib */; };
+		3B2E27C518E5C04D00F593AC /* shade.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27C318E5C04D00F593AC /* shade.fsh */; };
+		3B2E27C618E5C04D00F593AC /* shade.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27C418E5C04D00F593AC /* shade.vsh */; };
+		3B2E27CB18E5C13600F593AC /* GLEssentialsGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27C818E5C13600F593AC /* GLEssentialsGLView.m */; };
+		3B2E27CC18E5C13600F593AC /* OpenShadeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27CA18E5C13600F593AC /* OpenShadeRenderer.mm */; };
+		3B2E27D218E5C1BA00F593AC /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27CE18E5C1BA00F593AC /* camera.cpp */; };
+		3B2E27D318E5C1BA00F593AC /* objloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27D018E5C1BA00F593AC /* objloader.cpp */; };
+		3B2E27D818E5C1DB00F593AC /* imageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27D518E5C1DB00F593AC /* imageUtil.m */; };
+		3B2E27D918E5C1DB00F593AC /* modelUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27D618E5C1DB00F593AC /* modelUtil.c */; };
+		3B2E27DD18E5CA8400F593AC /* sourceUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27DB18E5CA8400F593AC /* sourceUtil.c */; };
+		3B2E27E018E5CDB400F593AC /* cube.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27DE18E5CDB400F593AC /* cube.png */; };
+		3B2E27E118E5CDB400F593AC /* tn1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27DF18E5CDB400F593AC /* tn1.obj */; };
 		3B2F3A8C18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F3A8B18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m */; };
 		3B7A312E18BFD1EA00EFAC10 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE3242518BE81950041BE17 /* CoreMedia.framework */; };
 		3B7A313018BFD27C00EFAC10 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */; };
@@ -56,6 +69,28 @@
 		3B1B286218CF58BA000E1ACF /* CAAnimation+SPLBlockAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+SPLBlockAdditions.m"; sourceTree = "<group>"; };
 		3B24526A18CA155D00FE9566 /* SPLBezierLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLBezierLayer.h; sourceTree = "<group>"; };
 		3B24526B18CA155D00FE9566 /* SPLBezierLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLBezierLayer.m; sourceTree = "<group>"; };
+		3B2E27BB18E5BDA800F593AC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		3B2E27BD18E5BE5D00F593AC /* libassimp.3.0.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.0.1.dylib; path = ../../../../../usr/local/lib/libassimp.3.0.1.dylib; sourceTree = "<group>"; };
+		3B2E27C018E5BF5900F593AC /* glm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = glm.hpp; sourceTree = "<group>"; };
+		3B2E27C318E5C04D00F593AC /* shade.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shade.fsh; sourceTree = "<group>"; };
+		3B2E27C418E5C04D00F593AC /* shade.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shade.vsh; sourceTree = "<group>"; };
+		3B2E27C718E5C13600F593AC /* GLEssentialsGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLEssentialsGLView.h; sourceTree = "<group>"; };
+		3B2E27C818E5C13600F593AC /* GLEssentialsGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLEssentialsGLView.m; sourceTree = "<group>"; };
+		3B2E27C918E5C13600F593AC /* OpenShadeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenShadeRenderer.h; sourceTree = "<group>"; };
+		3B2E27CA18E5C13600F593AC /* OpenShadeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenShadeRenderer.mm; sourceTree = "<group>"; };
+		3B2E27CE18E5C1BA00F593AC /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
+		3B2E27CF18E5C1BA00F593AC /* camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = camera.hpp; sourceTree = "<group>"; };
+		3B2E27D018E5C1BA00F593AC /* objloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = objloader.cpp; sourceTree = "<group>"; };
+		3B2E27D118E5C1BA00F593AC /* objloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = objloader.hpp; sourceTree = "<group>"; };
+		3B2E27D418E5C1DB00F593AC /* imageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageUtil.h; sourceTree = "<group>"; };
+		3B2E27D518E5C1DB00F593AC /* imageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imageUtil.m; sourceTree = "<group>"; };
+		3B2E27D618E5C1DB00F593AC /* modelUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = modelUtil.c; sourceTree = "<group>"; };
+		3B2E27D718E5C1DB00F593AC /* modelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modelUtil.h; sourceTree = "<group>"; };
+		3B2E27DA18E5C1EE00F593AC /* glUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glUtil.h; sourceTree = "<group>"; };
+		3B2E27DB18E5CA8400F593AC /* sourceUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sourceUtil.c; sourceTree = "<group>"; };
+		3B2E27DC18E5CA8400F593AC /* sourceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sourceUtil.h; sourceTree = "<group>"; };
+		3B2E27DE18E5CDB400F593AC /* cube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cube.png; sourceTree = "<group>"; };
+		3B2E27DF18E5CDB400F593AC /* tn1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tn1.obj; sourceTree = "<group>"; };
 		3B2F3A8A18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+SPLQuartzAdditions.h"; sourceTree = "<group>"; };
 		3B2F3A8B18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+SPLQuartzAdditions.m"; sourceTree = "<group>"; };
 		3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -100,10 +135,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B2E27BC18E5BDA800F593AC /* OpenGL.framework in Frameworks */,
 				3B7A313318BFEBA300EFAC10 /* WebKit.framework in Frameworks */,
 				3B7A313018BFD27C00EFAC10 /* QuartzCore.framework in Frameworks */,
 				3B7A312E18BFD1EA00EFAC10 /* CoreMedia.framework in Frameworks */,
 				3BE3242418BE7ED80041BE17 /* AVFoundation.framework in Frameworks */,
+				3B2E27BE18E5BE5D00F593AC /* libassimp.3.0.1.dylib in Frameworks */,
 				3BE323ED18BE7CD00041BE17 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,9 +170,47 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		3B2E27BF18E5BEC000F593AC /* Glm */ = {
+			isa = PBXGroup;
+			children = (
+				3B2E27C018E5BF5900F593AC /* glm.hpp */,
+			);
+			name = Glm;
+			path = SimplePlayer/Glm;
+			sourceTree = "<group>";
+		};
+		3B2E27C218E5BFD400F593AC /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				3B2E27C418E5C04D00F593AC /* shade.vsh */,
+				3B2E27C318E5C04D00F593AC /* shade.fsh */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+		3B2E27CD18E5C17300F593AC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3B2E27CE18E5C1BA00F593AC /* camera.cpp */,
+				3B2E27CF18E5C1BA00F593AC /* camera.hpp */,
+				3B2E27D018E5C1BA00F593AC /* objloader.cpp */,
+				3B2E27D118E5C1BA00F593AC /* objloader.hpp */,
+				3B2E27DA18E5C1EE00F593AC /* glUtil.h */,
+				3B2E27D418E5C1DB00F593AC /* imageUtil.h */,
+				3B2E27D518E5C1DB00F593AC /* imageUtil.m */,
+				3B2E27D618E5C1DB00F593AC /* modelUtil.c */,
+				3B2E27D718E5C1DB00F593AC /* modelUtil.h */,
+				3B2E27DB18E5CA8400F593AC /* sourceUtil.c */,
+				3B2E27DC18E5CA8400F593AC /* sourceUtil.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		3B92A18018D9DF3800D3F368 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3B2E27DE18E5CDB400F593AC /* cube.png */,
+				3B2E27DF18E5CDB400F593AC /* tn1.obj */,
 				3B92A18F18D9E10D00D3F368 /* star_blue_20_20.png */,
 				3B92A19018D9E10D00D3F368 /* star_red_20_20.png */,
 				3B92A18D18D9E0A400D3F368 /* GoogleEarth.html */,
@@ -154,6 +229,7 @@
 			children = (
 				3BE323F218BE7CD00041BE17 /* SimplePlayer */,
 				3BE3241318BE7CD00041BE17 /* SimplePlayerTests */,
+				3B2E27BF18E5BEC000F593AC /* Glm */,
 				3BE323EB18BE7CD00041BE17 /* Frameworks */,
 				3BE323EA18BE7CD00041BE17 /* Products */,
 			);
@@ -171,6 +247,8 @@
 		3BE323EB18BE7CD00041BE17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B2E27BD18E5BE5D00F593AC /* libassimp.3.0.1.dylib */,
+				3B2E27BB18E5BDA800F593AC /* OpenGL.framework */,
 				3B7A313218BFEBA300EFAC10 /* WebKit.framework */,
 				3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */,
 				3BE3242518BE81950041BE17 /* CoreMedia.framework */,
@@ -195,6 +273,10 @@
 		3BE323F218BE7CD00041BE17 /* SimplePlayer */ = {
 			isa = PBXGroup;
 			children = (
+				3B2E27C718E5C13600F593AC /* GLEssentialsGLView.h */,
+				3B2E27C818E5C13600F593AC /* GLEssentialsGLView.m */,
+				3B2E27C918E5C13600F593AC /* OpenShadeRenderer.h */,
+				3B2E27CA18E5C13600F593AC /* OpenShadeRenderer.mm */,
 				3B24526A18CA155D00FE9566 /* SPLBezierLayer.h */,
 				3B24526B18CA155D00FE9566 /* SPLBezierLayer.m */,
 				3BE323FE18BE7CD00041BE17 /* SPLDocument.h */,
@@ -206,7 +288,9 @@
 				3BE3240718BE7CD00041BE17 /* Images.xcassets */,
 				3B1B285A18CF49E7000E1ACF /* Extensions */,
 				3B92A18018D9DF3800D3F368 /* Resources */,
+				3B2E27C218E5BFD400F593AC /* Shaders */,
 				3BE323F318BE7CD00041BE17 /* Supporting Files */,
+				3B2E27CD18E5C17300F593AC /* Utils */,
 			);
 			path = SimplePlayer;
 			sourceTree = "<group>";
@@ -323,13 +407,17 @@
 				3BE323F718BE7CD00041BE17 /* InfoPlist.strings in Resources */,
 				3B92A18B18D9E00E00D3F368 /* PeterKing.png in Resources */,
 				3B92A18E18D9E0A400D3F368 /* GoogleEarth.html in Resources */,
+				3B2E27E018E5CDB400F593AC /* cube.png in Resources */,
 				3B92A19218D9E10D00D3F368 /* star_red_20_20.png in Resources */,
 				3BE3240818BE7CD00041BE17 /* Images.xcassets in Resources */,
 				3B92A18218D9DFBE00D3F368 /* AndyHarris.png in Resources */,
 				3B92A18A18D9E00E00D3F368 /* Obama.png in Resources */,
 				3BE323FD18BE7CD00041BE17 /* Credits.rtf in Resources */,
+				3B2E27C518E5C04D00F593AC /* shade.fsh in Resources */,
 				3B92A19118D9E10D00D3F368 /* star_blue_20_20.png in Resources */,
 				3BE3240318BE7CD00041BE17 /* SPLDocument.xib in Resources */,
+				3B2E27C618E5C04D00F593AC /* shade.vsh in Resources */,
+				3B2E27E118E5CDB400F593AC /* tn1.obj in Resources */,
 				3BE3240618BE7CD00041BE17 /* MainMenu.xib in Resources */,
 				3B92A18C18D9E00E00D3F368 /* Romney.png in Resources */,
 			);
@@ -350,13 +438,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B2E27CC18E5C13600F593AC /* OpenShadeRenderer.mm in Sources */,
 				3BC3823518C784B500E457B5 /* SPLOverlayLayer.m in Sources */,
 				3B2F3A8C18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m in Sources */,
 				3B1B286318CF58BA000E1ACF /* CAAnimation+SPLBlockAdditions.m in Sources */,
+				3B2E27D218E5C1BA00F593AC /* camera.cpp in Sources */,
+				3B2E27CB18E5C13600F593AC /* GLEssentialsGLView.m in Sources */,
 				3BE3240018BE7CD00041BE17 /* SPLDocument.m in Sources */,
+				3B2E27D918E5C1DB00F593AC /* modelUtil.c in Sources */,
+				3B2E27DD18E5CA8400F593AC /* sourceUtil.c in Sources */,
 				3BE323F918BE7CD00041BE17 /* main.m in Sources */,
 				3B1B285D18CF4A40000E1ACF /* CALayer+SPLAnimationAdditons.m in Sources */,
 				3B24526C18CA155D00FE9566 /* SPLBezierLayer.m in Sources */,
+				3B2E27D318E5C1BA00F593AC /* objloader.cpp in Sources */,
+				3B2E27D818E5C1DB00F593AC /* imageUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,7 +592,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplePlayer/SimplePlayer-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include,
+				);
 				INFOPLIST_FILE = "SimplePlayer/SimplePlayer-Info.plist";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -510,7 +611,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplePlayer/SimplePlayer-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include,
+				);
 				INFOPLIST_FILE = "SimplePlayer/SimplePlayer-Info.plist";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

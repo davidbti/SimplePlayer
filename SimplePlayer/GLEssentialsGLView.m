@@ -46,7 +46,7 @@
  */
 
 #import "GLEssentialsGLView.h"
-#import "OpenShadeRenderer.h"
+#import "OpenMapRenderer.h"
 
 #define SUPPORT_RETINA_RESOLUTION 1
 
@@ -58,7 +58,7 @@
 
 @implementation GLEssentialsGLView
 
-OpenShadeRenderer* m_renderer;
+OpenMapRenderer* m_renderer;
 double hostTimeFrequency;
 float currentTime;
 
@@ -223,7 +223,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 	
 	// Init our renderer.  Use 0 for the defaultFBO which is appropriate for
 	// OSX (but not iOS since iOS apps must create their own FBO)
-	m_renderer = [[OpenShadeRenderer alloc] initWithDefaultFBO:0];
+	m_renderer = [[OpenMapRenderer alloc] initWithDefaultFBO:0];
 }
 
 - (void) reshape

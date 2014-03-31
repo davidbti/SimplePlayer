@@ -57,4 +57,7 @@
 	CVDisplayLinkRef displayLink;
 }
 
+- (void) initCA;
+- (void) initTN;
+
 @end

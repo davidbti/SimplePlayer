@@ -23,6 +23,9 @@
 		3B2E27DD18E5CA8400F593AC /* sourceUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27DB18E5CA8400F593AC /* sourceUtil.c */; };
 		3B2E27E018E5CDB400F593AC /* cube.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27DE18E5CDB400F593AC /* cube.png */; };
 		3B2E27E118E5CDB400F593AC /* tn1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27DF18E5CDB400F593AC /* tn1.obj */; };
+		3B2E27F018E9EEA200F593AC /* ca1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27EF18E9EEA200F593AC /* ca1.obj */; };
+		3B2E27F218E9F45E00F593AC /* redblue_128.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27F118E9F45E00F593AC /* redblue_128.png */; };
+		3B2E27F418E9F54B00F593AC /* tn3.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27F318E9F54B00F593AC /* tn3.obj */; };
 		3B2F3A8C18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F3A8B18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m */; };
 		3B7A312E18BFD1EA00EFAC10 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE3242518BE81950041BE17 /* CoreMedia.framework */; };
 		3B7A313018BFD27C00EFAC10 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */; };
@@ -91,6 +94,9 @@
 		3B2E27DC18E5CA8400F593AC /* sourceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sourceUtil.h; sourceTree = "<group>"; };
 		3B2E27DE18E5CDB400F593AC /* cube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cube.png; sourceTree = "<group>"; };
 		3B2E27DF18E5CDB400F593AC /* tn1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tn1.obj; sourceTree = "<group>"; };
+		3B2E27EF18E9EEA200F593AC /* ca1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ca1.obj; sourceTree = "<group>"; };
+		3B2E27F118E9F45E00F593AC /* redblue_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redblue_128.png; sourceTree = "<group>"; };
+		3B2E27F318E9F54B00F593AC /* tn3.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tn3.obj; sourceTree = "<group>"; };
 		3B2F3A8A18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+SPLQuartzAdditions.h"; sourceTree = "<group>"; };
 		3B2F3A8B18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+SPLQuartzAdditions.m"; sourceTree = "<group>"; };
 		3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -209,6 +215,9 @@
 		3B92A18018D9DF3800D3F368 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3B2E27F318E9F54B00F593AC /* tn3.obj */,
+				3B2E27F118E9F45E00F593AC /* redblue_128.png */,
+				3B2E27EF18E9EEA200F593AC /* ca1.obj */,
 				3B2E27DE18E5CDB400F593AC /* cube.png */,
 				3B2E27DF18E5CDB400F593AC /* tn1.obj */,
 				3B92A18F18D9E10D00D3F368 /* star_blue_20_20.png */,
@@ -408,17 +417,20 @@
 				3B92A18B18D9E00E00D3F368 /* PeterKing.png in Resources */,
 				3B92A18E18D9E0A400D3F368 /* GoogleEarth.html in Resources */,
 				3B2E27E018E5CDB400F593AC /* cube.png in Resources */,
+				3B2E27F418E9F54B00F593AC /* tn3.obj in Resources */,
 				3B92A19218D9E10D00D3F368 /* star_red_20_20.png in Resources */,
 				3BE3240818BE7CD00041BE17 /* Images.xcassets in Resources */,
 				3B92A18218D9DFBE00D3F368 /* AndyHarris.png in Resources */,
 				3B92A18A18D9E00E00D3F368 /* Obama.png in Resources */,
 				3BE323FD18BE7CD00041BE17 /* Credits.rtf in Resources */,
+				3B2E27F218E9F45E00F593AC /* redblue_128.png in Resources */,
 				3B2E27C518E5C04D00F593AC /* shade.fsh in Resources */,
 				3B92A19118D9E10D00D3F368 /* star_blue_20_20.png in Resources */,
 				3BE3240318BE7CD00041BE17 /* SPLDocument.xib in Resources */,
 				3B2E27C618E5C04D00F593AC /* shade.vsh in Resources */,
 				3B2E27E118E5CDB400F593AC /* tn1.obj in Resources */,
 				3BE3240618BE7CD00041BE17 /* MainMenu.xib in Resources */,
+				3B2E27F018E9EEA200F593AC /* ca1.obj in Resources */,
 				3B92A18C18D9E00E00D3F368 /* Romney.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

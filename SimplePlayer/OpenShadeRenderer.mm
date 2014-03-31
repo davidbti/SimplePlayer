@@ -71,6 +71,11 @@ enum {
 
     @property (nonatomic, assign) GLboolean useVBOs;
 
+    @property (nonatomic, assign) float transitionTime;
+
+    @property (nonatomic, assign) float canRender;
+
+
 @end
 
 @implementation OpenShadeRenderer
@@ -89,8 +94,95 @@ Camera shdcamera;
 	self.viewHeight = height;
 }
 
+- (void) initCA
+{
+    self.canRender = NO;
+    
+    ////////////////////////////////////////////////
+    // Set up camera state that will never change //
+    ////////////////////////////////////////////////
+    
+    shdcamera.setFieldOfView(45.0f);
+    shdcamera.setNearAndFarPlanes(0.1f, 1.0f);
+    shdcamera.setPosition(glm::vec3(0.1,0.1,0.1));
+    shdcamera.lookAt(glm::vec3(0,0,0));
+    
+    //////////////////////////////
+    // Load our character model //
+    //////////////////////////////
+    
+    shdPositions.clear();
+    shdTexcoords.clear();
+    shdNormals.clear();
+    shdElements.clear();
+    
+    NSString* filePathName = nil;
+    
+    filePathName = [[NSBundle mainBundle] pathForResource:@"ca1" ofType:@"obj"];
+    const char * path = [filePathName cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    // Read our .obj file
+    bool res = loadAssImp(path, shdElements, shdPositions, shdTexcoords, shdNormals);
+    if(!res)
+    {
+        NSLog(@"Could not load obj file");
+    }
+    
+    // Build Vertex Buffer Objects (VBOs) and Vertex Array Object (VAOs) with our model data
+    self.characterVAOName = [self buildVAO];
+    
+    self.startTime = nil;
+    
+    self.canRender = YES;
+}
+
+- (void) initTN
+{
+    self.canRender = NO;
+    
+    ////////////////////////////////////////////////
+    // Set up camera state that will never change //
+    ////////////////////////////////////////////////
+    
+    shdcamera.setFieldOfView(45.0f);
+    shdcamera.setNearAndFarPlanes(0.01f, 1.0f);
+    shdcamera.setPosition(glm::vec3(0.075,0.075,0.075));
+    shdcamera.lookAt(glm::vec3(0,0,0));
+    
+    //////////////////////////////
+    // Load our character model //
+    //////////////////////////////
+    
+    shdPositions.clear();
+    shdTexcoords.clear();
+    shdNormals.clear();
+    shdElements.clear();
+    
+    NSString* filePathName = nil;
+    
+    filePathName = [[NSBundle mainBundle] pathForResource:@"tn3" ofType:@"obj"];
+    const char * path = [filePathName cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    // Read our .obj file
+    bool res = loadAssImp(path, shdElements, shdPositions, shdTexcoords, shdNormals);
+    if(!res)
+    {
+        NSLog(@"Could not load obj file");
+    }
+    
+    // Build Vertex Buffer Objects (VBOs) and Vertex Array Object (VAOs) with our model data
+    self.characterVAOName = [self buildVAO];
+    
+    self.startTime = nil;
+    
+    self.canRender = YES;
+}
+
+
 - (void) render
 {
+    if (!self.canRender) return;
+    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	// Use the program for rendering our character
@@ -100,15 +192,9 @@ Camera shdcamera;
     glm::mat4 model      = glm::mat4(1.0f);  // Changes for each model !
     
     shdcamera.setViewportAspectRatio((float)self.viewWidth / (float)self.viewHeight);
-    if (shdcamera.position().y < 126) {
-        shdcamera.offsetPosition(0.3f * -shdcamera.right());
-        shdcamera.offsetPosition(0.2f * shdcamera.up());
-        shdcamera.offsetPosition(0.005f * -shdcamera.forward());
-        shdcamera.lookAt(glm::vec3(0,0,0));
-    } else {
-        shdcamera.offsetPosition(0.3f * -shdcamera.right());
-        shdcamera.lookAt(glm::vec3(0,0,0));
-    }
+    
+    shdcamera.offsetPosition(.0005f * -shdcamera.right());
+    shdcamera.lookAt(glm::vec3(0,0,0));
     
     glm::mat4 mvp        = shdcamera.matrix() * model;
     
@@ -119,6 +205,7 @@ Camera shdcamera;
     glUniformMatrix4fv(self.viewlUniformIdx, 1, GL_FALSE, &view[0][0]);
     
     glm::vec3 lightPos = glm::vec3(-152,260,-5.8);
+    
     glUniform3f(self.lightUniformIdx, lightPos.x, lightPos.y, lightPos.z);
 	
     // Bind the texture to be used
@@ -130,27 +217,6 @@ Camera shdcamera;
     glDrawElements(GL_TRIANGLES, shdElements.size(), GL_UNSIGNED_SHORT, 0);
     
     self.characterAngle--;
-}
-
-static GLsizei GetGLTypeSize(GLenum type)
-{
-	switch (type) {
-		case GL_BYTE:
-			return sizeof(GLbyte);
-		case GL_UNSIGNED_BYTE:
-			return sizeof(GLubyte);
-		case GL_SHORT:
-			return sizeof(GLshort);
-		case GL_UNSIGNED_SHORT:
-			return sizeof(GLushort);
-		case GL_INT:
-			return sizeof(GLint);
-		case GL_UNSIGNED_INT:
-			return sizeof(GLuint);
-		case GL_FLOAT:
-			return sizeof(GLfloat);
-	}
-	return 0;
 }
 
 - (GLuint) buildVAO
@@ -172,9 +238,6 @@ static GLsizei GetGLTypeSize(GLenum type)
     
     // Enable the position attribute for this VAO
     glEnableVertexAttribArray(POS_ATTRIB_IDX);
-    
-    // Get the size of the position type so we can set the stride properly
-    //GLsizei posTypeSize = GetGLTypeSize(GL_FLOAT);
     
     // Set up parmeters for position attribute in the VAO including,
     //  size, type, stride, and offset in the currenly bound VAO
@@ -198,9 +261,6 @@ static GLsizei GetGLTypeSize(GLenum type)
     // Enable the position attribute for this VAO
     glEnableVertexAttribArray(TEXCOORD_ATTRIB_IDX);
     
-    // Get the size of the position type so we can set the stride properly
-    //GLsizei posTypeSize = GetGLTypeSize(GL_FLOAT);
-    
     // Set up parmeters for position attribute in the VAO including,
     //  size, type, stride, and offset in the currenly bound VAO
     // This also attaches the position VBO to the VAO
@@ -222,9 +282,6 @@ static GLsizei GetGLTypeSize(GLenum type)
     
     // Enable the normal attribute for this VAO
     glEnableVertexAttribArray(NORMAL_ATTRIB_IDX);
-    
-    // Get the size of the normal type so we can set the stride properly
-    //GLsizei normalTypeSize = GetGLTypeSize(GL_FLOAT);
     
     // Set up parmeters for position attribute in the VAO including,
     //   size, type, stride, and offset in the currenly bound VAO
@@ -530,7 +587,7 @@ static GLsizei GetGLTypeSize(GLenum type)
 		// Load our character model //
 		//////////////////////////////
         
-        filePathName = [[NSBundle mainBundle] pathForResource:@"tn1" ofType:@"obj"];
+        filePathName = [[NSBundle mainBundle] pathForResource:@"tn3" ofType:@"obj"];
         const char * path = [filePathName cStringUsingEncoding:NSASCIIStringEncoding];
         
         // Read our .obj file
@@ -547,7 +604,7 @@ static GLsizei GetGLTypeSize(GLenum type)
 		// Load texture for our character //
 		////////////////////////////////////
 		
-		filePathName = [[NSBundle mainBundle] pathForResource:@"cube" ofType:@"png"];
+		filePathName = [[NSBundle mainBundle] pathForResource:@"redblue_128" ofType:@"png"];
 		demoImage *image = imgLoadImage([filePathName cStringUsingEncoding:NSASCIIStringEncoding], false);
 		
 		// Build a texture object with our image data
@@ -597,15 +654,6 @@ static GLsizei GetGLTypeSize(GLenum type)
 			NSLog(@"No light in camera shader");
 		}
         
-        ////////////////////////////////////////////////
-		// Set up camera state that will never change //
-		////////////////////////////////////////////////
-		
-        shdcamera.setFieldOfView(45.0f);
-        shdcamera.setNearAndFarPlanes(0.1f, 1000.0f);
-        shdcamera.setPosition(glm::vec3(7,11,150));
-        shdcamera.lookAt(glm::vec3(0,0,0));
-
         ////////////////////////////////////////////////
 		// Set up OpenGL state that will never change //
 		////////////////////////////////////////////////

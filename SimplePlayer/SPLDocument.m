@@ -115,31 +115,6 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
         [self.playerView.layer addSublayer:newPlayerLayer];
         self.PlayerLayer = newPlayerLayer;
         [self addObserver:self forKeyPath:@"playerLayer.readyForDisplay" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:AVSPPlayerLayerReadyForDisplay];
-        
-        NSRect frame;
-        frame.origin.x = 206;
-        frame.origin.y = 45;
-        frame.size.width = 878;
-        frame.size.height = 500;
-        self.mapView = [[WebView alloc] initWithFrame:frame];
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"GoogleEarth" ofType:@"html"];
-        NSString *urlPath = [NSString stringWithFormat:@"%@%@%@", @"file://", path, @"#geplugin_browserok"];
-        NSURL *webURL = [NSURL URLWithString:urlPath];
-        NSURLRequest *request = [NSURLRequest requestWithURL:webURL];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(mapViewFinishedLoading:)
-                                                     name:WebViewProgressFinishedNotification
-                                                   object:self.mapView];
-        [[self.mapView mainFrame] loadRequest:request];
-        //[self.playerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.playerView];
-        
-        self.glView = [[GLEssentialsGLView alloc] initWithFrame:frame];
-        [self.playerView addSubview:self.glView positioned:NSWindowAbove relativeTo:self.playerView];
-        
-        self.overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
-        self.overlayLayer = [[SPLOverlayLayer alloc] initWithBounds:self.playerView.layer.bounds];
-        self.overlayView.layer = self.overlayLayer;
-        [self.playerView addSubview:self.overlayView positioned:NSWindowAbove relativeTo:self.mapView];
     }
 	else
 	{
@@ -166,6 +141,37 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     [self setTimeObserverToken:[[self player] addPeriodicTimeObserverForInterval:CMTimeMake(1, 10) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             [[self timeSlider] setDoubleValue:CMTimeGetSeconds(time)];
 	}]];
+}
+
+- (void)setUpVideoOverlay
+{
+    NSRect frame;
+    frame.origin.x = 206;
+    frame.origin.y = 45;
+    frame.size.width = 878;
+    frame.size.height = 500;
+    self.mapView = [[WebView alloc] initWithFrame:frame];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"GoogleEarth" ofType:@"html"];
+    NSString *urlPath = [NSString stringWithFormat:@"%@%@%@", @"file://", path, @"#geplugin_browserok"];
+    NSURL *webURL = [NSURL URLWithString:urlPath];
+    NSURLRequest *request = [NSURLRequest requestWithURL:webURL];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mapViewFinishedLoading:)
+                                                 name:WebViewProgressFinishedNotification
+                                               object:self.mapView];
+    [[self.mapView mainFrame] loadRequest:request];
+    
+    self.glView = [[GLEssentialsGLView alloc] initWithFrame:frame];
+    [self.glView setHidden:YES];
+    [self.playerView addSubview:self.glView positioned:NSWindowAbove relativeTo:self.playerView];
+    
+    [self.mapView setHidden:YES];
+    [self.playerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.glView];
+    
+    self.overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
+    self.overlayLayer = [[SPLOverlayLayer alloc] initWithBounds:self.playerView.layer.bounds];
+    self.overlayView.layer = self.overlayLayer;
+    [self.playerView addSubview:self.overlayView positioned:NSWindowAbove relativeTo:self.mapView];
 }
 
 - (void)mapViewFinishedLoading:(NSNotification *)notification {
@@ -307,6 +313,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		if ([self currentTime] == [self duration])
 			[self setCurrentTime:0.f];
 		[[self player] play];
+        [self setUpVideoOverlay];
 	}
 	else
 	{
@@ -328,6 +335,9 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 
 - (IBAction)showDistrict1:(id)sender
 {
+    [self.mapView setHidden:NO];
+    [self.glView setHidden:YES];
+    
     [[self.mapView windowScriptObject] callWebScriptMethod:@"JSDistrict1"
                                              withArguments:@[]];
     [CATransaction begin];
@@ -358,6 +368,9 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 
 - (IBAction)showPresident:(id)sender
 {
+    [self.mapView setHidden:NO];
+    [self.glView setHidden:YES];
+    
     [[self.mapView windowScriptObject] callWebScriptMethod:@"JSPresident"
                                              withArguments:@[]];
     
@@ -387,9 +400,12 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     [CATransaction commit];
 }
 
-- (IBAction)showPres3D:(id)sender {
-    [[self.mapView windowScriptObject] callWebScriptMethod:@"JSPresident"
-                                             withArguments:@[]];
+- (IBAction)showPres3D:(id)sender
+{
+    [self.mapView setHidden:YES];
+    [self.glView setHidden:NO];
+    
+    [self.glView initTN];
     
     [CATransaction begin];
     [CATransaction setCompletionBlock:^{
@@ -413,12 +429,47 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     self.overlayLayer.candidateVotes2 =@"1,087,127";
     self.overlayLayer.candidatePercent2 = @"60.5%";
     self.overlayLayer.candidateWin2 = YES;
+    [self.overlayLayer update];
+    [CATransaction commit];
+}
+- (IBAction)showPRCA:(id)sender
+{
+    [self.mapView setHidden:YES];
+    [self.glView setHidden:NO];
+    
+    [self.glView initCA];
+    
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.overlayLayer updateComplete];
+    }];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.5;
+    transition.type = kCATransitionFade;
+    [self.overlayView.layer addAnimation:transition forKey:nil];
+    
+    self.overlayLayer.raceName = @"California President";
+    self.overlayLayer.candidateName1 = @"OBAMA";
+    //self.overlayLayer.candidateName1 = @"Barack Obama (D)";
+    self.overlayLayer.candidateHeadshot1 = [[NSBundle mainBundle] pathForResource:@"Obama" ofType:@"png"];
+    self.overlayLayer.candidateVotes1 =@"7,854,285";
+    self.overlayLayer.candidatePercent1 = @"60.24%";
+    self.overlayLayer.candidateWin1 = YES;
+    self.overlayLayer.candidateName2 = @"ROMNEY";
+    //self.overlayLayer.candidateName2 = @"Mitt Romney (R)";
+    self.overlayLayer.candidateHeadshot2 = [[NSBundle mainBundle] pathForResource:@"Romney" ofType:@"png"];
+    self.overlayLayer.candidateVotes2 =@"4,839,958";
+    self.overlayLayer.candidatePercent2 = @"37.12%";
+    self.overlayLayer.candidateWin2 = NO;
     [self.overlayLayer update];
     [CATransaction commit];
 }
 
 - (IBAction)showDistrict5:(id)sender
 {
+    [self.mapView setHidden:NO];
+    [self.glView setHidden:YES];
+    
     [[self.mapView windowScriptObject] callWebScriptMethod:@"JSDistrict5"
                                              withArguments:@[]];
     

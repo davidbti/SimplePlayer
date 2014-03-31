@@ -51,6 +51,7 @@
 #define SUPPORT_RETINA_RESOLUTION 1
 
 @interface GLEssentialsGLView (PrivateMethods)
+
 - (void) initGL;
 
 @end
@@ -58,6 +59,18 @@
 @implementation GLEssentialsGLView
 
 OpenShadeRenderer* m_renderer;
+double hostTimeFrequency;
+float currentTime;
+
+-(void) initCA
+{
+    [m_renderer initCA];
+}
+
+-(void) initTN
+{
+    [m_renderer initTN];
+}
 
 -(void) queueRender
 {
@@ -70,6 +83,14 @@ OpenShadeRenderer* m_renderer;
 	// because it will be called from a background thread.
 	// It's important to create one or app can leak objects.
 	//NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    if (!m_renderer.startTime) {
+        m_renderer.startTime = CVGetCurrentHostTime();
+        hostTimeFrequency = CVGetHostClockFrequency();
+    }
+    uint64_t	hostTimeDiff = outputTime->hostTime - m_renderer.startTime;
+	currentTime = hostTimeDiff / hostTimeFrequency;
+    m_renderer.currentTime = currentTime;
 	
 	//[self drawView];
     [self performSelectorOnMainThread:@selector(queueRender) withObject:nil waitUntilDone:NO ];

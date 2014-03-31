@@ -12,6 +12,7 @@
                 <outlet property="playPauseButton" destination="5TY-qd-6k5" id="DCN-5U-cu5"/>
                 <outlet property="playerView" destination="igw-UY-jpl" id="ylJ-37-WF0"/>
                 <outlet property="pres3dButton" destination="jFd-hF-CMy" id="qM3-HW-7qz"/>
+                <outlet property="presCAButton" destination="bPm-ty-Qeg" id="9qJ-Bh-tih"/>
                 <outlet property="presidentButton" destination="39P-Y1-Cfd" id="4p7-Sr-xKL"/>
                 <outlet property="rewindButton" destination="sPi-tf-wlh" id="Qct-rO-niB"/>
                 <outlet property="timeSlider" destination="hqg-PD-Mzt" id="OQK-02-n4J"/>
@@ -120,7 +121,7 @@
                         </connections>
                     </slider>
                     <textField verticalHuggingPriority="750" id="ozF-PI-oB6">
-                        <rect key="frame" x="424" y="9" width="31" height="14"/>
+                        <rect key="frame" x="482" y="9" width="31" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Time" id="dSs-J4-2NP">
                             <font key="font" metaFont="smallSystem"/>
@@ -138,7 +139,7 @@
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" id="hqg-PD-Mzt">
-                        <rect key="frame" x="460" y="8" width="378" height="17"/>
+                        <rect key="frame" x="518" y="8" width="378" height="17"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="bWw-2g-yX2"/>
                         <connections>
@@ -155,6 +156,17 @@
                         </buttonCell>
                         <connections>
                             <action selector="showPres3D:" target="-2" id="hKl-3P-K76"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="bPm-ty-Qeg">
+                        <rect key="frame" x="427" y="3" width="50" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="PRCA" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XTh-yC-9zw">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showPRCA:" target="-2" id="VeZ-bZ-hNC"/>
                         </connections>
                     </button>
                 </subviews>

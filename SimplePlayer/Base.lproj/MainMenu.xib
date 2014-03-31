@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
@@ -9,10 +9,10 @@
         <customObject id="-3" userLabel="Application"/>
         <menu title="AMainMenu" systemMenu="main" id="N88-TE-3yH">
             <items>
-                <menuItem title="SimplePlayer" id="GPU-BI-HhJ">
-                    <menu key="submenu" title="SimplePlayer" systemMenu="apple" id="81E-FT-ZL4">
+                <menuItem title="Election Voting VOTE" id="GPU-BI-HhJ">
+                    <menu key="submenu" title="Election Voting VOTE" systemMenu="apple" id="81E-FT-ZL4">
                         <items>
-                            <menuItem title="About SimplePlayer" id="O06-da-MyS">
+                            <menuItem title="About Election Voting VOTE" id="O06-da-MyS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="fT7-lL-iqG"/>
@@ -27,7 +27,7 @@
                             <menuItem isSeparatorItem="YES" id="32z-bR-cFB">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Hide SimplePlayer" keyEquivalent="h" id="0CS-Lt-BlB">
+                            <menuItem title="Hide Election Voting VOTE" keyEquivalent="h" id="0CS-Lt-BlB">
                                 <connections>
                                     <action selector="hide:" target="-1" id="ziZ-Pf-pER"/>
                                 </connections>
@@ -46,7 +46,7 @@
                             <menuItem isSeparatorItem="YES" id="GUc-7X-zng">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Quit SimplePlayer" keyEquivalent="q" id="CqK-WC-CQY">
+                            <menuItem title="Quit Election Voting VOTE" keyEquivalent="q" id="CqK-WC-CQY">
                                 <connections>
                                     <action selector="terminate:" target="-3" id="juq-XF-yso"/>
                                 </connections>

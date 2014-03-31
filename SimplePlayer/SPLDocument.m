@@ -152,9 +152,9 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     frame.size.height = 500;
     self.mapView = [[WebView alloc] initWithFrame:frame];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"GoogleEarth" ofType:@"html"];
-    NSString *urlPath = [NSString stringWithFormat:@"%@%@%@", @"file://", path, @"#geplugin_browserok"];
-    NSURL *webURL = [NSURL URLWithString:urlPath];
-    NSURLRequest *request = [NSURLRequest requestWithURL:webURL];
+    NSURL *baseURL = [NSURL fileURLWithPath:path];
+    NSURL *fullURL = [NSURL URLWithString:@"#geplugin_browserok" relativeToURL:baseURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:fullURL];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mapViewFinishedLoading:)
                                                  name:WebViewProgressFinishedNotification

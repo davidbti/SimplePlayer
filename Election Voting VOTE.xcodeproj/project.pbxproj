@@ -115,24 +115,24 @@
 		3B92A19018D9E10D00D3F368 /* star_red_20_20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_red_20_20.png; sourceTree = "<group>"; };
 		3BC3823318C784B500E457B5 /* SPLOverlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLOverlayLayer.h; sourceTree = "<group>"; };
 		3BC3823418C784B500E457B5 /* SPLOverlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLOverlayLayer.m; sourceTree = "<group>"; };
-		3BE323E918BE7CD00041BE17 /* SimplePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimplePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BE323E918BE7CD00041BE17 /* Election Voting VOTE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Election Voting VOTE.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE323EC18BE7CD00041BE17 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3BE323EF18BE7CD00041BE17 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		3BE323F018BE7CD00041BE17 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3BE323F118BE7CD00041BE17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		3BE323F418BE7CD00041BE17 /* SimplePlayer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimplePlayer-Info.plist"; sourceTree = "<group>"; };
+		3BE323F418BE7CD00041BE17 /* Election Voting VOTE-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Election Voting VOTE-Info.plist"; sourceTree = "<group>"; };
 		3BE323F618BE7CD00041BE17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3BE323F818BE7CD00041BE17 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3BE323FA18BE7CD00041BE17 /* SimplePlayer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimplePlayer-Prefix.pch"; sourceTree = "<group>"; };
+		3BE323FA18BE7CD00041BE17 /* Election Voting VOTE-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Election Voting VOTE-Prefix.pch"; sourceTree = "<group>"; };
 		3BE323FC18BE7CD00041BE17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		3BE323FE18BE7CD00041BE17 /* SPLDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPLDocument.h; sourceTree = "<group>"; };
 		3BE323FF18BE7CD00041BE17 /* SPLDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPLDocument.m; sourceTree = "<group>"; };
 		3BE3240218BE7CD00041BE17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SPLDocument.xib; sourceTree = "<group>"; };
 		3BE3240518BE7CD00041BE17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3BE3240718BE7CD00041BE17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		3BE3240D18BE7CD00041BE17 /* SimplePlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimplePlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BE3240D18BE7CD00041BE17 /* Election Voting VOTETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Election Voting VOTETests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE3240E18BE7CD00041BE17 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		3BE3241518BE7CD00041BE17 /* SimplePlayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimplePlayerTests-Info.plist"; sourceTree = "<group>"; };
+		3BE3241518BE7CD00041BE17 /* Election Voting VOTETests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Election Voting VOTETests-Info.plist"; sourceTree = "<group>"; };
 		3BE3241718BE7CD00041BE17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3BE3241918BE7CD00041BE17 /* SimplePlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimplePlayerTests.m; sourceTree = "<group>"; };
 		3BE3242318BE7ED80041BE17 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -250,8 +250,8 @@
 		3BE323EA18BE7CD00041BE17 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3BE323E918BE7CD00041BE17 /* SimplePlayer.app */,
-				3BE3240D18BE7CD00041BE17 /* SimplePlayerTests.xctest */,
+				3BE323E918BE7CD00041BE17 /* Election Voting VOTE.app */,
+				3BE3240D18BE7CD00041BE17 /* Election Voting VOTETests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -312,10 +312,10 @@
 		3BE323F318BE7CD00041BE17 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3BE323F418BE7CD00041BE17 /* SimplePlayer-Info.plist */,
+				3BE323F418BE7CD00041BE17 /* Election Voting VOTE-Info.plist */,
 				3BE323F518BE7CD00041BE17 /* InfoPlist.strings */,
 				3BE323F818BE7CD00041BE17 /* main.m */,
-				3BE323FA18BE7CD00041BE17 /* SimplePlayer-Prefix.pch */,
+				3BE323FA18BE7CD00041BE17 /* Election Voting VOTE-Prefix.pch */,
 				3BE323FB18BE7CD00041BE17 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
@@ -333,7 +333,7 @@
 		3BE3241418BE7CD00041BE17 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3BE3241518BE7CD00041BE17 /* SimplePlayerTests-Info.plist */,
+				3BE3241518BE7CD00041BE17 /* Election Voting VOTETests-Info.plist */,
 				3BE3241618BE7CD00041BE17 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -342,9 +342,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3BE323E818BE7CD00041BE17 /* SimplePlayer */ = {
+		3BE323E818BE7CD00041BE17 /* Election Voting VOTE */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3BE3241D18BE7CD00041BE17 /* Build configuration list for PBXNativeTarget "SimplePlayer" */;
+			buildConfigurationList = 3BE3241D18BE7CD00041BE17 /* Build configuration list for PBXNativeTarget "Election Voting VOTE" */;
 			buildPhases = (
 				3BE323E518BE7CD00041BE17 /* Sources */,
 				3BE323E618BE7CD00041BE17 /* Frameworks */,
@@ -354,14 +354,14 @@
 			);
 			dependencies = (
 			);
-			name = SimplePlayer;
+			name = "Election Voting VOTE";
 			productName = SimplePlayer;
-			productReference = 3BE323E918BE7CD00041BE17 /* SimplePlayer.app */;
+			productReference = 3BE323E918BE7CD00041BE17 /* Election Voting VOTE.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3BE3240C18BE7CD00041BE17 /* SimplePlayerTests */ = {
+		3BE3240C18BE7CD00041BE17 /* Election Voting VOTETests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3BE3242018BE7CD00041BE17 /* Build configuration list for PBXNativeTarget "SimplePlayerTests" */;
+			buildConfigurationList = 3BE3242018BE7CD00041BE17 /* Build configuration list for PBXNativeTarget "Election Voting VOTETests" */;
 			buildPhases = (
 				3BE3240918BE7CD00041BE17 /* Sources */,
 				3BE3240A18BE7CD00041BE17 /* Frameworks */,
@@ -372,9 +372,9 @@
 			dependencies = (
 				3BE3241218BE7CD00041BE17 /* PBXTargetDependency */,
 			);
-			name = SimplePlayerTests;
+			name = "Election Voting VOTETests";
 			productName = SimplePlayerTests;
-			productReference = 3BE3240D18BE7CD00041BE17 /* SimplePlayerTests.xctest */;
+			productReference = 3BE3240D18BE7CD00041BE17 /* Election Voting VOTETests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -392,7 +392,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3BE323E418BE7CD00041BE17 /* Build configuration list for PBXProject "SimplePlayer" */;
+			buildConfigurationList = 3BE323E418BE7CD00041BE17 /* Build configuration list for PBXProject "Election Voting VOTE" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -405,8 +405,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3BE323E818BE7CD00041BE17 /* SimplePlayer */,
-				3BE3240C18BE7CD00041BE17 /* SimplePlayerTests */,
+				3BE323E818BE7CD00041BE17 /* Election Voting VOTE */,
+				3BE3240C18BE7CD00041BE17 /* Election Voting VOTETests */,
 			);
 		};
 /* End PBXProject section */
@@ -486,7 +486,7 @@
 /* Begin PBXTargetDependency section */
 		3BE3241218BE7CD00041BE17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3BE323E818BE7CD00041BE17 /* SimplePlayer */;
+			target = 3BE323E818BE7CD00041BE17 /* Election Voting VOTE */;
 			targetProxy = 3BE3241118BE7CD00041BE17 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -609,15 +609,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SimplePlayer/SimplePlayer-Prefix.pch";
+				GCC_PREFIX_HEADER = "SimplePlayer/Election Voting VOTE-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/include,
 				);
-				INFOPLIST_FILE = "SimplePlayer/SimplePlayer-Info.plist";
+				INFOPLIST_FILE = "SimplePlayer/Election Voting VOTE-Info.plist";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Election Voting VOTE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -628,15 +628,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SimplePlayer/SimplePlayer-Prefix.pch";
+				GCC_PREFIX_HEADER = "SimplePlayer/Election Voting VOTE-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/include,
 				);
-				INFOPLIST_FILE = "SimplePlayer/SimplePlayer-Info.plist";
+				INFOPLIST_FILE = "SimplePlayer/Election Voting VOTE-Info.plist";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Election Voting VOTE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -656,8 +656,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "SimplePlayerTests/SimplePlayerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "SimplePlayerTests/Election Voting VOTETests-Info.plist";
+				PRODUCT_NAME = "Election Voting VOTETests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -674,8 +674,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplePlayer/SimplePlayer-Prefix.pch";
-				INFOPLIST_FILE = "SimplePlayerTests/SimplePlayerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "SimplePlayerTests/Election Voting VOTETests-Info.plist";
+				PRODUCT_NAME = "Election Voting VOTETests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -684,7 +684,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3BE323E418BE7CD00041BE17 /* Build configuration list for PBXProject "SimplePlayer" */ = {
+		3BE323E418BE7CD00041BE17 /* Build configuration list for PBXProject "Election Voting VOTE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3BE3241B18BE7CD00041BE17 /* Debug */,
@@ -693,7 +693,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3BE3241D18BE7CD00041BE17 /* Build configuration list for PBXNativeTarget "SimplePlayer" */ = {
+		3BE3241D18BE7CD00041BE17 /* Build configuration list for PBXNativeTarget "Election Voting VOTE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3BE3241E18BE7CD00041BE17 /* Debug */,
@@ -702,7 +702,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3BE3242018BE7CD00041BE17 /* Build configuration list for PBXNativeTarget "SimplePlayerTests" */ = {
+		3BE3242018BE7CD00041BE17 /* Build configuration list for PBXNativeTarget "Election Voting VOTETests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3BE3242118BE7CD00041BE17 /* Debug */,

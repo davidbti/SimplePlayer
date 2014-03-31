@@ -26,6 +26,7 @@
 		3B2E27F018E9EEA200F593AC /* ca1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27EF18E9EEA200F593AC /* ca1.obj */; };
 		3B2E27F218E9F45E00F593AC /* redblue_128.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27F118E9F45E00F593AC /* redblue_128.png */; };
 		3B2E27F418E9F54B00F593AC /* tn3.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27F318E9F54B00F593AC /* tn3.obj */; };
+		3B2ED75D18EA00DA004F2BA7 /* OpenSceneRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2ED75C18EA00DA004F2BA7 /* OpenSceneRenderer.m */; };
 		3B2F3A8C18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F3A8B18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m */; };
 		3B7A312E18BFD1EA00EFAC10 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE3242518BE81950041BE17 /* CoreMedia.framework */; };
 		3B7A313018BFD27C00EFAC10 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */; };
@@ -97,6 +98,8 @@
 		3B2E27EF18E9EEA200F593AC /* ca1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ca1.obj; sourceTree = "<group>"; };
 		3B2E27F118E9F45E00F593AC /* redblue_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redblue_128.png; sourceTree = "<group>"; };
 		3B2E27F318E9F54B00F593AC /* tn3.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tn3.obj; sourceTree = "<group>"; };
+		3B2ED75B18EA00DA004F2BA7 /* OpenSceneRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenSceneRenderer.h; sourceTree = "<group>"; };
+		3B2ED75C18EA00DA004F2BA7 /* OpenSceneRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenSceneRenderer.m; sourceTree = "<group>"; };
 		3B2F3A8A18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+SPLQuartzAdditions.h"; sourceTree = "<group>"; };
 		3B2F3A8B18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+SPLQuartzAdditions.m"; sourceTree = "<group>"; };
 		3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -284,6 +287,8 @@
 			children = (
 				3B2E27C718E5C13600F593AC /* GLEssentialsGLView.h */,
 				3B2E27C818E5C13600F593AC /* GLEssentialsGLView.m */,
+				3B2ED75B18EA00DA004F2BA7 /* OpenSceneRenderer.h */,
+				3B2ED75C18EA00DA004F2BA7 /* OpenSceneRenderer.m */,
 				3B2E27C918E5C13600F593AC /* OpenShadeRenderer.h */,
 				3B2E27CA18E5C13600F593AC /* OpenShadeRenderer.mm */,
 				3B24526A18CA155D00FE9566 /* SPLBezierLayer.h */,
@@ -452,6 +457,7 @@
 			files = (
 				3B2E27CC18E5C13600F593AC /* OpenShadeRenderer.mm in Sources */,
 				3BC3823518C784B500E457B5 /* SPLOverlayLayer.m in Sources */,
+				3B2ED75D18EA00DA004F2BA7 /* OpenSceneRenderer.m in Sources */,
 				3B2F3A8C18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m in Sources */,
 				3B1B286318CF58BA000E1ACF /* CAAnimation+SPLBlockAdditions.m in Sources */,
 				3B2E27D218E5C1BA00F593AC /* camera.cpp in Sources */,

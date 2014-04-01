@@ -11,14 +11,13 @@
 
 @interface OpenMapRenderer : NSObject
 
-@property (nonatomic, assign) float currentTime;
-@property (nonatomic, assign) uint64_t startTime;
-
 - (id) initWithDefaultFBO: (GLuint) defaultFBOName;
 - (void) resizeWithWidth:(GLuint)width AndHeight:(GLuint)height;
 - (void) render;
 - (void) dealloc;
 - (void) initCA;
 - (void) initTN;
+- (void) initUSA;
+- (void) initWA;
 
 @end

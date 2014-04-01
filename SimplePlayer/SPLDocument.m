@@ -70,7 +70,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		dispatch_async(dispatch_get_main_queue(), ^(void) {
 			
 			[self setUpPlaybackOfAsset:asset withKeys:assetKeysToLoadAndTest];
-			
+			[self setUpMapOverlay];
 		});
 		
 	}];
@@ -145,11 +145,20 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 
 - (void)setUpVideoOverlay
 {
+    self.overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
+    self.overlayLayer = [[SPLOverlayLayer alloc] initWithBounds:self.playerView.layer.bounds];
+    self.overlayView.layer = self.overlayLayer;
+    [self.playerView addSubview:self.overlayView positioned:NSWindowAbove relativeTo:self.mapView];
+}
+
+- (void)setUpMapOverlay
+{
     NSRect frame;
     frame.origin.x = 206;
     frame.origin.y = 45;
     frame.size.width = 878;
     frame.size.height = 500;
+    
     self.mapView = [[WebView alloc] initWithFrame:frame];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"GoogleEarth" ofType:@"html"];
     NSURL *baseURL = [NSURL fileURLWithPath:path];
@@ -162,16 +171,13 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     [[self.mapView mainFrame] loadRequest:request];
     
     self.glView = [[GLEssentialsGLView alloc] initWithFrame:frame];
+    
+    
     [self.glView setHidden:YES];
     [self.playerView addSubview:self.glView positioned:NSWindowAbove relativeTo:self.playerView];
     
     [self.mapView setHidden:YES];
     [self.playerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.glView];
-    
-    self.overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
-    self.overlayLayer = [[SPLOverlayLayer alloc] initWithBounds:self.playerView.layer.bounds];
-    self.overlayView.layer = self.overlayLayer;
-    [self.playerView addSubview:self.overlayView positioned:NSWindowAbove relativeTo:self.mapView];
 }
 
 - (void)mapViewFinishedLoading:(NSNotification *)notification {
@@ -402,9 +408,16 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 
 - (IBAction)showPres3D:(id)sender
 {
+    NSRect frame;
+    frame.origin.x = 206;
+    frame.origin.y = 45;
+    frame.size.width = 878;
+    frame.size.height = 500;
+
     [self.mapView setHidden:YES];
-    [self.glView setHidden:NO];
     
+    [self.glView setFrame:frame];
+    [self.glView setHidden:NO];
     [self.glView initTN];
     
     [CATransaction begin];
@@ -434,7 +447,14 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 }
 - (IBAction)showPRCA:(id)sender
 {
+    NSRect frame;
+    frame.origin.x = 206;
+    frame.origin.y = 45;
+    frame.size.width = 878;
+    frame.size.height = 500;
+    
     [self.mapView setHidden:YES];
+    [self.glView setFrame:frame];
     [self.glView setHidden:NO];
     
     [self.glView initCA];
@@ -460,6 +480,125 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     self.overlayLayer.candidateHeadshot2 = [[NSBundle mainBundle] pathForResource:@"Romney" ofType:@"png"];
     self.overlayLayer.candidateVotes2 =@"4,839,958";
     self.overlayLayer.candidatePercent2 = @"37.12%";
+    self.overlayLayer.candidateWin2 = NO;
+    [self.overlayLayer update];
+    [CATransaction commit];
+}
+
+- (IBAction)showPresUSA:(id)sender
+{
+    NSRect frame;
+    frame.origin.x = 206;
+    frame.origin.y = 45;
+    frame.size.width = 878;
+    frame.size.height = 500;
+    
+    [self.mapView setHidden:YES];
+    [self.glView setFrame:frame];
+    [self.glView setHidden:NO];
+    
+    [self.glView initUSA];
+    
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.overlayLayer updateComplete];
+    }];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.5;
+    transition.type = kCATransitionFade;
+    [self.overlayView.layer addAnimation:transition forKey:nil];
+    
+    self.overlayLayer.raceName = @"President";
+    self.overlayLayer.candidateName1 = @"OBAMA";
+    //self.overlayLayer.candidateName1 = @"Barack Obama (D)";
+    self.overlayLayer.candidateHeadshot1 = [[NSBundle mainBundle] pathForResource:@"Obama" ofType:@"png"];
+    self.overlayLayer.candidateVotes1 =@"332";
+    self.overlayLayer.candidatePercent1 = @"61.71%";
+    self.overlayLayer.candidateWin1 = YES;
+    self.overlayLayer.candidateName2 = @"ROMNEY";
+    //self.overlayLayer.candidateName2 = @"Mitt Romney (R)";
+    self.overlayLayer.candidateHeadshot2 = [[NSBundle mainBundle] pathForResource:@"Romney" ofType:@"png"];
+    self.overlayLayer.candidateVotes2 =@"206";
+    self.overlayLayer.candidatePercent2 = @"39.29%";
+    self.overlayLayer.candidateWin2 = NO;
+    [self.overlayLayer update];
+    [CATransaction commit];
+}
+
+- (IBAction)showPresFULL:(id)sender
+{
+    NSRect frame;
+    frame.origin.x = self.playerView.frame.origin.x;
+    frame.origin.y = self.playerView.frame.origin.y;
+    frame.size.width = self.playerView.frame.size.width;
+    frame.size.height = self.playerView.frame.size.height;
+    
+    [self.mapView setHidden:YES];
+    [self.glView setFrame:frame];
+    [self.glView setHidden:NO];
+    
+    [self.glView initUSA];
+    
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.overlayLayer updateComplete];
+    }];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.5;
+    transition.type = kCATransitionFade;
+    [self.overlayView.layer addAnimation:transition forKey:nil];
+    
+    self.overlayLayer.raceName = @"President";
+    self.overlayLayer.candidateName1 = @"OBAMA";
+    //self.overlayLayer.candidateName1 = @"Barack Obama (D)";
+    self.overlayLayer.candidateHeadshot1 = [[NSBundle mainBundle] pathForResource:@"Obama" ofType:@"png"];
+    self.overlayLayer.candidateVotes1 =@"332";
+    self.overlayLayer.candidatePercent1 = @"61.71%";
+    self.overlayLayer.candidateWin1 = YES;
+    self.overlayLayer.candidateName2 = @"ROMNEY";
+    //self.overlayLayer.candidateName2 = @"Mitt Romney (R)";
+    self.overlayLayer.candidateHeadshot2 = [[NSBundle mainBundle] pathForResource:@"Romney" ofType:@"png"];
+    self.overlayLayer.candidateVotes2 =@"206";
+    self.overlayLayer.candidatePercent2 = @"39.29%";
+    self.overlayLayer.candidateWin2 = NO;
+    [self.overlayLayer update];
+    [CATransaction commit];
+}
+- (IBAction)showPresWA:(id)sender
+{
+    NSRect frame;
+    frame.origin.x = self.playerView.frame.origin.x;
+    frame.origin.y = self.playerView.frame.origin.y;
+    frame.size.width = self.playerView.frame.size.width;
+    frame.size.height = self.playerView.frame.size.height;
+    
+    [self.mapView setHidden:YES];
+    [self.glView setFrame:frame];
+    [self.glView setHidden:NO];
+    
+    [self.glView initWA];
+    
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.overlayLayer updateComplete];
+    }];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.5;
+    transition.type = kCATransitionFade;
+    [self.overlayView.layer addAnimation:transition forKey:nil];
+    
+    self.overlayLayer.raceName = @"Washington President";
+    self.overlayLayer.candidateName1 = @"OBAMA";
+    //self.overlayLayer.candidateName1 = @"Barack Obama (D)";
+    self.overlayLayer.candidateHeadshot1 = [[NSBundle mainBundle] pathForResource:@"Obama" ofType:@"png"];
+    self.overlayLayer.candidateVotes1 =@"1,755,396";
+    self.overlayLayer.candidatePercent1 = @"56.2%";
+    self.overlayLayer.candidateWin1 = YES;
+    self.overlayLayer.candidateName2 = @"ROMNEY";
+    //self.overlayLayer.candidateName2 = @"Mitt Romney (R)";
+    self.overlayLayer.candidateHeadshot2 = [[NSBundle mainBundle] pathForResource:@"Romney" ofType:@"png"];
+    self.overlayLayer.candidateVotes2 =@"1,290,670";
+    self.overlayLayer.candidatePercent2 = @"41.3%";
     self.overlayLayer.candidateWin2 = NO;
     [self.overlayLayer update];
     [CATransaction commit];

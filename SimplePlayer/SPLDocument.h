@@ -21,4 +21,7 @@
 @property (weak) IBOutlet NSButton *presidentButton;
 @property (weak) IBOutlet NSButton *pres3dButton;
 @property (weak) IBOutlet NSButton *presCAButton;
+@property (weak) IBOutlet NSButton *presUSAButton;
+@property (weak) IBOutlet NSButton *presFULLButton;
+@property (weak) IBOutlet NSButton *presWAButton;
 @end

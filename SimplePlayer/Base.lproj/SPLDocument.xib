@@ -13,6 +13,9 @@
                 <outlet property="playerView" destination="igw-UY-jpl" id="ylJ-37-WF0"/>
                 <outlet property="pres3dButton" destination="jFd-hF-CMy" id="qM3-HW-7qz"/>
                 <outlet property="presCAButton" destination="bPm-ty-Qeg" id="9qJ-Bh-tih"/>
+                <outlet property="presFULLButton" destination="j9N-aA-7yQ" id="Bnx-Sg-KKU"/>
+                <outlet property="presUSAButton" destination="DOM-0Y-71D" id="D8P-l8-Zap"/>
+                <outlet property="presWAButton" destination="e3L-RV-Uvi" id="FJ9-iP-xoU"/>
                 <outlet property="presidentButton" destination="39P-Y1-Cfd" id="4p7-Sr-xKL"/>
                 <outlet property="rewindButton" destination="sPi-tf-wlh" id="Qct-rO-niB"/>
                 <outlet property="timeSlider" destination="hqg-PD-Mzt" id="OQK-02-n4J"/>
@@ -121,7 +124,7 @@
                         </connections>
                     </slider>
                     <textField verticalHuggingPriority="750" id="ozF-PI-oB6">
-                        <rect key="frame" x="482" y="9" width="31" height="14"/>
+                        <rect key="frame" x="656" y="9" width="31" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Time" id="dSs-J4-2NP">
                             <font key="font" metaFont="smallSystem"/>
@@ -139,7 +142,7 @@
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" id="hqg-PD-Mzt">
-                        <rect key="frame" x="518" y="8" width="378" height="17"/>
+                        <rect key="frame" x="690" y="8" width="378" height="17"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="bWw-2g-yX2"/>
                         <connections>
@@ -150,7 +153,7 @@
                     <button verticalHuggingPriority="750" id="jFd-hF-CMy">
                         <rect key="frame" x="369" y="3" width="50" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="PR3D" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v7y-tR-Ya5">
+                        <buttonCell key="cell" type="roundTextured" title="PRTN" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v7y-tR-Ya5">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -167,6 +170,39 @@
                         </buttonCell>
                         <connections>
                             <action selector="showPRCA:" target="-2" id="VeZ-bZ-hNC"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="DOM-0Y-71D">
+                        <rect key="frame" x="485" y="3" width="50" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="USA" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hli-IN-RZo">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showPresUSA:" target="-2" id="CbD-3j-ijy"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="j9N-aA-7yQ">
+                        <rect key="frame" x="543" y="3" width="50" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="FULL" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Pm1-Jp-mtA">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showPresFULL:" target="-2" id="dFf-kh-KZz"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="e3L-RV-Uvi">
+                        <rect key="frame" x="601" y="3" width="50" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="PRWA" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Blr-Xh-KTO">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showPresWA:" target="-2" id="Qyr-af-iBG"/>
                         </connections>
                     </button>
                 </subviews>

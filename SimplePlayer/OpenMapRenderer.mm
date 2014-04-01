@@ -64,7 +64,9 @@ enum {
     @property (nonatomic, assign) GLint lightUniformIdx;
     @property (nonatomic, assign) GLuint characterVAOName;
     @property (nonatomic, assign) GLuint characterTexName;
-    @property (nonatomic, assign) GLfloat characterAngle;
+
+    @property (nonatomic, assign) GLfloat characterX;
+    @property (nonatomic, assign) GLfloat characterZ;
 
     @property (nonatomic, assign) GLuint viewWidth;
     @property (nonatomic, assign) GLuint viewHeight;
@@ -73,8 +75,8 @@ enum {
 
     @property (nonatomic, assign) float transitionTime;
 
-    @property (nonatomic, assign) float canRender;
-
+    @property (nonatomic, assign) BOOL canRender;
+    @property (nonatomic, assign) BOOL flyTo;
 
 @end
 
@@ -84,6 +86,18 @@ std::vector<glm::vec3> mapPositions;
 std::vector<glm::vec2> mapTexcoords;
 std::vector<glm::vec3> mapNormals;
 std::vector<unsigned int> mapElements;
+std::vector<glm::vec3> usaPositions;
+std::vector<glm::vec2> usaTexcoords;
+std::vector<glm::vec3> usaNormals;
+std::vector<unsigned int> usaElements;
+std::vector<glm::vec3> caPositions;
+std::vector<glm::vec2> caTexcoords;
+std::vector<glm::vec3> caNormals;
+std::vector<unsigned int> caElements;
+std::vector<glm::vec3> tnPositions;
+std::vector<glm::vec2> tnTexcoords;
+std::vector<glm::vec3> tnNormals;
+std::vector<unsigned int> tnElements;
 Camera mapcamera;
 
 - (void) resizeWithWidth:(GLuint)width AndHeight:(GLuint)height
@@ -97,6 +111,89 @@ Camera mapcamera;
 - (void) initCA
 {
     self.canRender = NO;
+    self.flyTo = NO;
+    
+    ////////////////////////////////////////////////
+    // Set up camera state that will never change //
+    ////////////////////////////////////////////////
+    
+    mapcamera.setFieldOfView(45.0f);
+    mapcamera.setNearAndFarPlanes(0.1f, 1.0f);
+    mapcamera.setPosition(glm::vec3(0.1,0.1,0.1));
+    mapcamera.lookAt(glm::vec3(0,0,0));
+    
+    //////////////////////////////
+    // Load our character model //
+    //////////////////////////////
+    
+    mapPositions.clear();
+    for (unsigned int i = 0; i < caPositions.size(); i++) {
+        mapPositions.push_back(caPositions[i]);
+    }
+    mapTexcoords.clear();
+    for (unsigned int i = 0; i < caTexcoords.size(); i++) {
+        mapTexcoords.push_back(caTexcoords[i]);
+    }
+    mapNormals.clear();
+    for (unsigned int i = 0; i < caNormals.size(); i++) {
+        mapNormals.push_back(caNormals[i]);
+    }
+    mapElements.clear();
+    for (unsigned int i = 0; i < caElements.size(); i++) {
+        mapElements.push_back(caElements[i]);
+    }
+    
+    // Build Vertex Buffer Objects (VBOs) and Vertex Array Object (VAOs) with our model data
+    self.characterVAOName = [self buildVAO];
+    
+    self.canRender = YES;
+}
+
+- (void) initTN
+{
+    self.canRender = NO;
+    self.flyTo = NO;
+    
+    ////////////////////////////////////////////////
+    // Set up camera state that will never change //
+    ////////////////////////////////////////////////
+    
+    mapcamera.setFieldOfView(45.0f);
+    mapcamera.setNearAndFarPlanes(0.01f, 1.0f);
+    mapcamera.setPosition(glm::vec3(0.075,0.075,0.075));
+    mapcamera.lookAt(glm::vec3(0,0,0));
+    
+    //////////////////////////////
+    // Load our character model //
+    //////////////////////////////
+    
+    mapPositions.clear();
+    for (unsigned int i = 0; i < tnPositions.size(); i++) {
+        mapPositions.push_back(tnPositions[i]);
+    }
+    mapTexcoords.clear();
+    for (unsigned int i = 0; i < tnTexcoords.size(); i++) {
+        mapTexcoords.push_back(tnTexcoords[i]);
+    }
+    mapNormals.clear();
+    for (unsigned int i = 0; i < tnNormals.size(); i++) {
+        mapNormals.push_back(tnNormals[i]);
+    }
+    mapElements.clear();
+    for (unsigned int i = 0; i < tnElements.size(); i++) {
+        mapElements.push_back(tnElements[i]);
+    }
+    
+    // Build Vertex Buffer Objects (VBOs) and Vertex Array Object (VAOs) with our model data
+    self.characterVAOName = [self buildVAO];
+    
+    self.canRender = YES;
+}
+
+- (void) initUSA
+{
+    self.canRender = NO;
+    self.flyTo = NO;
     
     ////////////////////////////////////////////////
     // Set up camera state that will never change //
@@ -107,29 +204,73 @@ Camera mapcamera;
     mapcamera.setPosition(glm::vec3(0.2,0.2,0.2));
     mapcamera.lookAt(glm::vec3(0,0,0));
     
-    self.startTime = nil;
+    //////////////////////////////
+    // Load our character model //
+    //////////////////////////////
+    
+    mapPositions.clear();
+    for (unsigned int i = 0; i < usaPositions.size(); i++) {
+        mapPositions.push_back(usaPositions[i]);
+    }
+    mapTexcoords.clear();
+    for (unsigned int i = 0; i < usaTexcoords.size(); i++) {
+        mapTexcoords.push_back(usaTexcoords[i]);
+    }
+    mapNormals.clear();
+    for (unsigned int i = 0; i < usaNormals.size(); i++) {
+        mapNormals.push_back(usaNormals[i]);
+    }
+    mapElements.clear();
+    for (unsigned int i = 0; i < usaElements.size(); i++) {
+        mapElements.push_back(usaElements[i]);
+    }
+    
+    // Build Vertex Buffer Objects (VBOs) and Vertex Array Object (VAOs) with our model data
+    self.characterVAOName = [self buildVAO];
     
     self.canRender = YES;
 }
 
-- (void) initTN
+- (void) initWA
 {
     self.canRender = NO;
+    self.flyTo = YES;
     
     ////////////////////////////////////////////////
     // Set up camera state that will never change //
     ////////////////////////////////////////////////
     
     mapcamera.setFieldOfView(45.0f);
-    mapcamera.setNearAndFarPlanes(0.01f, 2.0f);
-    mapcamera.setPosition(glm::vec3(1.1,1.1,1.1));
-    mapcamera.lookAt(glm::vec3(0,0,0));
+    mapcamera.setNearAndFarPlanes(0.1f, 1.0f);
+    mapcamera.setPosition(glm::vec3(0.2,0.2,0.2));
+    mapcamera.lookAt(glm::vec3(.281552494,0,-.330356687));
     
-    self.startTime = nil;
+    //////////////////////////////
+    // Load our character model //
+    //////////////////////////////
+    
+    mapPositions.clear();
+    for (unsigned int i = 0; i < usaPositions.size(); i++) {
+        mapPositions.push_back(usaPositions[i]);
+    }
+    mapTexcoords.clear();
+    for (unsigned int i = 0; i < usaTexcoords.size(); i++) {
+        mapTexcoords.push_back(usaTexcoords[i]);
+    }
+    mapNormals.clear();
+    for (unsigned int i = 0; i < usaNormals.size(); i++) {
+        mapNormals.push_back(usaNormals[i]);
+    }
+    mapElements.clear();
+    for (unsigned int i = 0; i < usaElements.size(); i++) {
+        mapElements.push_back(usaElements[i]);
+    }
+    
+    // Build Vertex Buffer Objects (VBOs) and Vertex Array Object (VAOs) with our model data
+    self.characterVAOName = [self buildVAO];
     
     self.canRender = YES;
 }
-
 
 - (void) render
 {
@@ -145,8 +286,17 @@ Camera mapcamera;
     
     mapcamera.setViewportAspectRatio((float)self.viewWidth / (float)self.viewHeight);
     
-    mapcamera.offsetPosition(.0005f * -mapcamera.right());
-    mapcamera.lookAt(glm::vec3(0,0,0));
+    if (self.flyTo) {
+        if (mapcamera.position().y > .150) {
+            mapcamera.offsetPosition(.0025f * mapcamera.forward());
+            mapcamera.offsetPosition(.0025f * -mapcamera.right());
+            mapcamera.offsetPosition(.00135f * mapcamera.up());
+            mapcamera.lookAt(glm::vec3(0.297853, 0.000001, -0.296011));
+        }
+    } else {
+        mapcamera.offsetPosition(.0005f * -mapcamera.right());
+        mapcamera.lookAt(glm::vec3(0,0,0));
+    }
     
     glm::mat4 mvp        = mapcamera.matrix() * model;
     
@@ -168,7 +318,8 @@ Camera mapcamera;
     
     glDrawElements(GL_TRIANGLES, mapElements.size(), GL_UNSIGNED_INT, 0);
     
-    self.characterAngle--;
+    self.characterX += .00370464f;
+    self.characterZ -= .0043468f;
 }
 
 - (GLuint) buildVAO
@@ -529,51 +680,63 @@ Camera mapcamera;
 		self.viewWidth = 100;
 		self.viewHeight = 100;
         
-        self.characterAngle = 0;
+        self.characterX = 0;
+        self.characterZ = 0;
 		
 		self.useVBOs = USE_VERTEX_BUFFER_OBJECTS;
         
         NSString* filePathName = nil;
         
         //////////////////////////////
-		// Load our character model //
+		// Load our character models //
 		//////////////////////////////
         
-        filePathName = [[NSBundle mainBundle] pathForResource:@"usa" ofType:@"obj"];
+        filePathName = [[NSBundle mainBundle] pathForResource:@"ca1" ofType:@"obj"];
+        const char * capath = [filePathName cStringUsingEncoding:NSASCIIStringEncoding];
+        
+        // Read our .obj file
+        bool cares = loadAssImpMesh(capath, caElements, caPositions, caTexcoords, caNormals);
+        if(!cares)
+		{
+			NSLog(@"Could not load obj file");
+		}
+        
+        filePathName = [[NSBundle mainBundle] pathForResource:@"tn3" ofType:@"obj"];
         const char * tnpath = [filePathName cStringUsingEncoding:NSASCIIStringEncoding];
         
         // Read our .obj file
-        bool tnres = loadAssImpMesh(tnpath, mapElements, mapPositions, mapTexcoords, mapNormals);
+        bool tnres = loadAssImpMesh(tnpath, tnElements, tnPositions, tnTexcoords, tnNormals);
         if(!tnres)
 		{
 			NSLog(@"Could not load obj file");
 		}
         
-        /*
-        filePathName = [[NSBundle mainBundle] pathForResource:@"ca1" ofType:@"obj"];
-        const char * capath = [filePathName cStringUsingEncoding:NSASCIIStringEncoding];
+        filePathName = [[NSBundle mainBundle] pathForResource:@"usa" ofType:@"obj"];
+        const char * usapath = [filePathName cStringUsingEncoding:NSASCIIStringEncoding];
         
         // Read our .obj file
-        std::vector<glm::vec3> tmpPositions;
-        std::vector<glm::vec2> tmpTexcoords;
-        std::vector<glm::vec3> tmpNormals;
-        std::vector<unsigned short> tmpElements;
-        bool cares = loadAssImp(capath, tmpElements, tmpPositions, tmpTexcoords, tmpNormals);
-        if(!cares)
+        bool usares = loadAssImpMesh(usapath, usaElements, usaPositions, usaTexcoords, usaNormals);
+        if(!usares)
 		{
 			NSLog(@"Could not load obj file");
 		}
-        for(unsigned int i=0; i<tmpElements.size(); i++){
-            unsigned short x = tmpElements[i] + mapElements.size();
-            mapElements.push_back(x);
+        
+        mapPositions.clear();
+        for (unsigned int i = 0; i < usaPositions.size(); i++) {
+            mapPositions.push_back(usaPositions[i]);
         }
-        for(unsigned int i=0; i<tmpPositions.size(); i++){
-            mapPositions.push_back(tmpPositions[i]);
+        mapTexcoords.clear();
+        for (unsigned int i = 0; i < usaTexcoords.size(); i++) {
+            mapTexcoords.push_back(usaTexcoords[i]);
         }
-        for(unsigned int i=0; i<tmpNormals.size(); i++){
-            mapNormals.push_back(tmpNormals[i]);
+        mapNormals.clear();
+        for (unsigned int i = 0; i < usaNormals.size(); i++) {
+            mapNormals.push_back(usaNormals[i]);
         }
-        */
+        mapElements.clear();
+        for (unsigned int i = 0; i < usaElements.size(); i++) {
+            mapElements.push_back(usaElements[i]);
+        }
         
         // Build Vertex Buffer Objects (VBOs) and Vertex Array Object (VAOs) with our model data
 		self.characterVAOName = [self buildVAO];

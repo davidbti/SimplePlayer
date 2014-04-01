@@ -59,9 +59,6 @@
 @implementation GLEssentialsGLView
 
 OpenMapRenderer* m_renderer;
-double hostTimeFrequency;
-float currentTime;
-
 -(void) initCA
 {
     [m_renderer initCA];
@@ -70,6 +67,16 @@ float currentTime;
 -(void) initTN
 {
     [m_renderer initTN];
+}
+
+-(void) initUSA
+{
+    [m_renderer initUSA];
+}
+
+-(void) initWA
+{
+    [m_renderer initWA];
 }
 
 -(void) queueRender
@@ -84,14 +91,6 @@ float currentTime;
 	// It's important to create one or app can leak objects.
 	//NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
-    if (!m_renderer.startTime) {
-        m_renderer.startTime = CVGetCurrentHostTime();
-        hostTimeFrequency = CVGetHostClockFrequency();
-    }
-    uint64_t	hostTimeDiff = outputTime->hostTime - m_renderer.startTime;
-	currentTime = hostTimeDiff / hostTimeFrequency;
-    m_renderer.currentTime = currentTime;
-	
 	//[self drawView];
     [self performSelectorOnMainThread:@selector(queueRender) withObject:nil waitUntilDone:NO ];
     

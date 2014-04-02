@@ -10,7 +10,7 @@
 
 @interface SPLDocument : NSDocument
 
-@property (weak) IBOutlet NSView *playerView;
+@property (weak) IBOutlet NSView *containerView;
 @property (weak) IBOutlet NSProgressIndicator *loadingSpinner;
 @property (weak) IBOutlet NSTextField *noVideoLabel;
 @property (weak) IBOutlet NSTextField *unplayableLabel;
@@ -24,4 +24,8 @@
 @property (weak) IBOutlet NSButton *presUSAButton;
 @property (weak) IBOutlet NSButton *presFULLButton;
 @property (weak) IBOutlet NSButton *presWAButton;
+@property (weak) IBOutlet NSButton *allButton;
+@property (weak) IBOutlet NSButton *mapButton;
+@property (weak) IBOutlet NSButton *overButton;
+@property (weak) IBOutlet NSButton *bgButton;
 @end

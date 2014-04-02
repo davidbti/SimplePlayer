@@ -19,12 +19,17 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 @interface SPLDocument ()
 
 @property (nonatomic, strong) AVMutableComposition *composition;
+
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
+@property (nonatomic, strong) NSView *playerView;
+
 @property (nonatomic, strong) GLEssentialsGLView *glView;
 @property (nonatomic, strong) WebView *mapView;
+
 @property (nonatomic, strong) SPLOverlayLayer *overlayLayer;
 @property (nonatomic, strong) NSView *overlayView;
+
 @property (nonatomic, strong) id timeObserverToken;
 
 @end
@@ -49,7 +54,8 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 {
     [super windowControllerDidLoadNib:windowController];
 	[[windowController window] setMovableByWindowBackground:YES];
-	[[[self playerView] layer] setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
+    [[[self containerView] layer] setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
+    [self setUpBg];
 	[[self loadingSpinner] startAnimation:self];
 	
 	// Create the AVPlayer, add rate and status observers
@@ -70,7 +76,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		dispatch_async(dispatch_get_main_queue(), ^(void) {
 			
 			[self setUpPlaybackOfAsset:asset withKeys:assetKeysToLoadAndTest];
-			[self setUpMapOverlay];
+			[self setUpMap];
 		});
 		
 	}];
@@ -143,15 +149,23 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 	}]];
 }
 
-- (void)setUpVideoOverlay
+- (void)setUpBg
 {
-    self.overlayView = [[NSView alloc] initWithFrame:self.playerView.frame];
-    self.overlayLayer = [[SPLOverlayLayer alloc] initWithBounds:self.playerView.layer.bounds];
-    self.overlayView.layer = self.overlayLayer;
-    [self.playerView addSubview:self.overlayView positioned:NSWindowAbove relativeTo:self.mapView];
+    self.playerView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, self.containerView.frame.size.width, self.containerView.frame.size.height)];
+    [self.containerView setAutoresizesSubviews:YES];
+    [self.playerView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+    [self.containerView addSubview:self.playerView positioned:NSWindowAbove relativeTo:self.containerView];
 }
 
-- (void)setUpMapOverlay
+- (void)setUpOverlay
+{
+    self.overlayView = [[NSView alloc] initWithFrame:self.containerView.frame];
+    self.overlayLayer = [[SPLOverlayLayer alloc] initWithBounds:self.containerView.layer.bounds];
+    self.overlayView.layer = self.overlayLayer;
+    [self.containerView addSubview:self.overlayView positioned:NSWindowAbove relativeTo:self.mapView];
+}
+
+- (void)setUpMap
 {
     NSRect frame;
     frame.origin.x = 206;
@@ -174,10 +188,10 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     
     
     [self.glView setHidden:YES];
-    [self.playerView addSubview:self.glView positioned:NSWindowAbove relativeTo:self.playerView];
+    [self.containerView addSubview:self.glView positioned:NSWindowAbove relativeTo:self.playerView];
     
     [self.mapView setHidden:YES];
-    [self.playerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.glView];
+    [self.containerView addSubview:self.mapView positioned:NSWindowAbove relativeTo:self.glView];
 }
 
 - (void)mapViewFinishedLoading:(NSNotification *)notification {
@@ -319,7 +333,7 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 		if ([self currentTime] == [self duration])
 			[self setCurrentTime:0.f];
 		[[self player] play];
-        [self setUpVideoOverlay];
+        [self setUpOverlay];
 	}
 	else
 	{
@@ -529,9 +543,9 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 {
     NSRect frame;
     frame.origin.x = self.playerView.frame.origin.x;
-    frame.origin.y = self.playerView.frame.origin.y;
+    frame.origin.y = self.playerView.frame.origin.y + 23;
     frame.size.width = self.playerView.frame.size.width;
-    frame.size.height = self.playerView.frame.size.height;
+    frame.size.height = self.playerView.frame.size.height - 46;
     
     [self.mapView setHidden:YES];
     [self.glView setFrame:frame];
@@ -567,10 +581,10 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
 - (IBAction)showPresWA:(id)sender
 {
     NSRect frame;
-    frame.origin.x = self.playerView.frame.origin.x;
-    frame.origin.y = self.playerView.frame.origin.y;
-    frame.size.width = self.playerView.frame.size.width;
-    frame.size.height = self.playerView.frame.size.height;
+    frame.origin.x = self.containerView.frame.origin.x;
+    frame.origin.y = self.containerView.frame.origin.y;
+    frame.size.width = self.containerView.frame.size.width;
+    frame.size.height = self.containerView.frame.size.height;
     
     [self.mapView setHidden:YES];
     [self.glView setFrame:frame];
@@ -636,6 +650,42 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     self.overlayLayer.candidateWin2 = NO;
     [self.overlayLayer update];
     [CATransaction commit];
+}
+
+- (IBAction)showBg:(id)sender
+{
+    [self.playerView.layer setHidden:NO];
+    
+    [self.glView.layer setHidden:YES];
+    
+    [self.overlayView.layer setHidden:YES];
+}
+
+- (IBAction)showMap:(id)sender
+{
+    [self.playerView.layer setHidden:YES];
+    
+    [self.glView.layer setHidden:NO];
+    
+    [self.overlayView.layer setHidden:YES];
+}
+
+- (IBAction)showOver:(id)sender
+{
+    [self.playerView.layer setHidden:YES];
+    
+    [self.glView.layer setHidden:YES];
+    
+    [self.overlayView.layer setHidden:NO];
+}
+
+- (IBAction)showAll:(id)sender
+{
+    [self.playerView.layer setHidden:NO];
+    
+    [self.glView.layer setHidden:NO];
+    
+    [self.overlayView.layer setHidden:NO];
 }
 
 - (IBAction)fastForward:(id)sender

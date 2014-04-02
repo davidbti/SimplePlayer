@@ -6,11 +6,15 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SPLDocument">
             <connections>
+                <outlet property="allButton" destination="J5e-2S-a3I" id="aU8-vK-MLU"/>
+                <outlet property="bgButton" destination="l5F-wl-RUx" id="Sy0-6F-ESe"/>
+                <outlet property="containerView" destination="igw-UY-jpl" id="GyR-ba-0vo"/>
                 <outlet property="fastForwardButton" destination="kx3-iI-1Eg" id="mmy-kl-bgb"/>
                 <outlet property="loadingSpinner" destination="3To-jm-hMo" id="1yy-MV-9A3"/>
+                <outlet property="mapButton" destination="KRi-NG-heE" id="wJi-15-ShO"/>
                 <outlet property="noVideoLabel" destination="Y8y-G1-rcx" id="fCe-jL-LLl"/>
+                <outlet property="overButton" destination="pFI-UO-nGi" id="4FG-kn-YEB"/>
                 <outlet property="playPauseButton" destination="5TY-qd-6k5" id="DCN-5U-cu5"/>
-                <outlet property="playerView" destination="igw-UY-jpl" id="ylJ-37-WF0"/>
                 <outlet property="pres3dButton" destination="jFd-hF-CMy" id="qM3-HW-7qz"/>
                 <outlet property="presCAButton" destination="bPm-ty-Qeg" id="9qJ-Bh-tih"/>
                 <outlet property="presFULLButton" destination="j9N-aA-7yQ" id="Bnx-Sg-KKU"/>
@@ -29,11 +33,11 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="133" y="235" width="800" height="450"/>
+            <rect key="contentRect" x="133" y="235" width="1200" height="675"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <value key="minSize" type="size" width="400" height="86"/>
             <view key="contentView" id="Cls-nR-aZf">
-                <rect key="frame" x="0.0" y="0.0" width="800" height="450"/>
+                <rect key="frame" x="0.0" y="0.0" width="1200" height="675"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" id="5TY-qd-6k5">
@@ -81,11 +85,11 @@
                         </connections>
                     </button>
                     <customView wantsLayer="YES" id="igw-UY-jpl" userLabel="Custom View">
-                        <rect key="frame" x="0.0" y="32" width="800" height="418"/>
+                        <rect key="frame" x="0.0" y="32" width="1200" height="643"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" id="3To-jm-hMo" userLabel="Async Arrows">
-                                <rect key="frame" x="383" y="192" width="32" height="32"/>
+                                <rect key="frame" x="582" y="304" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIColorInvert">
@@ -96,7 +100,7 @@
                                 </contentFilters>
                             </progressIndicator>
                             <textField hidden="YES" verticalHuggingPriority="750" id="Y8y-G1-rcx">
-                                <rect key="frame" x="344" y="194" width="110" height="29"/>
+                                <rect key="frame" x="543" y="306" width="110" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="No Video" id="JcS-3I-ZoD">
                                     <font key="font" metaFont="system" size="24"/>
@@ -105,7 +109,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField hidden="YES" verticalHuggingPriority="750" id="R3s-Lp-d7z">
-                                <rect key="frame" x="299" y="194" width="203" height="29"/>
+                                <rect key="frame" x="499" y="306" width="203" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Unplayable Asset" id="yOE-bz-Qa6">
                                     <font key="font" metaFont="system" size="24"/>
@@ -124,7 +128,7 @@
                         </connections>
                     </slider>
                     <textField verticalHuggingPriority="750" id="ozF-PI-oB6">
-                        <rect key="frame" x="656" y="9" width="31" height="14"/>
+                        <rect key="frame" x="888" y="9" width="31" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Time" id="dSs-J4-2NP">
                             <font key="font" metaFont="smallSystem"/>
@@ -142,7 +146,7 @@
                         </textFieldCell>
                     </textField>
                     <slider verticalHuggingPriority="750" id="hqg-PD-Mzt">
-                        <rect key="frame" x="690" y="8" width="378" height="17"/>
+                        <rect key="frame" x="922" y="8" width="778" height="17"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="bWw-2g-yX2"/>
                         <connections>
@@ -203,6 +207,50 @@
                         </buttonCell>
                         <connections>
                             <action selector="showPresWA:" target="-2" id="Qyr-af-iBG"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="l5F-wl-RUx">
+                        <rect key="frame" x="659" y="3" width="50" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="BG" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1fi-zy-5BU">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showBg:" target="-2" id="yEv-Op-84S"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="KRi-NG-heE">
+                        <rect key="frame" x="717" y="3" width="50" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="MAP" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wiq-zd-hVL">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showMap:" target="-2" id="ng3-jp-1gE"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="pFI-UO-nGi">
+                        <rect key="frame" x="775" y="3" width="50" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="OVER" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Gf-lE-f61">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showOver:" target="-2" id="IKK-w0-AeV"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="J5e-2S-a3I">
+                        <rect key="frame" x="833" y="3" width="50" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="roundTextured" title="ALL" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bBJ-y9-9Ji">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showAll:" target="-2" id="upp-OS-cbQ"/>
                         </connections>
                     </button>
                 </subviews>

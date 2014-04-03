@@ -11,6 +11,8 @@
 
 @interface OpenMapRenderer : NSObject
 
+@property (nonatomic, assign) float opacity;
+
 - (id) initWithDefaultFBO: (GLuint) defaultFBOName;
 - (void) resizeWithWidth:(GLuint)width AndHeight:(GLuint)height;
 - (void) render;

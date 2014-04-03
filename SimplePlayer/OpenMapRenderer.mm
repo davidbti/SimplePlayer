@@ -78,6 +78,10 @@ enum {
     @property (nonatomic, assign) BOOL canRender;
     @property (nonatomic, assign) BOOL flyTo;
 
+    @property (nonatomic, assign) float red;
+    @property (nonatomic, assign) float green;
+    @property (nonatomic, assign) float blue;
+
 @end
 
 @implementation OpenMapRenderer
@@ -106,6 +110,11 @@ Camera mapcamera;
     
 	self.viewWidth = width;
 	self.viewHeight = height;
+}
+
+- (void)setOpacity:(float)opacity
+{
+    _opacity = 1.0f - opacity;
 }
 
 - (void) initCA
@@ -277,6 +286,11 @@ Camera mapcamera;
     if (!self.canRender) return;
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    float r = self.opacity * self.red;
+    float g = self.opacity * self.green;
+    float b = self.opacity * self.blue;
+    glClearColor(r, g, b, self.opacity);
 	
 	// Use the program for rendering our character
 	glUseProgram(self.characterPrgName);
@@ -806,8 +820,13 @@ Camera mapcamera;
 		glEnable(GL_CULL_FACE);
 		
 		// Always use this clear color
-		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
-		
+		//glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+        self.red = 135.0f/255.0f;
+        self.green = 206.0f/255.0f;
+        self.blue = 250.0f/255.0f;
+        self.opacity = 0.0f;
+		glClearColor(self.red, self.green, self.blue, self.opacity);
+        
 		// Draw our scene once without presenting the rendered image.
 		//   This is done in order to pre-warm OpenGL
 		// We don't need to present the buffer since we don't actually want the 

@@ -79,6 +79,16 @@ OpenMapRenderer* m_renderer;
     [m_renderer initWA];
 }
 
+-(float)getOpacity
+{
+    return m_renderer.opacity;
+}
+
+-(void)setOpacity:(float)opacity
+{
+    [m_renderer setOpacity:opacity];
+}
+
 -(void) queueRender
 {
     [self setNeedsDisplay:YES];

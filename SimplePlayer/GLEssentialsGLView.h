@@ -57,6 +57,8 @@
 	CVDisplayLinkRef displayLink;
 }
 
+@property (nonatomic, assign) float opacity;
+
 - (void) initCA;
 - (void) initTN;
 - (void) initUSA;

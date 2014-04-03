@@ -41,6 +41,9 @@
 @property (nonatomic, strong) CALayer *tickerLayer;
 @property (nonatomic, strong) SPLBezierLayer *crawlLayerDelegate;
 
+@property (nonatomic, assign) double scaleWidth;
+@property (nonatomic, assign) double scaleHeight;
+
 @end
 
 @implementation SPLOverlayLayer
@@ -56,30 +59,33 @@
 
 -(void)setupWithBounds:(CGRect)bounds
 {
-    self.raceNameLayer = [[CALayer alloc] init];
-    self.raceNameLayer.frame = CGRectMake(0, 530, bounds.size.width, 50);
+    self.scaleWidth =  bounds.size.width / 1280.0f;
+    self.scaleHeight =  bounds.size.height / 720.0f ;
     
-    NSFont *raceNameLayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:45.0];
+    self.raceNameLayer = [[CALayer alloc] init];
+    self.raceNameLayer.frame = CGRectMake(0, 510 * self.scaleHeight, bounds.size.width, 45 * self.scaleHeight);
+    
+    NSFont *raceNameLayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:45 * self.scaleHeight];
     self.raceNameLayerDelegate = [[SPLBezierLayer alloc] initWithFont:raceNameLayerFont];
     self.raceNameLayerDelegate.gradient = [[NSGradient alloc] initWithStartingColor:[NSColor orangeColor] endingColor:[NSColor yellowColor]];
-    self.raceNameLayerDelegate.strokeWidth = 1.0;
+    self.raceNameLayerDelegate.strokeWidth = 1.0 * self.scaleHeight;
     self.raceNameLayerDelegate.strokeColor = [NSColor blackColor];
     self.raceNameLayer.delegate = self.raceNameLayerDelegate;
     
     self.percentLayer = [CALayer layer];
     self.percentLayer.backgroundColor = [NSColor clearColor].CGColor;
     self.percentLayer.shadowOffset = CGSizeMake(0, -5);
-    self.percentLayer.shadowRadius = 10.0;
+    self.percentLayer.shadowRadius = 10.0 * self.scaleHeight;
     self.percentLayer.shadowColor = [NSColor blackColor].CGColor;
     self.percentLayer.shadowOpacity = 0.8;
-    self.percentLayer.frame = CGRectMake(320, 440, 630, 40);
+    self.percentLayer.frame = CGRectMake(320 * self.scaleWidth, 440 * self.scaleHeight, 630 * self.scaleWidth, 40 * self.scaleHeight);
     
     self.percent1Layer = [CALayer layer];
     self.percent1Layer.backgroundColor = [NSColor blueColor].CGColor;
-    self.percent1Layer.frame = CGRectMake(0, 0, 0, 40);
+    self.percent1Layer.frame = CGRectMake(0, 0, 0, 40 * self.scaleHeight);
     self.percent1Layer.anchorPoint = CGPointMake(0, .5);
     self.percent1TextLayer = [[CATextLayer alloc] init];
-    self.percent1TextLayer.frame = CGRectMake(6, -4, 100, 40);
+    self.percent1TextLayer.frame = CGRectMake(6 * self.scaleWidth, -4 * self.scaleHeight, 100 * self.scaleWidth, 40 * self.scaleHeight);
     self.percent1TextLayer.alignmentMode = kCAAlignmentLeft;
     [self setPercent1LayerString:@""];
     
@@ -88,10 +94,10 @@
     
     self.percent2Layer = [CALayer layer];
     self.percent2Layer.backgroundColor = [NSColor redColor].CGColor;
-    self.percent2Layer.frame = CGRectMake(self.percentLayer.bounds.size.width, 0, 0, 40);
+    self.percent2Layer.frame = CGRectMake(self.percentLayer.bounds.size.width, 0, 0, 40 * self.scaleHeight);
     self.percent2Layer.anchorPoint = CGPointMake(1, .5);
     self.percent2TextLayer = [[CATextLayer alloc] init];
-    self.percent2TextLayer.frame = CGRectMake(self.percentLayer.bounds.size.width - 106, -4, 100, 40);
+    self.percent2TextLayer.frame = CGRectMake(self.percentLayer.bounds.size.width - 106 * self.scaleWidth, -4 * self.scaleHeight, 100 * self.scaleWidth, 40 * self.scaleHeight);
     self.percent2TextLayer.alignmentMode = kCAAlignmentRight;
     [self setPercent2LayerString:@""];
 
@@ -99,10 +105,10 @@
     [self.percentLayer addSublayer:self.percent2TextLayer];
     
     self.candidate1Bg = [[CALayer alloc] init];
-    [self.candidate1Bg setFrame:CGRectMake(126, 314, 187, 245)];
+    [self.candidate1Bg setFrame:CGRectMake(126 * self.scaleWidth, 314 * self.scaleHeight, 187 * self.scaleWidth, 245 * self.scaleHeight)];
     [self.candidate1Bg setBackgroundColor:[[NSColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:0.7] CGColor]];
-    self.candidate1Bg.cornerRadius = 20.0;
-    self.candidate1Bg.borderWidth = 2.0;
+    self.candidate1Bg.cornerRadius = 20.0 * self.scaleHeight;
+    self.candidate1Bg.borderWidth = 2.0 * self.scaleHeight;
     self.candidate1Bg.borderColor = [[NSColor whiteColor] CGColor];
     
     CATransform3D cand1BgTx = CATransform3DIdentity;
@@ -117,45 +123,45 @@
     self.candidate1BgText.backgroundColor = [NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.5f].CGColor;
     
     [self.candidate1BgText setFrame:CGRectMake(0, 0, self.candidate1Bg.bounds.size.width, self.candidate1Bg.bounds.size.height)];
-    self.candidate1BgText.cornerRadius = 20.0;
+    self.candidate1BgText.cornerRadius = 20.0 * self.scaleHeight;
     [self.candidate1Bg addSublayer:self.candidate1BgText];
     
     self.name1Layer = [[CALayer alloc] init];
-    self.name1Layer.frame = CGRectMake(0, 50, self.candidate1Bg.bounds.size.width, 100);
-    NSFont *name1LayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:27.0];
+    self.name1Layer.frame = CGRectMake(0, 50 * self.scaleHeight, self.candidate1Bg.bounds.size.width, 100 * self.scaleHeight);
+    NSFont *name1LayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:27.0 * self.scaleHeight];
     self.name1LayerDelegate = [[SPLBezierLayer alloc] initWithFont:name1LayerFont];
     self.name1LayerDelegate.gradient = [[NSGradient alloc] initWithStartingColor:[NSColor blueColor] endingColor:[NSColor whiteColor]];
     self.name1LayerDelegate.shadow = [[NSShadow alloc] init];
     self.name1LayerDelegate.shadow.shadowColor = [NSColor whiteColor];
-    self.name1LayerDelegate.shadow.shadowBlurRadius = 4.0f;
-    self.name1LayerDelegate.strokeWidth = 1.0;
+    self.name1LayerDelegate.shadow.shadowBlurRadius = 4.0f * self.scaleHeight;
+    self.name1LayerDelegate.strokeWidth = 1.0 * self.scaleHeight;
     self.name1LayerDelegate.strokeColor = [NSColor blackColor];
     self.name1Layer.delegate = self.name1LayerDelegate;
     [self.candidate1BgText addSublayer:self.name1Layer];
     
     self.headshot1Layer = [CALayer layer];
-    self.headshot1Layer.frame = CGRectMake(0, 80, self.candidate1Bg.bounds.size.width, 155);
+    self.headshot1Layer.frame = CGRectMake(0, 80 * self.scaleHeight, self.candidate1Bg.bounds.size.width, 155 * self.scaleHeight);
     [self setHeadshot1LayerImage:@""];
     [self.candidate1BgText addSublayer:self.headshot1Layer];
     
     self.votes1Layer = [[CALayer alloc] init];
-    self.votes1Layer.frame = CGRectMake(0, 10, self.candidate1Bg.bounds.size.width, 50);
-    NSFont *votes1LayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:36.0];
+    self.votes1Layer.frame = CGRectMake(0, 10 * self.scaleHeight, self.candidate1Bg.bounds.size.width, 50 * self.scaleHeight);
+    NSFont *votes1LayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:36.0 * self.scaleHeight];
     self.votes1LayerDelegate = [[SPLBezierLayer alloc] initWithFont:votes1LayerFont];
     self.votes1LayerDelegate.gradient = [[NSGradient alloc] initWithStartingColor:[NSColor blueColor] endingColor:[NSColor whiteColor]];
     self.votes1LayerDelegate.shadow = [[NSShadow alloc] init];
     self.votes1LayerDelegate.shadow.shadowColor = [NSColor whiteColor];
-    self.votes1LayerDelegate.shadow.shadowBlurRadius = 4.0f;
-    self.votes1LayerDelegate.strokeWidth = 1.0;
+    self.votes1LayerDelegate.shadow.shadowBlurRadius = 4.0f * self.scaleHeight;
+    self.votes1LayerDelegate.strokeWidth = 1.0 * self.scaleHeight;
     self.votes1LayerDelegate.strokeColor = [NSColor blackColor];
     self.votes1Layer.delegate = self.votes1LayerDelegate;
     [self.candidate1BgText addSublayer:self.votes1Layer];
     
     self.candidate2Bg = [[CALayer alloc] init];
-    [self.candidate2Bg setFrame:CGRectMake(956, 314, 187, 245)];
+    [self.candidate2Bg setFrame:CGRectMake(956 * self.scaleWidth, 314 * self.scaleHeight, 187 * self.scaleWidth, 245 * self.scaleHeight)];
     [self.candidate2Bg setBackgroundColor:[[NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.7] CGColor]];
-    self.candidate2Bg.cornerRadius = 20.0;
-    self.candidate2Bg.borderWidth = 2.0;
+    self.candidate2Bg.cornerRadius = 20.0 * self.scaleHeight;
+    self.candidate2Bg.borderWidth = 2.0 * self.scaleHeight;
     self.candidate2Bg.borderColor = [[NSColor whiteColor] CGColor];
 
     CATransform3D cand2BgTx = CATransform3DIdentity;
@@ -169,56 +175,39 @@
     self.candidate2BgText = [[CALayer alloc] init];
     [self.candidate2BgText setFrame:CGRectMake(0, 0, self.candidate2Bg.bounds.size.width, self.candidate2Bg.bounds.size.height)];
     self.candidate2BgText.backgroundColor = [NSColor colorWithDeviceRed:0.0f green:0.0f blue:0.0f alpha:0.5f].CGColor;
-    self.candidate2BgText.cornerRadius = 20.0;
+    self.candidate2BgText.cornerRadius = 20.0 * self.scaleHeight;
     [self.candidate2Bg addSublayer:self.candidate2BgText];
     
     self.name2Layer = [[CALayer alloc] init];
-    self.name2Layer.frame = CGRectMake(0, 50, self.candidate2Bg.bounds.size.width, 100);
-    NSFont *name2LayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:27.0];
+    self.name2Layer.frame = CGRectMake(0, 50 * self.scaleWidth, self.candidate2Bg.bounds.size.width, 100 * self.scaleHeight);
+    NSFont *name2LayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:27.0 * self.scaleHeight];
     self.name2LayerDelegate = [[SPLBezierLayer alloc] initWithFont:name2LayerFont];
     self.name2LayerDelegate.gradient = [[NSGradient alloc] initWithStartingColor:[NSColor redColor] endingColor:[NSColor whiteColor]];
     self.name2LayerDelegate.shadow = [[NSShadow alloc] init];
     self.name2LayerDelegate.shadow.shadowColor = [NSColor whiteColor];
-    self.name2LayerDelegate.shadow.shadowBlurRadius = 4.0f;
-    self.name2LayerDelegate.strokeWidth = 1.0;
+    self.name2LayerDelegate.shadow.shadowBlurRadius = 4.0f * self.scaleHeight;
+    self.name2LayerDelegate.strokeWidth = 1.0 * self.scaleHeight;
     self.name2LayerDelegate.strokeColor = [NSColor blackColor];
     self.name2Layer.delegate = self.name2LayerDelegate;
     [self.candidate2BgText addSublayer:self.name2Layer];
      
     self.headshot2Layer = [CALayer layer];
-    self.headshot2Layer.frame = CGRectMake(0, 80, self.candidate2Bg.bounds.size.width, 155);
+    self.headshot2Layer.frame = CGRectMake(0, 80 * self.scaleWidth, self.candidate2Bg.bounds.size.width, 155 * self.scaleHeight);
     [self setHeadshot2LayerImage:@""];
     [self.candidate2BgText addSublayer:self.headshot2Layer];
     
     self.votes2Layer = [[CALayer alloc] init];
-    self.votes2Layer.frame = CGRectMake(0, 10, self.candidate2Bg.bounds.size.width, 50);
-    NSFont *votes2LayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:36.0];
+    self.votes2Layer.frame = CGRectMake(0, 10 * self.scaleWidth, self.candidate2Bg.bounds.size.width, 50 * self.scaleHeight);
+    NSFont *votes2LayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:36.0 * self.scaleHeight];
     self.votes2LayerDelegate = [[SPLBezierLayer alloc] initWithFont:votes2LayerFont];
     self.votes2LayerDelegate.gradient = [[NSGradient alloc] initWithStartingColor:[NSColor redColor] endingColor:[NSColor whiteColor]];
     self.votes2LayerDelegate.shadow = [[NSShadow alloc] init];
     self.votes2LayerDelegate.shadow.shadowColor = [NSColor whiteColor];
-    self.votes2LayerDelegate.shadow.shadowBlurRadius = 4.0f;
-    self.votes2LayerDelegate.strokeWidth = 1.0;
+    self.votes2LayerDelegate.shadow.shadowBlurRadius = 4.0f * self.scaleHeight;
+    self.votes2LayerDelegate.strokeWidth = 1.0 * self.scaleWidth;
     self.votes2LayerDelegate.strokeColor = [NSColor blackColor];
     self.votes2Layer.delegate = self.votes2LayerDelegate;
     [self.candidate2BgText addSublayer:self.votes2Layer];
-    
-    /*
-    self.tickerLayer = [CALayer layer];
-    self.tickerLayer.frame = CGRectMake(-10, 60, bounds.size.width, 60);
-    [self setTickerLayerImage:@"/Users/matthewdoig/Desktop/ticker_blue_bar_darker_60.png"];
-    self.crawlLayer = [[CALayer alloc] init];
-    self.crawlLayer.frame = CGRectMake(self.tickerLayer.bounds.size.width, 0, self.tickerLayer.bounds.size.width, 60);
-    NSFont *crawlLayerFont = [NSFont fontWithName:@"Helvetica-Bold" size:36.0];
-    self.crawlLayerDelegate = [[SPLBezierLayer alloc] initWithFont:crawlLayerFont];
-    self.crawlLayerDelegate.gradient = [[NSGradient alloc] initWithStartingColor:[NSColor orangeColor] endingColor:[NSColor yellowColor]];
-    self.crawlLayerDelegate.strokeWidth = 1.0;
-    self.crawlLayerDelegate.strokeColor = [NSColor blackColor];
-    self.crawlLayer.delegate = self.crawlLayerDelegate;
-    [self.tickerLayer addSublayer:self.crawlLayer];
-    self.crawlLayerDelegate.string = @"Twitter test crawl for campaign manager that is really really long tweet and still long";
-    [self.crawlLayer setNeedsDisplay];
-    */
     
     [self addSublayer:self.raceNameLayer];
     [self addSublayer:self.percentLayer];
@@ -243,7 +232,7 @@
     self.emitter1Layer.frame = CGRectMake(0, 0, self.candidate1Bg.bounds.size.width, self.candidate1Bg.bounds.size.height);
     self.emitter1Layer.masksToBounds = YES;
     self.emitter1Layer.opacity = 0.3f;
-    self.emitter1Layer.cornerRadius = 20.0;
+    self.emitter1Layer.cornerRadius = 20.0 * self.scaleHeight;
     
     self.emitter1Layer.renderMode = kCAEmitterLayerAdditive;
     self.emitter1Layer.emitterPosition = CGPointMake(self.emitter1Layer.frame.size.width / 2.0, self.emitter1Layer.frame.size.height / 2.0);
@@ -286,7 +275,7 @@
     self.emitter2Layer.frame = CGRectMake(0, 0, self.candidate2Bg.bounds.size.width, self.candidate2Bg.bounds.size.height);
     self.emitter2Layer.masksToBounds = YES;
     self.emitter2Layer.opacity = 0.3f;
-    self.emitter2Layer.cornerRadius = 20.0;
+    self.emitter2Layer.cornerRadius = 20.0 * self.scaleHeight;
     
     self.emitter2Layer.renderMode = kCAEmitterLayerAdditive;
     self.emitter2Layer.emitterPosition = CGPointMake(self.emitter2Layer.frame.size.width / 2.0, self.emitter2Layer.frame.size.height / 2.0);
@@ -413,10 +402,10 @@
         float g = (183.0f/256.0f);
         float b = (0.0f/256.0f);
         self.candidate1Bg.borderColor = [NSColor colorWithRed:r green:g blue:b alpha:1.0].CGColor;
-        self.candidate1Bg.borderWidth = 10.0;
+        self.candidate1Bg.borderWidth = 10.0 * self.scaleHeight;
     } else {
         self.candidate1Bg.borderColor = [NSColor whiteColor].CGColor;
-        self.candidate1Bg.borderWidth = 2.0;
+        self.candidate1Bg.borderWidth = 2.0 * self.scaleHeight;
     }
 }
 
@@ -427,10 +416,10 @@
         float g = (183.0f/256.0f);
         float b = (0.0f/256.0f);
         self.candidate2Bg.borderColor = [NSColor colorWithRed:r green:g blue:b alpha:1.0].CGColor;
-        self.candidate2Bg.borderWidth = 10.0;
+        self.candidate2Bg.borderWidth = 10.0 * self.scaleHeight;
     } else {
         self.candidate2Bg.borderColor = [NSColor whiteColor].CGColor;
-        self.candidate2Bg.borderWidth = 2.0;
+        self.candidate2Bg.borderWidth = 2.0 * self.scaleHeight;
     }
 }
 
@@ -468,7 +457,7 @@
             attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
                          NSStrokeColorAttributeName:[NSColor blackColor],
                          NSForegroundColorAttributeName: [NSColor whiteColor],
-                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:27.0]}];
+                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:27.0 * self.scaleHeight]}];
     [self.percent1TextLayer setString:att];
 }
 
@@ -479,7 +468,7 @@
             attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
                          NSStrokeColorAttributeName:[NSColor blackColor],
                          NSForegroundColorAttributeName: [NSColor whiteColor],
-                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:27.0]}];
+                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:27.0 * self.scaleHeight]}];
     [self.percent2TextLayer setString:att];
 }
 
@@ -496,7 +485,7 @@
             attributes:@{NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-3.0],
                          NSStrokeColorAttributeName:[NSColor blackColor],
                          NSForegroundColorAttributeName: [NSColor whiteColor],
-                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:27.0]}];
+                         NSFontAttributeName: [NSFont fontWithName:@"Helvetica-Bold" size:27.0 * self.scaleHeight]}];
     [layer setString:att];
     CGRect f = layer.frame;
     f.size = [att size];

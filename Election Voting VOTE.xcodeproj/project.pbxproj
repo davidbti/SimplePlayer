@@ -21,11 +21,6 @@
 		3B2E27D818E5C1DB00F593AC /* imageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27D518E5C1DB00F593AC /* imageUtil.m */; };
 		3B2E27D918E5C1DB00F593AC /* modelUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27D618E5C1DB00F593AC /* modelUtil.c */; };
 		3B2E27DD18E5CA8400F593AC /* sourceUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27DB18E5CA8400F593AC /* sourceUtil.c */; };
-		3B2E27E018E5CDB400F593AC /* cube.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27DE18E5CDB400F593AC /* cube.png */; };
-		3B2E27E118E5CDB400F593AC /* tn1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27DF18E5CDB400F593AC /* tn1.obj */; };
-		3B2E27F018E9EEA200F593AC /* ca1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27EF18E9EEA200F593AC /* ca1.obj */; };
-		3B2E27F218E9F45E00F593AC /* redblue_128.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27F118E9F45E00F593AC /* redblue_128.png */; };
-		3B2E27F418E9F54B00F593AC /* tn3.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27F318E9F54B00F593AC /* tn3.obj */; };
 		3B2ED76018EA11EA004F2BA7 /* OpenMapRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3B2ED75F18EA11EA004F2BA7 /* OpenMapRenderer.mm */; };
 		3B2ED76218EA171D004F2BA7 /* usa.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3B2ED76118EA171D004F2BA7 /* usa.obj */; };
 		3B2F3A8C18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F3A8B18D1F5E000A8E83D /* NSBezierPath+SPLQuartzAdditions.m */; };
@@ -41,6 +36,10 @@
 		3B92A18E18D9E0A400D3F368 /* GoogleEarth.html in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A18D18D9E0A400D3F368 /* GoogleEarth.html */; };
 		3B92A19118D9E10D00D3F368 /* star_blue_20_20.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A18F18D9E10D00D3F368 /* star_blue_20_20.png */; };
 		3B92A19218D9E10D00D3F368 /* star_red_20_20.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B92A19018D9E10D00D3F368 /* star_red_20_20.png */; };
+		3BA31D5918EF0799002F0BA0 /* redbluewhite_128.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BA31D5818EF0799002F0BA0 /* redbluewhite_128.png */; };
+		3BA31D5D18EF2DB2002F0BA0 /* ca.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3BA31D5A18EF2DB2002F0BA0 /* ca.obj */; };
+		3BA31D5E18EF2DB2002F0BA0 /* tn_cnty.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3BA31D5B18EF2DB2002F0BA0 /* tn_cnty.obj */; };
+		3BA31D5F18EF2DB2002F0BA0 /* tn.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3BA31D5C18EF2DB2002F0BA0 /* tn.obj */; };
 		3BC3823518C784B500E457B5 /* SPLOverlayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC3823418C784B500E457B5 /* SPLOverlayLayer.m */; };
 		3BE323ED18BE7CD00041BE17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE323EC18BE7CD00041BE17 /* Cocoa.framework */; };
 		3BE323F718BE7CD00041BE17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BE323F518BE7CD00041BE17 /* InfoPlist.strings */; };
@@ -94,11 +93,6 @@
 		3B2E27DA18E5C1EE00F593AC /* glUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glUtil.h; sourceTree = "<group>"; };
 		3B2E27DB18E5CA8400F593AC /* sourceUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sourceUtil.c; sourceTree = "<group>"; };
 		3B2E27DC18E5CA8400F593AC /* sourceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sourceUtil.h; sourceTree = "<group>"; };
-		3B2E27DE18E5CDB400F593AC /* cube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cube.png; sourceTree = "<group>"; };
-		3B2E27DF18E5CDB400F593AC /* tn1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tn1.obj; sourceTree = "<group>"; };
-		3B2E27EF18E9EEA200F593AC /* ca1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ca1.obj; sourceTree = "<group>"; };
-		3B2E27F118E9F45E00F593AC /* redblue_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redblue_128.png; sourceTree = "<group>"; };
-		3B2E27F318E9F54B00F593AC /* tn3.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tn3.obj; sourceTree = "<group>"; };
 		3B2ED75E18EA11EA004F2BA7 /* OpenMapRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenMapRenderer.h; sourceTree = "<group>"; };
 		3B2ED75F18EA11EA004F2BA7 /* OpenMapRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenMapRenderer.mm; sourceTree = "<group>"; };
 		3B2ED76118EA171D004F2BA7 /* usa.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = usa.obj; sourceTree = "<group>"; };
@@ -115,6 +109,10 @@
 		3B92A18D18D9E0A400D3F368 /* GoogleEarth.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = GoogleEarth.html; sourceTree = "<group>"; };
 		3B92A18F18D9E10D00D3F368 /* star_blue_20_20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_blue_20_20.png; sourceTree = "<group>"; };
 		3B92A19018D9E10D00D3F368 /* star_red_20_20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_red_20_20.png; sourceTree = "<group>"; };
+		3BA31D5818EF0799002F0BA0 /* redbluewhite_128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redbluewhite_128.png; sourceTree = "<group>"; };
+		3BA31D5A18EF2DB2002F0BA0 /* ca.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ca.obj; sourceTree = "<group>"; };
+		3BA31D5B18EF2DB2002F0BA0 /* tn_cnty.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tn_cnty.obj; sourceTree = "<group>"; };
+		3BA31D5C18EF2DB2002F0BA0 /* tn.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tn.obj; sourceTree = "<group>"; };
 		3BC3823318C784B500E457B5 /* SPLOverlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLOverlayLayer.h; sourceTree = "<group>"; };
 		3BC3823418C784B500E457B5 /* SPLOverlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLOverlayLayer.m; sourceTree = "<group>"; };
 		3BE323E918BE7CD00041BE17 /* Election Voting VOTE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Election Voting VOTE.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,12 +218,11 @@
 		3B92A18018D9DF3800D3F368 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3BA31D5A18EF2DB2002F0BA0 /* ca.obj */,
+				3BA31D5B18EF2DB2002F0BA0 /* tn_cnty.obj */,
+				3BA31D5C18EF2DB2002F0BA0 /* tn.obj */,
+				3BA31D5818EF0799002F0BA0 /* redbluewhite_128.png */,
 				3B2ED76118EA171D004F2BA7 /* usa.obj */,
-				3B2E27F318E9F54B00F593AC /* tn3.obj */,
-				3B2E27F118E9F45E00F593AC /* redblue_128.png */,
-				3B2E27EF18E9EEA200F593AC /* ca1.obj */,
-				3B2E27DE18E5CDB400F593AC /* cube.png */,
-				3B2E27DF18E5CDB400F593AC /* tn1.obj */,
 				3B92A18F18D9E10D00D3F368 /* star_blue_20_20.png */,
 				3B92A19018D9E10D00D3F368 /* star_red_20_20.png */,
 				3B92A18D18D9E0A400D3F368 /* GoogleEarth.html */,
@@ -424,22 +421,21 @@
 				3BE323F718BE7CD00041BE17 /* InfoPlist.strings in Resources */,
 				3B92A18B18D9E00E00D3F368 /* PeterKing.png in Resources */,
 				3B92A18E18D9E0A400D3F368 /* GoogleEarth.html in Resources */,
-				3B2E27E018E5CDB400F593AC /* cube.png in Resources */,
-				3B2E27F418E9F54B00F593AC /* tn3.obj in Resources */,
 				3B92A19218D9E10D00D3F368 /* star_red_20_20.png in Resources */,
 				3BE3240818BE7CD00041BE17 /* Images.xcassets in Resources */,
 				3B92A18218D9DFBE00D3F368 /* AndyHarris.png in Resources */,
 				3B92A18A18D9E00E00D3F368 /* Obama.png in Resources */,
+				3BA31D5D18EF2DB2002F0BA0 /* ca.obj in Resources */,
 				3BE323FD18BE7CD00041BE17 /* Credits.rtf in Resources */,
-				3B2E27F218E9F45E00F593AC /* redblue_128.png in Resources */,
+				3BA31D5F18EF2DB2002F0BA0 /* tn.obj in Resources */,
+				3BA31D5E18EF2DB2002F0BA0 /* tn_cnty.obj in Resources */,
 				3B2E27C518E5C04D00F593AC /* shade.fsh in Resources */,
 				3B92A19118D9E10D00D3F368 /* star_blue_20_20.png in Resources */,
 				3BE3240318BE7CD00041BE17 /* SPLDocument.xib in Resources */,
 				3B2E27C618E5C04D00F593AC /* shade.vsh in Resources */,
-				3B2E27E118E5CDB400F593AC /* tn1.obj in Resources */,
 				3BE3240618BE7CD00041BE17 /* MainMenu.xib in Resources */,
 				3B2ED76218EA171D004F2BA7 /* usa.obj in Resources */,
-				3B2E27F018E9EEA200F593AC /* ca1.obj in Resources */,
+				3BA31D5918EF0799002F0BA0 /* redbluewhite_128.png in Resources */,
 				3B92A18C18D9E00E00D3F368 /* Romney.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

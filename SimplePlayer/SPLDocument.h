@@ -29,4 +29,5 @@
 @property (weak) IBOutlet NSButton *overButton;
 @property (weak) IBOutlet NSButton *bgButton;
 @property (weak) IBOutlet NSButton *winButton;
+@property (weak) IBOutlet NSButton *cntyButton;
 @end

@@ -61,6 +61,7 @@
 
 - (void) initCA;
 - (void) initTN;
+- (void) initTNCnty;
 - (void) initUSA;
 - (void) initWA;
 

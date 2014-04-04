@@ -544,6 +544,37 @@ static void *AVSPPlayerLayerReadyForDisplay = &AVSPPlayerLayerReadyForDisplay;
     [CATransaction commit];
 }
 
+- (IBAction)showPresCnty:(id)sender
+{
+    [self.mapView setHidden:YES];
+    
+    [self.glView setHidden:NO];
+    [self.glView initTNCnty];
+    
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self.overlayLayer updateComplete];
+    }];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.5;
+    transition.type = kCATransitionFade;
+    [self.overlayView.layer addAnimation:transition forKey:nil];
+    
+    self.overlayLayer.raceName = @"Tennessee President";
+    self.overlayLayer.candidateName1 = @"OBAMA";
+    self.overlayLayer.candidateHeadshot1 = [[NSBundle mainBundle] pathForResource:@"Obama" ofType:@"png"];
+    self.overlayLayer.candidateVotes1 =@"679,340";
+    self.overlayLayer.candidatePercent1 = @"37.8%";
+    self.overlayLayer.candidateWin1 = NO;
+    self.overlayLayer.candidateName2 = @"ROMNEY";
+    self.overlayLayer.candidateHeadshot2 = [[NSBundle mainBundle] pathForResource:@"Romney" ofType:@"png"];
+    self.overlayLayer.candidateVotes2 =@"1,087,127";
+    self.overlayLayer.candidatePercent2 = @"60.5%";
+    self.overlayLayer.candidateWin2 = YES;
+    [self.overlayLayer update];
+    [CATransaction commit];
+}
+
 - (IBAction)showPresUSA:(id)sender
 {
     [self.mapView setHidden:YES];

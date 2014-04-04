@@ -69,6 +69,11 @@ OpenMapRenderer* m_renderer;
     [m_renderer initTN];
 }
 
+-(void) initTNCnty
+{
+    [m_renderer initTNCnty];
+}
+
 -(void) initUSA
 {
     [m_renderer initUSA];

@@ -77,6 +77,7 @@ enum {
 
     @property (nonatomic, assign) BOOL canRender;
     @property (nonatomic, assign) BOOL flyTo;
+    @property (nonatomic, assign) BOOL flyCnty;
 
     @property (nonatomic, assign) float red;
     @property (nonatomic, assign) float green;
@@ -102,6 +103,11 @@ std::vector<glm::vec3> tnPositions;
 std::vector<glm::vec2> tnTexcoords;
 std::vector<glm::vec3> tnNormals;
 std::vector<unsigned int> tnElements;
+std::vector<glm::vec3> cntyPositions;
+std::vector<glm::vec2> cntyTexcoords;
+std::vector<glm::vec3> cntyNormals;
+std::vector<unsigned int> cntyElements;
+glm::vec3 origin;
 Camera mapcamera;
 
 - (void) resizeWithWidth:(GLuint)width AndHeight:(GLuint)height
@@ -121,6 +127,8 @@ Camera mapcamera;
 {
     self.canRender = NO;
     self.flyTo = NO;
+    self.flyCnty = NO;
+    origin = glm::vec3(0,0,0);
     
     ////////////////////////////////////////////////
     // Set up camera state that will never change //
@@ -129,7 +137,7 @@ Camera mapcamera;
     mapcamera.setFieldOfView(45.0f);
     mapcamera.setNearAndFarPlanes(0.1f, 1.0f);
     mapcamera.setPosition(glm::vec3(0.1,0.1,0.1));
-    mapcamera.lookAt(glm::vec3(0,0,0));
+    mapcamera.lookAt(origin);
     
     //////////////////////////////
     // Load our character model //
@@ -162,6 +170,8 @@ Camera mapcamera;
 {
     self.canRender = NO;
     self.flyTo = NO;
+    self.flyCnty = NO;
+    origin = glm::vec3(0,0,0);
     
     ////////////////////////////////////////////////
     // Set up camera state that will never change //
@@ -170,7 +180,7 @@ Camera mapcamera;
     mapcamera.setFieldOfView(45.0f);
     mapcamera.setNearAndFarPlanes(0.01f, 1.0f);
     mapcamera.setPosition(glm::vec3(0.075,0.075,0.075));
-    mapcamera.lookAt(glm::vec3(0,0,0));
+    mapcamera.lookAt(glm::vec3(origin));
     
     //////////////////////////////
     // Load our character model //
@@ -199,10 +209,58 @@ Camera mapcamera;
     self.canRender = YES;
 }
 
+- (void) initTNCnty
+{
+    self.canRender = NO;
+    self.flyTo = NO;
+    self.flyCnty = YES;
+    
+    
+    //1.517493 0.110000 0.264961
+    origin = glm::vec3(1.517493,0,0.264961);
+    
+    ////////////////////////////////////////////////
+    // Set up camera state that will never change //
+    ////////////////////////////////////////////////
+    
+    mapcamera.setFieldOfView(45.0f);
+    mapcamera.setNearAndFarPlanes(0.01f, 2.0f);
+    mapcamera.setPosition(glm::vec3(1,.75, .75));
+    mapcamera.lookAt(origin);
+    
+    //////////////////////////////
+    // Load our character model //
+    //////////////////////////////
+    
+    mapPositions.clear();
+    for (unsigned int i = 0; i < cntyPositions.size(); i++) {
+        mapPositions.push_back(cntyPositions[i]);
+    }
+    mapTexcoords.clear();
+    for (unsigned int i = 0; i < cntyTexcoords.size(); i++) {
+        mapTexcoords.push_back(cntyTexcoords[i]);
+    }
+    mapNormals.clear();
+    for (unsigned int i = 0; i < cntyNormals.size(); i++) {
+        mapNormals.push_back(cntyNormals[i]);
+    }
+    mapElements.clear();
+    for (unsigned int i = 0; i < cntyElements.size(); i++) {
+        mapElements.push_back(cntyElements[i]);
+    }
+    
+    // Build Vertex Buffer Objects (VBOs) and Vertex Array Object (VAOs) with our model data
+    self.characterVAOName = [self buildVAO];
+    
+    self.canRender = YES;
+}
+
 - (void) initUSA
 {
     self.canRender = NO;
     self.flyTo = NO;
+    self.flyCnty = NO;
+    origin = glm::vec3(0,0,0);
     
     ////////////////////////////////////////////////
     // Set up camera state that will never change //
@@ -211,7 +269,7 @@ Camera mapcamera;
     mapcamera.setFieldOfView(45.0f);
     mapcamera.setNearAndFarPlanes(0.1f, 1.0f);
     mapcamera.setPosition(glm::vec3(0.2,0.2,0.2));
-    mapcamera.lookAt(glm::vec3(0,0,0));
+    mapcamera.lookAt(origin);
     
     //////////////////////////////
     // Load our character model //
@@ -244,6 +302,7 @@ Camera mapcamera;
 {
     self.canRender = NO;
     self.flyTo = YES;
+    self.flyCnty = NO;
     
     ////////////////////////////////////////////////
     // Set up camera state that will never change //
@@ -308,8 +367,20 @@ Camera mapcamera;
             mapcamera.lookAt(glm::vec3(0.297853, 0.000001, -0.296011));
         }
     } else {
-        mapcamera.offsetPosition(.0005f * -mapcamera.right());
-        mapcamera.lookAt(glm::vec3(0,0,0));
+        if (self.flyCnty) {
+            if (mapcamera.position().y > .65) {
+                mapcamera.offsetPosition(.00088f * mapcamera.forward());
+                mapcamera.offsetPosition(.00143f * mapcamera.right());
+                mapcamera.offsetPosition(.00036f * mapcamera.up());
+                mapcamera.lookAt(origin);
+            } else {
+                mapcamera.offsetPosition(.00005f * -mapcamera.up());
+                mapcamera.lookAt(origin);
+            }
+        } else {
+            mapcamera.offsetPosition(.0005f * -mapcamera.right());
+            mapcamera.lookAt(origin);
+        }
     }
     
     glm::mat4 mvp        = mapcamera.matrix() * model;
@@ -705,7 +776,7 @@ Camera mapcamera;
 		// Load our character models //
 		//////////////////////////////
         
-        filePathName = [[NSBundle mainBundle] pathForResource:@"ca1" ofType:@"obj"];
+        filePathName = [[NSBundle mainBundle] pathForResource:@"ca" ofType:@"obj"];
         const char * capath = [filePathName cStringUsingEncoding:NSASCIIStringEncoding];
         
         // Read our .obj file
@@ -715,12 +786,22 @@ Camera mapcamera;
 			NSLog(@"Could not load obj file");
 		}
         
-        filePathName = [[NSBundle mainBundle] pathForResource:@"tn3" ofType:@"obj"];
+        filePathName = [[NSBundle mainBundle] pathForResource:@"tn" ofType:@"obj"];
         const char * tnpath = [filePathName cStringUsingEncoding:NSASCIIStringEncoding];
         
         // Read our .obj file
         bool tnres = loadAssImpMesh(tnpath, tnElements, tnPositions, tnTexcoords, tnNormals);
         if(!tnres)
+		{
+			NSLog(@"Could not load obj file");
+		}
+        
+        filePathName = [[NSBundle mainBundle] pathForResource:@"tn_cnty" ofType:@"obj"];
+        const char * cntypath = [filePathName cStringUsingEncoding:NSASCIIStringEncoding];
+        
+        // Read our .obj file
+        bool cntyres = loadAssImpMesh(cntypath, cntyElements, cntyPositions, cntyTexcoords, cntyNormals);
+        if(!cntyres)
 		{
 			NSLog(@"Could not load obj file");
 		}
@@ -759,7 +840,7 @@ Camera mapcamera;
 		// Load texture for our character //
 		////////////////////////////////////
 		
-		filePathName = [[NSBundle mainBundle] pathForResource:@"redblue_128" ofType:@"png"];
+		filePathName = [[NSBundle mainBundle] pathForResource:@"redbluewhite_128" ofType:@"png"];
 		demoImage *image = imgLoadImage([filePathName cStringUsingEncoding:NSASCIIStringEncoding], false);
 		
 		// Build a texture object with our image data
@@ -826,6 +907,8 @@ Camera mapcamera;
         self.blue = 250.0f/255.0f;
         self.opacity = 0.0f;
 		glClearColor(self.red, self.green, self.blue, self.opacity);
+        
+        origin = glm::vec3(0,0,0);
         
 		// Draw our scene once without presenting the rendered image.
 		//   This is done in order to pre-warm OpenGL

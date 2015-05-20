@@ -11,7 +11,6 @@
 		3B1B286318CF58BA000E1ACF /* CAAnimation+SPLBlockAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1B286218CF58BA000E1ACF /* CAAnimation+SPLBlockAdditions.m */; };
 		3B24526C18CA155D00FE9566 /* SPLBezierLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B24526B18CA155D00FE9566 /* SPLBezierLayer.m */; };
 		3B2E27BC18E5BDA800F593AC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2E27BB18E5BDA800F593AC /* OpenGL.framework */; };
-		3B2E27BE18E5BE5D00F593AC /* libassimp.3.0.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2E27BD18E5BE5D00F593AC /* libassimp.3.0.1.dylib */; };
 		3B2E27C518E5C04D00F593AC /* shade.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27C318E5C04D00F593AC /* shade.fsh */; };
 		3B2E27C618E5C04D00F593AC /* shade.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3B2E27C418E5C04D00F593AC /* shade.vsh */; };
 		3B2E27CB18E5C13600F593AC /* GLEssentialsGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E27C818E5C13600F593AC /* GLEssentialsGLView.m */; };
@@ -49,22 +48,9 @@
 		3BE3240318BE7CD00041BE17 /* SPLDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BE3240118BE7CD00041BE17 /* SPLDocument.xib */; };
 		3BE3240618BE7CD00041BE17 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BE3240418BE7CD00041BE17 /* MainMenu.xib */; };
 		3BE3240818BE7CD00041BE17 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BE3240718BE7CD00041BE17 /* Images.xcassets */; };
-		3BE3240F18BE7CD00041BE17 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE3240E18BE7CD00041BE17 /* XCTest.framework */; };
-		3BE3241018BE7CD00041BE17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE323EC18BE7CD00041BE17 /* Cocoa.framework */; };
-		3BE3241818BE7CD00041BE17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BE3241618BE7CD00041BE17 /* InfoPlist.strings */; };
-		3BE3241A18BE7CD00041BE17 /* SimplePlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3241918BE7CD00041BE17 /* SimplePlayerTests.m */; };
 		3BE3242418BE7ED80041BE17 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE3242318BE7ED80041BE17 /* AVFoundation.framework */; };
+		8627D44B1B0D35A00037C442 /* libassimp.3.1.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8627D44A1B0D35A00037C442 /* libassimp.3.1.1.dylib */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		3BE3241118BE7CD00041BE17 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3BE323E118BE7CD00041BE17 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3BE323E818BE7CD00041BE17;
-			remoteInfo = SimplePlayer;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3B1B285B18CF4A40000E1ACF /* CALayer+SPLAnimationAdditons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+SPLAnimationAdditons.h"; sourceTree = "<group>"; };
@@ -74,7 +60,6 @@
 		3B24526A18CA155D00FE9566 /* SPLBezierLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLBezierLayer.h; sourceTree = "<group>"; };
 		3B24526B18CA155D00FE9566 /* SPLBezierLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLBezierLayer.m; sourceTree = "<group>"; };
 		3B2E27BB18E5BDA800F593AC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		3B2E27BD18E5BE5D00F593AC /* libassimp.3.0.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.0.1.dylib; path = ../../../../../usr/local/lib/libassimp.3.0.1.dylib; sourceTree = "<group>"; };
 		3B2E27C018E5BF5900F593AC /* glm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = glm.hpp; sourceTree = "<group>"; };
 		3B2E27C318E5C04D00F593AC /* shade.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shade.fsh; sourceTree = "<group>"; };
 		3B2E27C418E5C04D00F593AC /* shade.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shade.vsh; sourceTree = "<group>"; };
@@ -130,13 +115,13 @@
 		3BE3240218BE7CD00041BE17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SPLDocument.xib; sourceTree = "<group>"; };
 		3BE3240518BE7CD00041BE17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3BE3240718BE7CD00041BE17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		3BE3240D18BE7CD00041BE17 /* Election Voting VOTETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Election Voting VOTETests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE3240E18BE7CD00041BE17 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		3BE3241518BE7CD00041BE17 /* Election Voting VOTETests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Election Voting VOTETests-Info.plist"; sourceTree = "<group>"; };
 		3BE3241718BE7CD00041BE17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3BE3241918BE7CD00041BE17 /* SimplePlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimplePlayerTests.m; sourceTree = "<group>"; };
 		3BE3242318BE7ED80041BE17 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3BE3242518BE81950041BE17 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		8627D44A1B0D35A00037C442 /* libassimp.3.1.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.3.1.1.dylib; path = ../../../../../usr/local/Cellar/assimp/3.1.1/lib/libassimp.3.1.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,22 +129,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8627D44B1B0D35A00037C442 /* libassimp.3.1.1.dylib in Frameworks */,
 				3B2E27BC18E5BDA800F593AC /* OpenGL.framework in Frameworks */,
 				3B7A313318BFEBA300EFAC10 /* WebKit.framework in Frameworks */,
 				3B7A313018BFD27C00EFAC10 /* QuartzCore.framework in Frameworks */,
 				3B7A312E18BFD1EA00EFAC10 /* CoreMedia.framework in Frameworks */,
 				3BE3242418BE7ED80041BE17 /* AVFoundation.framework in Frameworks */,
-				3B2E27BE18E5BE5D00F593AC /* libassimp.3.0.1.dylib in Frameworks */,
 				3BE323ED18BE7CD00041BE17 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3BE3240A18BE7CD00041BE17 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3BE3241018BE7CD00041BE17 /* Cocoa.framework in Frameworks */,
-				3BE3240F18BE7CD00041BE17 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				3BE323E918BE7CD00041BE17 /* Election Voting VOTE.app */,
-				3BE3240D18BE7CD00041BE17 /* Election Voting VOTETests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,7 +234,7 @@
 		3BE323EB18BE7CD00041BE17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B2E27BD18E5BE5D00F593AC /* libassimp.3.0.1.dylib */,
+				8627D44A1B0D35A00037C442 /* libassimp.3.1.1.dylib */,
 				3B2E27BB18E5BDA800F593AC /* OpenGL.framework */,
 				3B7A313218BFEBA300EFAC10 /* WebKit.framework */,
 				3B7A312F18BFD27C00EFAC10 /* QuartzCore.framework */,
@@ -359,24 +334,6 @@
 			productReference = 3BE323E918BE7CD00041BE17 /* Election Voting VOTE.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3BE3240C18BE7CD00041BE17 /* Election Voting VOTETests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3BE3242018BE7CD00041BE17 /* Build configuration list for PBXNativeTarget "Election Voting VOTETests" */;
-			buildPhases = (
-				3BE3240918BE7CD00041BE17 /* Sources */,
-				3BE3240A18BE7CD00041BE17 /* Frameworks */,
-				3BE3240B18BE7CD00041BE17 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3BE3241218BE7CD00041BE17 /* PBXTargetDependency */,
-			);
-			name = "Election Voting VOTETests";
-			productName = SimplePlayerTests;
-			productReference = 3BE3240D18BE7CD00041BE17 /* Election Voting VOTETests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -386,11 +343,6 @@
 				CLASSPREFIX = SPL;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = BTI;
-				TargetAttributes = {
-					3BE3240C18BE7CD00041BE17 = {
-						TestTargetID = 3BE323E818BE7CD00041BE17;
-					};
-				};
 			};
 			buildConfigurationList = 3BE323E418BE7CD00041BE17 /* Build configuration list for PBXProject "Election Voting VOTE" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -406,7 +358,6 @@
 			projectRoot = "";
 			targets = (
 				3BE323E818BE7CD00041BE17 /* Election Voting VOTE */,
-				3BE3240C18BE7CD00041BE17 /* Election Voting VOTETests */,
 			);
 		};
 /* End PBXProject section */
@@ -440,14 +391,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3BE3240B18BE7CD00041BE17 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3BE3241818BE7CD00041BE17 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -473,23 +416,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3BE3240918BE7CD00041BE17 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3BE3241A18BE7CD00041BE17 /* SimplePlayerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3BE3241218BE7CD00041BE17 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3BE323E818BE7CD00041BE17 /* Election Voting VOTE */;
-			targetProxy = 3BE3241118BE7CD00041BE17 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3BE323F518BE7CD00041BE17 /* InfoPlist.strings */ = {
@@ -616,7 +543,10 @@
 					/usr/local/include,
 				);
 				INFOPLIST_FILE = "SimplePlayer/Election Voting VOTE-Info.plist";
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/usr/local/Cellar/assimp/3.1.1/lib,
+				);
 				PRODUCT_NAME = "Election Voting VOTE";
 				WRAPPER_EXTENSION = app;
 			};
@@ -635,49 +565,12 @@
 					/usr/local/include,
 				);
 				INFOPLIST_FILE = "SimplePlayer/Election Voting VOTE-Info.plist";
-				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					/usr/local/Cellar/assimp/3.1.1/lib,
+				);
 				PRODUCT_NAME = "Election Voting VOTE";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		3BE3242118BE7CD00041BE17 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SimplePlayer.app/Contents/MacOS/SimplePlayer";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SimplePlayer/SimplePlayer-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "SimplePlayerTests/Election Voting VOTETests-Info.plist";
-				PRODUCT_NAME = "Election Voting VOTETests";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		3BE3242218BE7CD00041BE17 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SimplePlayer.app/Contents/MacOS/SimplePlayer";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SimplePlayer/SimplePlayer-Prefix.pch";
-				INFOPLIST_FILE = "SimplePlayerTests/Election Voting VOTETests-Info.plist";
-				PRODUCT_NAME = "Election Voting VOTETests";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -698,15 +591,6 @@
 			buildConfigurations = (
 				3BE3241E18BE7CD00041BE17 /* Debug */,
 				3BE3241F18BE7CD00041BE17 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3BE3242018BE7CD00041BE17 /* Build configuration list for PBXNativeTarget "Election Voting VOTETests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3BE3242118BE7CD00041BE17 /* Debug */,
-				3BE3242218BE7CD00041BE17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

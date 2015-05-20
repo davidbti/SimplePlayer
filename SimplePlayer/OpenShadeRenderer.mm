@@ -131,8 +131,6 @@ Camera shdcamera;
     // Build Vertex Buffer Objects (VBOs) and Vertex Array Object (VAOs) with our model data
     self.characterVAOName = [self buildVAO];
     
-    self.startTime = nil;
-    
     self.canRender = YES;
 }
 
@@ -172,8 +170,6 @@ Camera shdcamera;
     
     // Build Vertex Buffer Objects (VBOs) and Vertex Array Object (VAOs) with our model data
     self.characterVAOName = [self buildVAO];
-    
-    self.startTime = nil;
     
     self.canRender = YES;
 }
